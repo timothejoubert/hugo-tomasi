@@ -1,0 +1,72 @@
+{
+  "uid": {
+    "__TYPE__": "UIDContent",
+    "value": "else"
+  },
+  "title": {
+    "__TYPE__": "StructuredTextContent",
+    "value": [
+      {
+        "type": "paragraph",
+        "content": {
+          "text": "Laboris laborum eiusmod qui cillum aliquip et eu fugiat ad enim eiusmod nostrud aute fugiat eu. Aliqua officia magna reprehenderit incididunt veniam."
+        }
+      }
+    ]
+  },
+  "tagline": {
+    "__TYPE__": "StructuredTextContent",
+    "value": [
+      {
+        "type": "paragraph",
+        "content": {
+          "text": "Commodo enim pariatur reprehenderit labore non eiusmod velit incididunt officia consequat magna duis cupidatat. Ea adipisicing officia proident sit officia et velit nisi aliquip cupidatat eu culpa. Aliqua non est reprehenderit magna magna anim culpa non mollit consectetur amet id irure."
+        }
+      }
+    ]
+  },
+  "media": {
+    "__TYPE__": "LinkContent",
+    "value": {
+      "id": "mock_Media_link",
+      "kind": "image/jpeg",
+      "name": "mock_name",
+      "url": "https://source.unsplash.com/daily",
+      "size": "0",
+      "__TYPE__": "FileLink"
+    }
+  },
+  "link": {
+    "__TYPE__": "LinkContent",
+    "value": {
+      "__TYPE__": "ExternalLink",
+      "url": "http://google.com"
+    }
+  },
+  "link_label": {
+    "__TYPE__": "FieldContent",
+    "value": "count",
+    "type": "Text"
+  },
+  "meta_title": {
+    "__TYPE__": "FieldContent",
+    "value": "today",
+    "type": "Text"
+  },
+  "meta_description": {
+    "__TYPE__": "FieldContent",
+    "value": "somewhere",
+    "type": "Text"
+  },
+  "meta_image": {
+    "__TYPE__": "LinkContent",
+    "value": {
+      "id": "mock_Media_link",
+      "kind": "image/jpeg",
+      "name": "mock_name",
+      "url": "https://source.unsplash.com/daily",
+      "size": "0",
+      "__TYPE__": "FileLink"
+    }
+  }
+}
