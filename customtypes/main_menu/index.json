@@ -1,0 +1,38 @@
+{
+  "id": "main_menu",
+  "label": "Main menu",
+  "repeatable": false,
+  "status": true,
+  "json": {
+    "Main": {
+      "links": {
+        "type": "Group",
+        "config": {
+          "fields": {
+            "label": {
+              "type": "Text",
+              "config": {
+                "label": "Label",
+                "placeholder": "Label affiché dans le menu"
+              }
+            },
+            "link": {
+              "type": "Link",
+              "config": {
+                "label": "Link",
+                "select": "document",
+                "customtypes": [
+                  "page",
+                  "project",
+                  "home_page"
+                ],
+                "placeholder": "Lien vers une page"
+              }
+            }
+          },
+          "label": "Links"
+        }
+      }
+    }
+  }
+}

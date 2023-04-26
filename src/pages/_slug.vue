@@ -1,6 +1,7 @@
 <template>
     <div v-if="pageData">
         <h1>Titre de la page</h1>
+        <v-image v-if="pageData.media" :prismic-image="pageData.media"/>
         <slice-zone
             v-if="slices && components"
             id="main"
@@ -8,6 +9,7 @@
             :slices="slices"
             :components="components"
         />
+        <v-social-list-link />
     </div>
     <div v-else>
         <p>pageData not find</p>

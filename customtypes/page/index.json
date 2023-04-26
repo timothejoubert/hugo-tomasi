@@ -1,7 +1,7 @@
 {
-  "id": "homepage",
-  "label": "HomePage",
-  "repeatable": false,
+  "id": "page",
+  "label": "Page",
+  "repeatable": true,
   "status": true,
   "json": {
     "Main": {
@@ -9,53 +9,38 @@
         "type": "UID",
         "config": {
           "label": "Slug",
-          "placeholder": "url-unique-par-page"
+          "placeholder": ""
         }
       },
       "title": {
-        "type": "StructuredText",
-        "config": {
-          "label": "Title",
-          "placeholder": "",
-          "allowTargetBlank": true,
-          "single": "paragraph,preformatted,heading1,heading2,heading3,heading4,heading5,heading6,strong,em,hyperlink,image,embed,list-item,o-list-item,rtl"
-        }
-      },
-      "tagline": {
-        "type": "StructuredText",
-        "config": {
-          "label": "Tagline",
-          "placeholder": "",
-          "allowTargetBlank": true,
-          "single": "paragraph,preformatted,heading1,heading2,heading3,heading4,heading5,heading6,strong,em,hyperlink,image,embed,list-item,o-list-item,rtl"
-        }
-      },
-      "media": {
-        "type": "Link",
-        "config": {
-          "label": "Media",
-          "placeholder": "",
-          "select": "media"
-        }
-      },
-      "link": {
-        "type": "Link",
-        "config": {
-          "label": "Link",
-          "placeholder": "",
-          "allowTargetBlank": false,
-          "select": null
-        }
-      },
-      "link_label": {
         "type": "Text",
         "config": {
-          "label": "Link label",
+          "label": "Title",
           "placeholder": ""
         }
-      }
+      },
+      "description": {
+        "type": "StructuredText",
+        "config": {
+          "label": "Description",
+          "placeholder": "",
+          "allowTargetBlank": true,
+          "single": "paragraph,preformatted,heading1,heading2,heading3,heading4,heading5,heading6,strong,em,hyperlink,image,embed,list-item,o-list-item,rtl"
+        }
+      },
+        "type": {
+            "type": "Select",
+            "config": {
+                "label": "Type",
+                "placeholder": "",
+                "options": [
+                    "Default",
+                    "Project listing",
+                ]
+            }
+        },
     },
-    "MetaData": {
+    "Meta data": {
       "meta_title": {
         "type": "Text",
         "config": {
@@ -73,7 +58,7 @@
       "meta_image": {
         "type": "Link",
         "config": {
-          "label": "Meta_image",
+          "label": "Meta image",
           "placeholder": "",
           "select": "media"
         }

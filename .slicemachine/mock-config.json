@@ -1,5 +1,14 @@
 {
   "_cts": {
-    "homepage": {}
+    "homepage": {},
+    "settings": {
+      "socials": {}
+    },
+    "home_page": {},
+    "project": {},
+    "page": {},
+    "main_menu": {
+      "links": {}
+    }
   }
 }

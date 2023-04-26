@@ -37,7 +37,7 @@ export default Vue.extend({
             }
         }
 
-        console.log(page)
+        console.log(page.data)
 
         if (page) {
             await store.dispatch('updatePageData', page)
@@ -75,11 +75,12 @@ export default Vue.extend({
         },
         metaTitle(): string {
             if (this.isHome) return this.appTitle
-            const pageTitle = this.$prismic.asText(this.pageData?.title)
+            const pageTitle = this.pagaData?.meta_title || this.pageData?.title
             return pageTitle ? `${pageTitle} | ${this.appTitle}` : this.appTitle
         },
         metaImage(): string {
-            const media = this.pageData?.thumbnail ? this.pageData.thumbnail : undefined
+            const media = this.pageData?.meta_image || this.pageData?.image || this.pageData?.thumbnail
+            // TODO: check if media is FilledLinkToMediaField type
             return media?.url || '/images/share.jpg'
         },
         pageUrl(): string {
@@ -87,6 +88,7 @@ export default Vue.extend({
         },
         pageDescription(): string {
             return (
+                this.pageData?.meta_description ||
                 this.$prismic.asText(this.pageData?.description) ||
                 this.$prismic.asText(this.$store.state.settings?.data?.description)
             )

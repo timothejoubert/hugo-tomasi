@@ -11,7 +11,6 @@ export default Vue.extend({
     props: {
         prismicImage: {
             type: Object as PropType<ImageField>,
-            required: true,
         },
         nativeImg: Boolean,
         url: String,
@@ -24,6 +23,7 @@ export default Vue.extend({
     },
     render(createElement): VNode | undefined {
         const { prismicImage, nativeImg, url } = this.$props
+
         if (!prismicImage || (prismicImage && !isMediaFulled(prismicImage))) return undefined
 
         const { url: prismicImageSrc, alt, copyright } = prismicImage

@@ -1,0 +1,86 @@
+{
+  "uid": {
+    "__TYPE__": "UIDContent",
+    "value": "met"
+  },
+  "title": {
+    "__TYPE__": "FieldContent",
+    "value": "leave",
+    "type": "Text"
+  },
+  "description": {
+    "__TYPE__": "StructuredTextContent",
+    "value": [
+      {
+        "type": "paragraph",
+        "content": {
+          "text": "Laboris velit ipsum ad aliqua et non tempor. Cupidatat commodo cupidatat eiusmod aute voluptate esse."
+        }
+      }
+    ]
+  },
+  "thumbnail": {
+    "__TYPE__": "ImageContent",
+    "origin": {
+      "id": "main",
+      "url": "https://images.unsplash.com/photo-1596195689404-24d8a8d1c6ea",
+      "width": 5000,
+      "height": 4613
+    },
+    "url": "https://images.unsplash.com/photo-1596195689404-24d8a8d1c6ea",
+    "width": 5000,
+    "height": 4613,
+    "edit": {
+      "zoom": 1,
+      "crop": {
+        "x": 0,
+        "y": 0
+      },
+      "background": "transparent"
+    },
+    "thumbnails": {}
+  },
+  "link": {
+    "__TYPE__": "LinkContent",
+    "value": {
+      "__TYPE__": "ExternalLink",
+      "url": "https://slicemachine.dev"
+    }
+  },
+  "link_label": {
+    "__TYPE__": "StructuredTextContent",
+    "value": [
+      {
+        "type": "paragraph",
+        "content": {
+          "text": "Et nisi enim ullamco esse id quis mollit qui consequat excepteur anim fugiat sit fugiat. Quis sunt ea enim adipisicing eiusmod velit ea mollit Lorem duis ex magna qui dolore velit."
+        }
+      }
+    ]
+  },
+  "slices": {
+    "__TYPE__": "SliceContentType",
+    "value": []
+  },
+  "meta_title": {
+    "__TYPE__": "FieldContent",
+    "value": "piano",
+    "type": "Text"
+  },
+  "meta_description": {
+    "__TYPE__": "FieldContent",
+    "value": "solve",
+    "type": "Text"
+  },
+  "meta_image": {
+    "__TYPE__": "LinkContent",
+    "value": {
+      "id": "mock_Media_link",
+      "kind": "image/jpeg",
+      "name": "mock_name",
+      "url": "https://source.unsplash.com/daily",
+      "size": "0",
+      "__TYPE__": "FileLink"
+    }
+  }
+}

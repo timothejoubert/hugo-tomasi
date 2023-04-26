@@ -1,9 +1,9 @@
 enum CustomType {
-    HOME_PAGE= 'homepage',
+    SETTINGS = 'settings',
+    MAIN_MENU = 'main_menu',
+    HOME_PAGE= 'home_page',
     PAGE = 'page',
     PROJECT = 'project',
-    MAIN_MENU = 'main_menu',
-    SETTINGS = 'settings',
 }
 
 export default CustomType

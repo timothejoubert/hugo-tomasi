@@ -1,5 +1,6 @@
 <template>
     <div :class="[$style.root, (isSplashScreenDone || !displaySplashScreen) && $style['root--ready']]">
+        <v-nav />
         <v-splash-screen-wrapper v-if="displaySplashScreen" />
         <Nuxt />
     </div>

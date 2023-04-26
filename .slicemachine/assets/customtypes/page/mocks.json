@@ -1,0 +1,43 @@
+{
+  "uid": {
+    "__TYPE__": "UIDContent",
+    "value": "was"
+  },
+  "title": {
+    "__TYPE__": "FieldContent",
+    "value": "glad",
+    "type": "Text"
+  },
+  "description": {
+    "__TYPE__": "StructuredTextContent",
+    "value": [
+      {
+        "type": "paragraph",
+        "content": {
+          "text": "Duis aliquip dolore aliqua veniam aute do in eu mollit."
+        }
+      }
+    ]
+  },
+  "meta_title": {
+    "__TYPE__": "FieldContent",
+    "value": "mouse",
+    "type": "Text"
+  },
+  "meta_description": {
+    "__TYPE__": "FieldContent",
+    "value": "badly",
+    "type": "Text"
+  },
+  "meta_image": {
+    "__TYPE__": "LinkContent",
+    "value": {
+      "id": "mock_Media_link",
+      "kind": "image/jpeg",
+      "name": "mock_name",
+      "url": "https://source.unsplash.com/daily",
+      "size": "0",
+      "__TYPE__": "FileLink"
+    }
+  }
+}

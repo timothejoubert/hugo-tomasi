@@ -1,0 +1,63 @@
+{
+  "id": "settings",
+  "label": "Settings",
+  "repeatable": false,
+  "status": true,
+  "json": {
+    "Main": {
+      "site_name": {
+        "type": "Text",
+        "config": {
+          "label": "Site Name",
+          "placeholder": ""
+        }
+      },
+      "tagline": {
+        "type": "StructuredText",
+        "config": {
+          "multi": "paragraph,heading1,heading2,heading3,heading4,heading5,heading6",
+          "label": "Tagline",
+          "placeholder": "Tagline présente la page About"
+        }
+      },
+      "socials": {
+        "type": "Group",
+        "config": {
+          "fields": {
+            "social": {
+              "type": "Select",
+              "config": {
+                "label": "Social",
+                "placeholder": "",
+                "options": [
+                  "Instagram",
+                  "Facebook",
+                  "Youtube",
+                  "Vimeo",
+                  "TikTok",
+                  "Behance",
+                  "LinkedIn"
+                ]
+              }
+            },
+            "link": {
+              "type": "Link",
+              "config": {
+                "label": "Link",
+                "select": null
+              }
+            },
+            "label": {
+              "type": "Text",
+              "config": {
+                "label": "Label",
+                "placeholder": ""
+              }
+            }
+          },
+          "label": "Socials"
+        }
+      }
+    }
+  }
+}

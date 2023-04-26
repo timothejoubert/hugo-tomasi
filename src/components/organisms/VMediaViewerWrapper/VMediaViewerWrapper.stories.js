@@ -1,17 +1,9 @@
-import VMediaViewerWrapper from '~/components/molecules/VMediaViewerWrapper/VMediaViewerWrapper.vue'
+import VMediaViewerWrapper from '~/components/organisms/VMediaViewerWrapper/VMediaViewerWrapper.vue'
 import MutationType from '~/constants/mutation-type'
-import { createImage } from '~/utils/storybook/document'
 
 export default {
     component: VMediaViewerWrapper,
 }
-
-const images = [
-    createImage({ relativePath: '01.jpg ', imageWidth: '1000', imageHeight: '1000' }),
-    createImage({ relativePath: '02.jpg ', imageWidth: '1000', imageHeight: '1000' }),
-    createImage({ relativePath: '03.jpg ', imageWidth: '1000', imageHeight: '1000' }),
-    createImage({ relativePath: '04.png ', imageWidth: '1000', imageHeight: '1000' }),
-]
 
 const Template = (_args, { argTypes }) => ({
     props: Object.keys(argTypes),

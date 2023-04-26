@@ -1,0 +1,68 @@
+{
+    "id": "ZElsPBQAACUAv8Hi",
+    "uid": null,
+    "url": null,
+    "type": "settings",
+    "href": "https://portfolio-skeleton.cdn.prismic.io/api/v2/documents/search?ref=ZElsfxQAACQAv8NV&q=%5B%5B%3Ad+%3D+at%28document.id%2C+%22ZElsPBQAACUAv8Hi%22%29+%5D%5D",
+    "tags": [],
+    "first_publication_date": "2023-04-26T18:25:03+0000",
+    "last_publication_date": "2023-04-26T18:25:03+0000",
+    "slugs": [
+        "settings"
+    ],
+    "linked_documents": [],
+    "lang": "fr-fr",
+    "alternate_languages": [],
+    "data": {
+        "site_name": "Hugo tomasi",
+        "tagline": [
+            {
+                "type": "paragraph",
+                "text": "Créateur vidéo et de contenu digital",
+                "spans": []
+            }
+        ],
+        "socials": [
+            {
+                "social": "Instagram",
+                "link": {
+                    "link_type": "Web",
+                    "url": "https://google.com"
+                },
+                "label": null
+            },
+            {
+                "social": "Facebook",
+                "link": {
+                    "link_type": "Web",
+                    "url": "https://google.com"
+                },
+                "label": null
+            },
+            {
+                "social": "Youtube",
+                "link": {
+                    "link_type": "Web",
+                    "url": "https://google.com"
+                },
+                "label": null
+            },
+            {
+                "social": "Vimeo",
+                "link": {
+                    "link_type": "Web",
+                    "url": "https://google.com"
+                },
+                "label": null
+            },
+            {
+                "social": "TikTok",
+                "link": {
+                    "link_type": "Web",
+                    "url": "https://google.com"
+                },
+                "label": null
+            }
+        ]
+    }
+}
