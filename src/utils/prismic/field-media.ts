@@ -16,3 +16,7 @@ export const isLinkMediaFulled = (
 export const isMediaFulled = (media: unknown & Partial<ImageField>): media is ImageFieldImage<'filled'> => {
     return 'url' in media
 }
+
+export const isFilledLinkToMediaField = (link?: unknown & Partial<LinkToMediaField>): link is FilledLinkToMediaField  => {
+    return !!link && 'link_type' in link && 'name' in link && 'kind' in link && 'url' in link && 'size' in link
+}

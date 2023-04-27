@@ -1,4 +1,4 @@
-import { getStoriesPaths } from 'slice-machine-ui/helpers/storybook';
+// import { getStoriesPaths } from 'slice-machine-ui/helpers/storybook';
 // @ts-ignore
 import SpriteLoaderPlugin from 'svg-sprite-loader/plugin';
 import sm from './sm.json';
@@ -6,86 +6,74 @@ import { version } from './package.json';
 import createSitemap from './src/utils/create-sitemap';
 import linkResolver from './src/utils/prismic/link-resolver';
 import htmlSerializer from './src/utils/prismic/html-serializer';
+
+
 const isProduction = process.env.NODE_ENV === 'production';
-const defaultLocale = 'fr';
 const apiEndpoint = sm.apiEndpoint || process.env.API_ENDPOINT;
 const prismicRepoName = process.env.PRISMIC_REPOSITORY_NAME;
+
+const locales = ['en', 'fr']
+const defaultLocale = 'fr'
+
 export default {
   target: 'static',
+
   srcDir: 'src',
+
+    router: {
+        base: process.env.HOME_PATH || '/',
+    },
+
   image: {
     prismic: {}
   },
+
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     title: process.env.APP_TITLE,
     htmlAttrs: {
       lang: defaultLocale
     },
-    meta: [{
-      charset: 'utf-8'
-    }, {
-      name: 'viewport',
-      content: 'width=device-width, initial-scale=1'
-    }, {
-      hid: 'description',
-      name: 'description',
-      content: 'fallback description in nuxt.config.js'
-    }, {
-      name: 'format-detection',
-      content: 'telephone=no'
-    }, {
-      hid: 'version',
-      name: 'version',
-      content: version || ''
-    }],
+    meta: [
+        { charset: 'utf-8'},
+        { name: 'viewport', content: 'width=device-width, initial-scale=1'},
+        { hid: 'description', name: 'description', content: 'fallback description in nuxt.config.js'},
+        { name: 'format-detection', content: 'telephone=no'},
+        { hid: 'version', name: 'version', content: version || ''}
+    ],
     link: [
-    // favicon
-    {
-      rel: 'apple-touch-icon',
-      sizes: '180x180',
-      href: '/favicon/apple-touch-icon.png'
-    }, {
-      rel: 'icon',
-      type: 'image/png',
-      sizes: '32x32',
-      href: '/favicon/favicon-32x32.png'
-    }, {
-      rel: 'icon',
-      type: 'image/png',
-      sizes: '16x16',
-      href: '/favicon/favicon-16x16.png'
-    }, {
-      rel: 'manifest',
-      href: '/favicon/site.webmanifest'
-    }, {
-      rel: 'mask-icon',
-      href: '/favicon/safari-pinned-tab.svg',
-      color: '#5bbad5'
-    }],
-    script: [{
-      src: `https://static.cdn.prismic.io/prismic.js?new=true&repo=${prismicRepoName}`,
-      defer: true
-    }]
+        // favicon
+        {rel: 'apple-touch-icon', sizes: '180x180', href: '/favicon/apple-touch-icon.png'},
+        {rel: 'icon', type: 'image/png', sizes: '32x32', href: '/favicon/favicon-32x32.png'},
+        {rel: 'icon', type: 'image/png', sizes: '16x16', href: '/favicon/favicon-16x16.png'},
+        {rel: 'manifest', href: '/favicon/site.webmanifest'},
+        {rel: 'mask-icon', href: '/favicon/safari-pinned-tab.svg', color: '#5bbad5'}
+    ],
+    script: [{ src: `https://static.cdn.prismic.io/prismic.js?new=true&repo=${prismicRepoName}`, defer: true} ]
   },
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
-  buildModules: ['@nuxtjs/prismic',
-  // https://go.nuxtjs.dev/typescript
-  '@nuxt/typescript-build',
-  // https://go.nuxtjs.dev/stylelint
-  '@nuxtjs/stylelint-module',
-  // https://image.nuxtjs.org/getting-started/installation
-  '@nuxt/image',
-  // https://github.com/nuxt/postcss8
-  '@nuxt/postcss8',
-  // https://github.com/nuxt-community/svg-module
-  '@nuxtjs/svg',
-  // https://github.com/nuxt-community/style-resources-module#setup
-  '@nuxtjs/style-resources'],
+  buildModules: [
+      '@nuxtjs/prismic',
+      // https://go.nuxtjs.dev/typescript
+      '@nuxt/typescript-build',
+      // https://go.nuxtjs.dev/stylelint
+      '@nuxtjs/stylelint-module',
+      // https://image.nuxtjs.org/getting-started/installation
+      '@nuxt/image',
+      // https://github.com/nuxt/postcss8
+      '@nuxt/postcss8',
+      // https://github.com/nuxt-community/svg-module
+      '@nuxtjs/svg',
+      // https://github.com/nuxt-community/style-resources-module#setup
+      '@nuxtjs/style-resources'
+  ],
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
-  // https://sitemap.nuxtjs.org/guide/setup
-  '@nuxtjs/sitemap'],
+      // https://i18n.nuxtjs.org/
+      'nuxt-i18n',
+      // https://sitemap.nuxtjs.org/guide/setup
+      '@nuxtjs/sitemap'
+  ],
   // https://sitemap.nuxtjs.org/guide/setup
   sitemap: {
     hostname: process.env.APP_URL || 'http://localhost:3000',
@@ -98,6 +86,22 @@ export default {
     },
     sitemaps: createSitemap()
   },
+
+    // https://i18n.nuxtjs.org/
+    i18n: {
+        locales: locales.map((locale) => ({
+            code: locale,
+            file: `nuxt.${locale}.json`,
+        })),
+        lazy: true,
+        langDir: 'assets/locales/',
+        detectBrowserLanguage: false,
+        strategy: 'prefix_except_default', // remove url path for default locale
+        defaultLocale,
+        vuex: false,
+        vueI18n: { fallbackLocale: defaultLocale }
+    },
+
   // https://github.com/nuxt-community/svg-module
   svg: {
     svgSpriteLoader: {
@@ -131,6 +135,7 @@ export default {
     development: process.env.NODE_ENV === 'development',
     appTitle: process.env.APP_TITLE,
     apiUrl: apiEndpoint,
+    defaultLocale,
     homePath: process.env.HOME_PATH || '/'
   },
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins

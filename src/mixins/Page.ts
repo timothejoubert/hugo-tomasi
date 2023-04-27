@@ -1,34 +1,48 @@
-import type { MetaInfo } from 'vue-meta'
+import type {MetaInfo} from 'vue-meta'
 import Vue from 'vue'
 import {Context, NuxtError} from '@nuxt/types'
-import { FacebookMetaOptions, PageMetaPropertyName, TwitterMetaOptions } from '~/types/meta'
-import { createFacebookMeta } from '~/utils/meta/facebook'
-import { createTwitterMeta } from '~/utils/meta/twitter'
-import { MainPageData } from '~/types/prismic/app-prismic'
+import {FacebookMetaOptions, PageMetaPropertyName, TwitterMetaOptions} from '~/types/meta'
+import {createFacebookMeta} from '~/utils/meta/facebook'
+import {createTwitterMeta} from '~/utils/meta/twitter'
+import {MainPageData} from '~/types/prismic/app-prismic'
 import DocumentUid from '~/constants/document-uid'
 import CustomType from '~/constants/custom-type'
 import {SliceZone} from "@prismicio/types/src/value/sliceZone";
 import {isHomePageDocument, isProjectListingDocument} from "~/utils/prismic/document-entity";
 import {isProjectDocument} from "~/utils/prismic/custom-type-entity";
 import {getDocumentData} from "~/utils/prismic/types-utilities";
+import {isFilledLinkToMediaField} from "~/utils/prismic/field-media";
+import {LinkToMediaField} from "@prismicio/types/src/value/linkToMedia";
+import {FilledLinkToMediaField} from "@prismicio/types";
 
 export default Vue.extend({
     // middleware: 'slugParser',
+    nuxtI18n: false,
     async asyncData({ $prismic, params, store, route, error }: Context) {
         let page
 
-        const isRootPath = route.fullPath === '/' || route.fullPath.includes('accueil')
+        console.log(route)
 
+        // Root & Local
+        const hasEnInUrl = route.fullPath.includes('/en')
+        const localeOptions = hasEnInUrl ? { lang: 'en-gb' } : undefined
+        const isRootPath = hasEnInUrl || route.fullPath === '/' || route.fullPath === '/fr' || route.fullPath.includes('accueil')
+
+        // Projects
         const isProjectListingUrl = route.path.substring(1) === DocumentUid.PROJECT_LISTING
         const isProjectUrl = route.path.includes(`/${DocumentUid.PROJECT_LISTING}/`) && !!params?.uid
 
-        const parameter = params?.uid || (isProjectListingUrl ? DocumentUid.PROJECT_LISTING : DocumentUid.HOME)
+        const uid = isRootPath ? DocumentUid.HOME  : params?.uid || (isProjectListingUrl ? DocumentUid.PROJECT_LISTING : DocumentUid.HOME)
 
         if (isProjectUrl) {
-            page = store.getters.getProjectByUid(parameter)
+            page = store.getters.getProjectByUid(uid)
         } else {
             try {
-                page = isRootPath ? await $prismic.api.getSingle('homepage') : await $prismic.api.getByUID(CustomType.PAGE, parameter)
+                const customType= isRootPath ? CustomType.HOME_PAGE : CustomType.PAGE
+
+                console.log('fetch by uid doc', customType, uid, localeOptions)
+                page =  await $prismic.api.getByUID(customType, uid, localeOptions)
+
             } catch (fetchError: any | Error) {
                 error({
                     statusCode: fetchError?.response?.status,
@@ -37,7 +51,7 @@ export default Vue.extend({
             }
         }
 
-        console.log(page.data)
+        // console.log(page?.data)
 
         if (page) {
             await store.dispatch('updatePageData', page)
@@ -70,18 +84,25 @@ export default Vue.extend({
         pageData(): MainPageData {
             return getDocumentData<MainPageData>(this.page)
         },
+        myCustomPageData(): MainPageData {
+            return getDocumentData<MainPageData>(this.page)
+        },
         appTitle(): string {
             return this.$store.state.settings?.data?.site_name || this.$config.appTitle
         },
         metaTitle(): string {
             if (this.isHome) return this.appTitle
-            const pageTitle = this.pagaData?.meta_title || this.pageData?.title
+            const pageTitle = this.pageData?.meta_title || this.pageData?.title
             return pageTitle ? `${pageTitle} | ${this.appTitle}` : this.appTitle
         },
         metaImage(): string {
-            const media = this.pageData?.meta_image || this.pageData?.image || this.pageData?.thumbnail
-            // TODO: check if media is FilledLinkToMediaField type
-            return media?.url || '/images/share.jpg'
+            const media: LinkToMediaField = this.pageData?.meta_image || this.pageData?.image || this.pageData?.thumbnail
+
+            if (isFilledLinkToMediaField(media)) {
+                return (media as FilledLinkToMediaField).url
+            } else {
+                return '/images/share.jpg'
+            }
         },
         pageUrl(): string {
             return this.appTitle + this.$route.fullPath.substring(1)
@@ -125,4 +146,16 @@ export default Vue.extend({
             }
         },
     },
+    // created() {
+    //     // set the locale for first render on the client side (without asyncData)
+    //     if (this.page) {
+    //         // const locale = this.alternateLinks.find((link) => link.url === this.pageData.item.url)?.locale
+    //         const locale= 'fr'
+    //
+    //         if (locale) this.$i18n.locale = locale
+    //
+    //         console.log('created', this.page)
+    //         console.log('locales', this.$i18n)
+    //     }
+    // },
 })

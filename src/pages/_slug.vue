@@ -1,6 +1,6 @@
 <template>
     <div v-if="pageData">
-        <h1>Titre de la page</h1>
+        <v-text :content="pageData.title" />
         <v-image v-if="pageData.media" :prismic-image="pageData.media"/>
         <slice-zone
             v-if="slices && components"
