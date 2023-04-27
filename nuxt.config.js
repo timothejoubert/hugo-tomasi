@@ -13,7 +13,7 @@ const apiEndpoint = sm.apiEndpoint || process.env.API_ENDPOINT;
 const prismicRepoName = process.env.PRISMIC_REPOSITORY_NAME;
 
 const locales = ['en', 'fr']
-const defaultLocale = 'fr'
+export const defaultLocale = 'fr'
 
 export default {
   target: 'static',

@@ -14,14 +14,14 @@ import {getDocumentData} from "~/utils/prismic/types-utilities";
 import {isFilledLinkToMediaField} from "~/utils/prismic/field-media";
 import {LinkToMediaField} from "@prismicio/types/src/value/linkToMedia";
 import {FilledLinkToMediaField} from "@prismicio/types";
+import { getFormattedLocale } from '~/components/molecules/VLangSwitch/VLangSwitch.vue'
 
 export default Vue.extend({
     // middleware: 'slugParser',
     nuxtI18n: false,
-    async asyncData({ $prismic, params, store, route, error }: Context) {
+    async asyncData(context: Context) {
+        const { $prismic, params, store, route, error } = context
         let page
-
-        console.log(route)
 
         // Root & Local
         const hasEnInUrl = route.fullPath.includes('/en')
@@ -146,16 +146,8 @@ export default Vue.extend({
             }
         },
     },
-    // created() {
-    //     // set the locale for first render on the client side (without asyncData)
-    //     if (this.page) {
-    //         // const locale = this.alternateLinks.find((link) => link.url === this.pageData.item.url)?.locale
-    //         const locale= 'fr'
-    //
-    //         if (locale) this.$i18n.locale = locale
-    //
-    //         console.log('created', this.page)
-    //         console.log('locales', this.$i18n)
-    //     }
-    // },
+    created() {
+        // set the locale for first render on the client side (without asyncData)
+        if (this.page?.lang) this.$i18n.locale = getFormattedLocale(this.page.lang, 'minify')
+    },
 })

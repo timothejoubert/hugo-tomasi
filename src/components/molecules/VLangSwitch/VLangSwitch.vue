@@ -1,14 +1,21 @@
 <template>
     <div :class="$style.root" v-if="langList.length">
-            <component
-                v-for="(lang, i) in langList"
-                :key="lang.locale + i"
-                :is="lang.isCurrent ? 'span' : 'nuxt-link'"
-                :to="lang.url"
-                :class="[$style.link, lang.isCurrent && $style['link--current']]"
-            >
-            {{lang.label}}
-            </component>
+            <div :class="[$style.link, $style['link--current']]" class="text-over-title-s">
+                {{currentLang.label}}
+                <icon-chevron-down />
+            </div>
+            <div :class="$style.list">
+                <a
+                    v-for="(lang, i) in langList"
+                    :key="lang.locale + i"
+                    :href="lang.url"
+                    :class="$style.link"
+                    class="text-over-title-s"
+                >
+                    {{lang.label}}
+                </a>
+            </div>
+
     </div>
     <div v-else>No other lang detect</div>
 </template>
@@ -16,61 +23,73 @@
 <script lang="ts">
 import Vue from 'vue'
 import {AlternateLanguage} from "@prismicio/types/src/value/document";
+import IconChevronDown from '~/assets/images/icons/chevron-down.svg?sprite'
+
+const isFrLocal = (local: string): boolean => {
+    return local === 'fr' || local === 'fr-fr'
+}
+const isEnLocal = (local: string): boolean =>{
+    return local === 'en' || local === 'en-gb' || local === 'en-us'
+}
+
+export const getFormattedLocale = (local: string, output: 'minify' | 'full'): string => {
+    if (output === 'full') {
+        switch (local){
+            case 'fr':
+                return 'fr-fr'
+            case 'en':
+                return 'en-gb'
+            default:
+                return 'unset'
+        }
+    } else {
+        switch (local) {
+            case 'fr-fr':
+                return 'fr'
+            case 'en-gb':
+                return 'en'
+            default:
+                return 'unset'
+        }
+    }
+}
 
 interface Lang {
     locale: string
+    title: string
     label: string
     url: string
-    isCurrent: boolean
 }
 
-enum PrismicLocale {
-    FR = 'fr-fr',
-    EN = 'en-gb',
-}
-
-const DISPLAYED_ON_NO_OTHERS = true
+// TODO: re mainMenu document (and settings) data on lang switch
 
 export default Vue.extend({
     name: 'VLangSwitch',
+    components: { IconChevronDown },
     computed: {
+        currentLang(): Lang {
+            return this.formatLang(getFormattedLocale(this.$i18n.locale, 'full'))
+        },
         langList(): Lang[] {
-            // console.log(this.$i18n, this.$i18n.locale)
-            console.log('page', this.$store.state.currentPageData)
-
-            const current = {
-                id: this.$i18n.locale,
-                type: this.$i18n.locale,
-                lang: this.$i18n.locale === 'fr' ? PrismicLocale.FR : this.$i18n.locale === 'en' ? PrismicLocale.EN : 'unset',
-            }
-
             const availableLangList = this.$store.state.currentPageData?.alternate_languages
-            const langList: AlternateLanguage[] = availableLangList?.length ? [current, ...availableLangList] : [current]
 
-            if (!DISPLAYED_ON_NO_OTHERS && langList.length === 1) return []
-
-            console.log('current:', current)
-
-            return langList.map((alternate: AlternateLanguage) => {
-                const locale = alternate.lang // ex: 'fr-fr' || 'gb-en'
-
-                console.log(locale)
-
-                const title = locale === PrismicLocale.FR ? 'fr' : locale === PrismicLocale.EN ? 'en' : 'unset'
-                const label = locale === PrismicLocale.FR ? 'Fr' : locale === PrismicLocale.EN ? 'En' : 'unset'
-                const url = locale === PrismicLocale.FR ? '/fr' : locale === PrismicLocale.EN ? '/en' : '/'
-
-                return {
-                    locale,
-                    title,
-                    label,
-                    url,
-                    isCurrent: title === this.$i18n.locale
-                }
-            })
+            return availableLangList?.map((alternate: AlternateLanguage) => {
+                return this.formatLang(alternate.lang)
+            }) || []
         },
     },
-    methods: {},
+    methods: {
+        formatLang(locale: string): Lang {
+            const minifyLocal = getFormattedLocale(locale, 'minify')
+
+            return {
+                locale: locale,
+                title: minifyLocal,
+                label: minifyLocal.charAt(0).toUpperCase() + minifyLocal.slice(1),
+                url: '/' + minifyLocal,
+            }
+        }
+    },
 })
 </script>
 
@@ -80,13 +99,31 @@ export default Vue.extend({
     flex-direction: column;
 }
 
+.list {
+    position: absolute;
+    opacity: 0;
+    transform: translateY(50%);
+    transition: transform 0.4s ease(out-quad);
+    transition-property: transform, opacity;
+
+    @media (hover: hover) {
+        .root:hover & {
+            opacity: 1;
+            transform: translateY(100%);
+
+        }
+    }
+}
+
 .link {
     padding: rem(6) rem(14);
-    background-color: rgba(black, 0.1);
     border-radius: rem(10);
+    text-transform: uppercase;
 
     &--current {
-        background-color: rgba(black, 0.3);
+        display: flex;
+        align-items: center;
+        gap: rem(2);
     }
 }
 </style>

@@ -1,7 +1,6 @@
 <template>
-    <div :class="rootClass">
-        <pre>{{ links }}</pre>
-        <div v-for="(item, i) in links" :key="i">{{item.label}}</div>
+    <div :class="$style.root">
+        <nuxt-link v-for="(item, i) in navItemList" :key="i" :to="item.link.uid" class="text-over-title-s">{{item.label}}</nuxt-link>
     </div>
 </template>
 
@@ -11,11 +10,8 @@ import Vue from 'vue'
 export default Vue.extend({
     name: 'VNav',
     computed: {
-        rootClass(): (undefined | false | string)[] {
-            return [this.$style.root]
-        },
-        links() {
-            return this.$store.state.mainMenu.links
+        navItemList() {
+            return this.$store.state.mainMenu.data.links
         },
     },
 })
@@ -24,5 +20,8 @@ export default Vue.extend({
 <style lang="scss" module>
 .root {
     position: relative;
+    display: flex;
+    gap: rem(16);
+    text-transform: uppercase;
 }
 </style>

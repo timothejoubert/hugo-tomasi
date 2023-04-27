@@ -14,6 +14,8 @@ const actions: ActionTree<RootState, RootState> = {
     async nuxtServerInit({ commit, dispatch }: ActionContext<RootState, RootState>, context: Context) {
         if (!('$prismic' in this)) console.log('prismic module not found')
 
+        console.log(context.i18n, context.route)
+
         await dispatch('getCommonContent', context)
             .then(([mainMenu, settings]: Array<MainMenu | Settings>) => {
                 commit(MutationType.SET_MAIN_MENU, mainMenu)
@@ -36,9 +38,13 @@ const actions: ActionTree<RootState, RootState> = {
         _actionContext: ActionContext<RootState, RootState>,
         context: Context
     ): Promise<Document<MainMenu | Settings>[]> {
-        const mainMenu = context.$prismic.api.getSingle(CustomType.MAIN_MENU as CustomTypeName, {})
-        const settings = context.$prismic.api.getSingle(CustomType.SETTINGS as CustomTypeName, {})
+        const hasEnInUrl = context.route.fullPath.includes('/en')
+        const localeOptions = hasEnInUrl ? { lang: 'en-gb' } : undefined
 
+        const mainMenu = context.$prismic.api.getSingle(CustomType.MAIN_MENU as CustomTypeName, localeOptions)
+        const settings = context.$prismic.api.getSingle(CustomType.SETTINGS as CustomTypeName, localeOptions)
+
+        console.log('mainMenu', mainMenu)
         return Promise.all([mainMenu, settings])
     },
     getProjects(

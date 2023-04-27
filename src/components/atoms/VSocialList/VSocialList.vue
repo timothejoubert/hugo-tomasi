@@ -62,7 +62,7 @@ export function getSocialsData(socialsList: Social[] | undefined): SocialsConten
     if (!socialsList?.length) return []
 
     return socialsList
-        .map((item) => {
+        ?.map((item) => {
             const { social, link, label } = item
             return {
                 url: link?.url || '',
@@ -71,15 +71,16 @@ export function getSocialsData(socialsList: Social[] | undefined): SocialsConten
                 label: label || '',
             }
         })
-        .filter((item) => !!item)
+        ?.filter((item) => !!item)
 }
 
 export default Vue.extend({
     name: 'VSocialList',
     computed: {
         socialList(): SocialsContent[] {
-            const socials = this.$store.state.settings.data.socials
-            if (!socials && !socials.length) return []
+            const socials = this.$store.state.settings?.data?.socials
+            if (!socials && !socials?.length) return []
+
             return getSocialsData(socials)
         }
     },

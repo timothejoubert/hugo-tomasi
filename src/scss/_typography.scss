@@ -18,24 +18,20 @@
     @include text-h5;
 }
 
-.text-accent {
-    @include text-accent;
+.text-over-title-l {
+    @include text-over-title-l;
 }
 
-.over-title-l {
-    @include over-title-l;
+.text-over-title-m {
+    @include text-over-title-m;
 }
 
-.over-title-m {
-    @include over-title-m;
+.text-over-title-s {
+    @include text-over-title-s;
 }
 
-.over-title-s {
-    @include over-title-s;
-}
-
-.over-title-xs {
-    @include over-title-xs;
+.text-over-title-xs {
+    @include text-over-title-xs;
 }
 
 .text-body-l {
