@@ -128,12 +128,13 @@ export default {
   components: [
       '~/components/atoms',
       '~/components/molecules',
-      '~/components/organisms',
+      '~/components/organisms'
   ],
 
   publicRuntimeConfig: {
     development: process.env.NODE_ENV === 'development',
-    appTitle: process.env.APP_TITLE,
+    appName: process.env.APP_NAME,
+    appUrl: process.env.APP_URL,
     apiUrl: apiEndpoint,
     defaultLocale,
     homePath: process.env.HOME_PATH || '/'

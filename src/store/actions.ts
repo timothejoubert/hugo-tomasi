@@ -6,18 +6,17 @@ import { PrismicDocument } from '@prismicio/types/src/value/document'
 import { Document } from '@prismicio/client/types/documents'
 import { RootState } from '~/types/store'
 import MutationType from '~/constants/mutation-type'
-import { CustomTypeName, MainMenu, ProjectDocument, Settings } from '~/types/prismic/app-prismic'
+import { CustomTypeName } from '~/types/prismic/app-prismic'
 import CustomType from '~/constants/custom-type'
+import {MainMenuDocument, ProjectDocument, SettingsDocument} from "~/types/prismic/prismic-types.generated";
 // import { Context, NuxtError } from '@nuxt/types'
 
 const actions: ActionTree<RootState, RootState> = {
     async nuxtServerInit({ commit, dispatch }: ActionContext<RootState, RootState>, context: Context) {
         if (!('$prismic' in this)) console.log('prismic module not found')
 
-        console.log(context.i18n, context.route)
-
         await dispatch('getCommonContent', context)
-            .then(([mainMenu, settings]: Array<MainMenu | Settings>) => {
+            .then(([mainMenu, settings]: Array<SettingsDocument | MainMenuDocument>) => {
                 commit(MutationType.SET_MAIN_MENU, mainMenu)
                 commit(MutationType.SET_SETTINGS, settings)
             })
@@ -37,7 +36,7 @@ const actions: ActionTree<RootState, RootState> = {
     getCommonContent(
         _actionContext: ActionContext<RootState, RootState>,
         context: Context
-    ): Promise<Document<MainMenu | Settings>[]> {
+    ): Promise<Document<SettingsDocument | MainMenuDocument>[]> {
         const hasEnInUrl = context.route.fullPath.includes('/en')
         const localeOptions = hasEnInUrl ? { lang: 'en-gb' } : undefined
 

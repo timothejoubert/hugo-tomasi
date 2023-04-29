@@ -1,31 +1,24 @@
-import { AnyRegularField } from '@prismicio/types/src/value/types'
-import { GroupField } from '@prismicio/types/src/value/group'
-import { SliceZone } from '@prismicio/types/src/value/sliceZone'
-import { AllDocumentTypes, MainMenuDocumentDataLinksItem } from '~/types/prismic/prismic-types.generated'
-import type * as GeneratedTypes from '~/types/prismic/prismic-types.generated'
+import {MainMenuDocument, SettingsDocument, AllDocumentTypes, HomePageDocument, PageDocument, ProjectDocument} from "~/types/prismic/prismic-types.generated";
+import {PrismicDocumentWithoutUID} from "@prismicio/types";
+import {PrismicDocument, PrismicDocumentWithUID} from "@prismicio/types/src/value/document";
 
 // GLOBAL
-export type BasicDocumentData = Record<string, AnyRegularField | GroupField | SliceZone>
-export type CustomTypeName = Pick<AllDocumentTypes, 'type'>['type']
-export type MainPageData = PageData | ProjectData
+export type CustomTypeName = extractDocumentType<AllDocumentTypes>
+export type DocumentWithUi = extractDocument<AllDocumentTypes, PrismicDocumentWithUID>
+export type DocumentWithUidNames = extractDocumentType<DocumentWithUi>
+export type DocumentWithoutUidNames = extractDocumentType<extractDocument<AllDocumentTypes, PrismicDocumentWithoutUID>>
 
-// PAGE
-export type PageDocument = GeneratedTypes.PageDocument
-export type PageData = GeneratedTypes.ProjectDocument['data']
+export type DocumentWithUidData = DocumentWithUi['data']
 
-// PROJECT
-export type ProjectDocument = GeneratedTypes.ProjectDocument
-export type ProjectData = GeneratedTypes.ProjectDocument['data']
-export type ProjectTag = ProjectData['tags']
-export type ProjectCardData = ProjectData & { uid: string }
 
-// MENU
-export type MainMenuLinks = GeneratedTypes.MainMenuDocument
-export type MenuItemList = GeneratedTypes.MainMenuDocument['data']['links']
-export type MenuItem = MainMenuDocumentDataLinksItem
+// DATA
+export type HomeDocumentData = HomePageDocument['data']
+export type PageDocumentData = PageDocument['data']
+export type ProjectDocumentData = ProjectDocument['data']
+export type SettingsData = SettingsDocument['data']
+export type MainMenuData = MainMenuDocument['data']
 
-// COMMON CONTENT
-export type Settings = GeneratedTypes.SettingsDocument
-export type SettingsData = Settings['data']
-export type MainMenu = GeneratedTypes.MainMenuDocument
-export type MainMenuData = MainMenu['data']
+
+//  UTILS
+type extractDocumentType <T extends PrismicDocument> = Pick<T, 'type'>['type']
+type extractDocument<T extends PrismicDocument, FilterType> = T extends FilterType ?  T : never

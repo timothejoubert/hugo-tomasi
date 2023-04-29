@@ -33,9 +33,10 @@ export default Vue.extend({
     },
     methods: {
         setSplashScreenState() {
-            const display = toBoolean(GeneralsConst.DISPLAY_SPLASH_SCREEN_ONCE) || !this.hasAlreadyVisited()
+            const displayed = toBoolean(GeneralsConst.DISPLAY_SPLASH_SCREEN_ONCE) || !this.hasAlreadyVisited()
 
-            if (display) this.splashScreenState = 'beforeEnter'
+            console.log('display splash', displayed)
+            if (displayed) this.splashScreenState = 'beforeEnter'
             else this.onSplashScreenDone()
         },
         onSplashScreenDone() {

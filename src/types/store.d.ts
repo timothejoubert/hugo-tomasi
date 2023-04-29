@@ -1,14 +1,13 @@
 import { NuxtError } from '@nuxt/types'
 import { PrismicDocument } from '@prismicio/types/src/value/document'
 import * as prismicT from '@prismicio/types'
-import { MainMenuDocument, SettingsDocument } from '~/types/prismic/prismic-types.generated'
-import { ProjectDocument } from '~/types/prismic/app-prismic'
+import {MainMenuDocument, ProjectDocument, SettingsDocument} from '~/types/prismic/prismic-types.generated'
 
 interface RootState {
-    // Prismic
+    // Prismic data
     settings: SettingsDocument | null
     mainMenu: MainMenuDocument | null
-    projects: ProjectDocument[]
+    projects: ProjectDocument[] | null
     currentPageData: PrismicDocument | null
 
     // SplashScreen
@@ -22,5 +21,4 @@ interface RootState {
     scrollIsDisabled: boolean
     mediaViewerData: null | prismicT.ImageField[]
     mediaViewerSlideIndex: number
-    navDistanceFromBottom: number
 }

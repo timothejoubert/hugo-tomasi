@@ -1,1 +1,66 @@
-{}
+{
+  "uid": {
+    "__TYPE__": "UIDContent",
+    "value": "throat"
+  },
+  "title": {
+    "__TYPE__": "FieldContent",
+    "value": "dirt",
+    "type": "Text"
+  },
+  "description": {
+    "__TYPE__": "StructuredTextContent",
+    "value": [
+      {
+        "type": "paragraph",
+        "content": {
+          "text": "Ad excepteur esse non fugiat anim eiusmod aute voluptate consectetur mollit minim nostrud sunt. Aute ullamco irure consequat quis. Eu incididunt nostrud ex consequat reprehenderit."
+        }
+      }
+    ]
+  },
+  "date": {
+    "__TYPE__": "FieldContent",
+    "type": "Date",
+    "value": "2020-11-13"
+  },
+  "thumbnail": {
+    "__TYPE__": "ImageContent",
+    "origin": {
+      "id": "main",
+      "url": "https://images.unsplash.com/photo-1493119508027-2b584f234d6c",
+      "width": 3424,
+      "height": 3424
+    },
+    "url": "https://images.unsplash.com/photo-1493119508027-2b584f234d6c",
+    "width": 3424,
+    "height": 3424,
+    "edit": {
+      "zoom": 1,
+      "crop": {
+        "x": 0,
+        "y": 0
+      },
+      "background": "transparent"
+    },
+    "thumbnails": {}
+  },
+  "tags": {
+    "__TYPE__": "GroupContentType",
+    "value": [
+      {
+        "__TYPE__": "GroupItemContent",
+        "value": [
+          [
+            "label",
+            {
+              "__TYPE__": "FieldContent",
+              "value": "skin",
+              "type": "Text"
+            }
+          ]
+        ]
+      }
+    ]
+  }
+}

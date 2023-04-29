@@ -1,14 +1,7 @@
 <template>
     <div :class="rootClass">
-        <div :class="$style.center">
-            <v-split-word
-                :class="[$style.title, 'text-h1']"
-                :content="siteName"
-                :transition-state="animationState"
-                default-hidden
-                @transitionend="onTransitionEnd"
-            />
-        </div>
+        <div :class="$style.center" class="text-h1">{{siteName}}</div>
+        <div>{{ counterOutput }}</div>
     </div>
 </template>
 
@@ -19,16 +12,24 @@ import { SplashScreenState } from '~/components/organisms/VSplashScreenWrapper/V
 
 export type AnimationState = 'pending' | 'entering' | 'afterEnter' | 'afterLeave'
 
+const INIT_VALUE = 0
+const LAST_VALUE = 100
+const DURATION = 5000
+
 export default Vue.extend({
     name: 'VSplashScreen',
     props: {
-        content: String,
         value: String as PropType<SplashScreenState>,
     },
     data() {
         return {
+            counterOutput: 0,
+            startTime: null as null | number,
             animationState: 'pending' as AnimationState,
         }
+    },
+    mounted() {
+        this.startCounter();
     },
     computed: {
         rootClass(): (string | undefined | false)[] {
@@ -40,7 +41,7 @@ export default Vue.extend({
             ]
         },
         siteName(): string {
-            return this.$store.state.settings?.data?.site_name || 'fallback site name in splash screen'
+            return this.$store.state.settings?.data?.site_name || this.$config.appName
         },
     },
     watch: {
@@ -49,6 +50,26 @@ export default Vue.extend({
         },
     },
     methods: {
+        startCounter() {
+            this.startTime = null;
+            let currentTime = Date.now();
+
+            this.step(currentTime)
+
+            window.requestAnimationFrame((currentTime) => this.step(currentTime));
+        },
+        step(currentTime: number) {
+            if (!this.startTime) {
+                this.startTime = currentTime;
+            }
+
+            const progress = Math.min((currentTime  - this.startTime) / DURATION, 1);
+
+            this.counterOutput = Math.floor(progress * (LAST_VALUE - INIT_VALUE) + INIT_VALUE);
+
+            if (progress < 1) window.requestAnimationFrame(this.step);
+            else window.cancelAnimationFrame(window.requestAnimationFrame(this.step));
+        },
         onTransitionEnd(state: AnimationState) {
             if (state === 'afterEnter') this.onLeaveFinish()
             else if (state === 'entering') this.onEnterFinish()
@@ -71,6 +92,8 @@ export default Vue.extend({
 .root {
     position: fixed;
     z-index: 1001;
+    top: 0;
+    left: 0;
     display: flex;
     width: 100%;
     height: 100%;

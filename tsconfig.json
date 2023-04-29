@@ -29,13 +29,15 @@
         },
         "types": [
             "@nuxt/types",
+            "prismic-ts-codegen",
             "@prismicio/types",
             "@types/node",
             "nuxt-i18n",
             "@nuxt/image",
             "@nuxt/content",
             "webpack-env",
-            "src/types/prismic/*.ts"
+            "src/types/prismic/*.ts",
+            "src/types/prismic/*d.ts"
         ]
     },
     "exclude": [

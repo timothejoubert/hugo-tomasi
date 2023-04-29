@@ -4,7 +4,7 @@ import {Context, NuxtError} from '@nuxt/types'
 import {FacebookMetaOptions, PageMetaPropertyName, TwitterMetaOptions} from '~/types/meta'
 import {createFacebookMeta} from '~/utils/meta/facebook'
 import {createTwitterMeta} from '~/utils/meta/twitter'
-import {MainPageData} from '~/types/prismic/app-prismic'
+import {DocumentWithUidData} from '~/types/prismic/app-prismic'
 import DocumentUid from '~/constants/document-uid'
 import CustomType from '~/constants/custom-type'
 import {SliceZone} from "@prismicio/types/src/value/sliceZone";
@@ -81,14 +81,14 @@ export default Vue.extend({
         }
     },
     computed: {
-        pageData(): MainPageData {
-            return getDocumentData<MainPageData>(this.page)
+        pageData(): DocumentWithUidData {
+            return getDocumentData<DocumentWithUidData>(this.page)
         },
-        myCustomPageData(): MainPageData {
-            return getDocumentData<MainPageData>(this.page)
+        myCustomPageData(): DocumentWithUidData {
+            return getDocumentData<DocumentWithUidData>(this.page)
         },
         appTitle(): string {
-            return this.$store.state.settings?.data?.site_name || this.$config.appTitle
+            return this.$store.state.settings?.data?.site_name || this.$config.appName
         },
         metaTitle(): string {
             if (this.isHome) return this.appTitle
@@ -96,7 +96,7 @@ export default Vue.extend({
             return pageTitle ? `${pageTitle} | ${this.appTitle}` : this.appTitle
         },
         metaImage(): string {
-            const media: LinkToMediaField = this.pageData?.meta_image || this.pageData?.image || this.pageData?.thumbnail
+            const media: LinkToMediaField = this.pageData?.meta_image
 
             if (isFilledLinkToMediaField(media)) {
                 return (media as FilledLinkToMediaField).url

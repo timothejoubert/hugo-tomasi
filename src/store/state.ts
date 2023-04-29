@@ -1,11 +1,11 @@
 import { RootState } from '~/types/store'
 
 export default (): RootState => ({
-    // prismic
+    // Prismic data
     settings: null,
     mainMenu: null,
-    projects: [],
     currentPageData: null,
+    projects: null,
 
     // SplashScreen
     splashScreenDone: false,
@@ -18,5 +18,4 @@ export default (): RootState => ({
     scrollIsDisabled: false,
     mediaViewerData: null,
     mediaViewerSlideIndex: 0,
-    navDistanceFromBottom: 0,
 })

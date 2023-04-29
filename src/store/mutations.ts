@@ -3,8 +3,7 @@ import { PrismicDocument } from '@prismicio/types/src/value/document'
 import * as prismicT from '@prismicio/types'
 import MutationType from '~/constants/mutation-type'
 import { RootState } from '~/types/store'
-import { MainMenuDocument, SettingsDocument } from '~/types/prismic/prismic-types.generated'
-import { ProjectDocument } from '~/types/prismic/app-prismic'
+import {MainMenuDocument, ProjectDocument, SettingsDocument} from '~/types/prismic/prismic-types.generated'
 
 export default {
     // Prismic
@@ -23,5 +22,4 @@ export default {
     [MutationType.SCROLL_IS_DISABLED]: (state, value: boolean) => (state.scrollIsDisabled = value),
     [MutationType.MEDIA_VIEWER_DATA]: (state, value: prismicT.ImageField[] | null) => (state.mediaViewerData = value),
     [MutationType.MEDIA_VIEWER_SLIDE_INDEX]: (state, value: number) => (state.mediaViewerSlideIndex = value),
-    [MutationType.NAV_DISTANCE_FROM_BOTTOM]: (state, value: number) => (state.navDistanceFromBottom = value),
 } as MutationTree<RootState>
