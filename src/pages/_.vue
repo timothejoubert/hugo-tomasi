@@ -1,7 +1,10 @@
 <template>
     <div v-if="pageData">
-        <v-text :content="pageData.title" />
-        <v-image v-if="pageData.media" :prismic-image="pageData.media"/>
+        <lazy-v-home-page v-if="isHome" :page-data="pageData" />
+        <lazy-v-project-listing v-if="isProjectListing" :page-data="pageData" />
+        <lazy-v-project-page v-if="isProjectPage" :page-data="pageData" />
+        <lazy-v-default-page v-if="isDefaultPage" :page-data="pageData" />
+
         <slice-zone
             v-if="slices && components"
             id="main"
@@ -24,7 +27,7 @@ import Page from '~/mixins/Page'
 import cacheControl from "~/middleware/cache-control";
 
 export default mixins(Page).extend({
-    name: 'page',
+    name: 'DefaultPage',
     middleware: cacheControl(),
     components: { SliceZone },
     data() {

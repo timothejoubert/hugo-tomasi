@@ -1,7 +1,9 @@
 <template>
     <div :class="rootClass">
-        <div :class="$style.center" class="text-h1">{{siteName}}</div>
-        <div>{{ counterOutput }}</div>
+        <div :class="$style.content">
+            <div class="text-h1">{{siteName}}</div>
+            <span class="text-h3" >{{ counterOutput }}%</span>
+        </div>
     </div>
 </template>
 
@@ -9,12 +11,10 @@
 import Vue from 'vue'
 import type { PropType } from 'vue'
 import { SplashScreenState } from '~/components/organisms/VSplashScreenWrapper/VSplashScreenWrapper.vue'
+import loading from '~/scss/export/_v-splash-screen.scss'
 
-export type AnimationState = 'pending' | 'entering' | 'afterEnter' | 'afterLeave'
-
-const INIT_VALUE = 0
+const START_VALUE = 0
 const LAST_VALUE = 100
-const DURATION = 5000
 
 export default Vue.extend({
     name: 'VSplashScreen',
@@ -24,20 +24,14 @@ export default Vue.extend({
     data() {
         return {
             counterOutput: 0,
-            startTime: null as null | number,
-            animationState: 'pending' as AnimationState,
         }
-    },
-    mounted() {
-        this.startCounter();
     },
     computed: {
         rootClass(): (string | undefined | false)[] {
             return [
                 this.$style.root,
-                this.animationState === 'entering' && this.$style['root--enter-animation'],
-                (this.animationState === 'afterEnter' || this.animationState === 'afterLeave') &&
-                    this.$style['root--leave-animation'],
+                this.value === 'beforeLeaved' && this.$style['root--before-leave'],
+                this.value === 'leave' && this.$style['root--leave'],
             ]
         },
         siteName(): string {
@@ -46,44 +40,46 @@ export default Vue.extend({
     },
     watch: {
         value(splashState: SplashScreenState) {
-            if (splashState === 'beforeEnter') this.onEnter()
+            if (splashState === 'beforeEnter') {
+                this.startCounter()
+                this.onBeforeLeaved()
+            } else if (splashState === 'leave') {
+                this.onLeaveDone()
+            }
         },
     },
     methods: {
         startCounter() {
-            this.startTime = null;
-            let currentTime = Date.now();
+            let startTimestamp: null | number = null
 
-            this.step(currentTime)
+            const increaseCounter = (timestamp: number) => {
+                if (!startTimestamp) startTimestamp = timestamp;
 
-            window.requestAnimationFrame((currentTime) => this.step(currentTime));
-        },
-        step(currentTime: number) {
-            if (!this.startTime) {
-                this.startTime = currentTime;
-            }
+                const progress = Math.min((timestamp - startTimestamp) / parseInt(loading['counter-duration']), 1)
+                this.counterOutput = Math.floor(progress * (LAST_VALUE - START_VALUE) + START_VALUE);
 
-            const progress = Math.min((currentTime  - this.startTime) / DURATION, 1);
+                if (progress < 1) window.requestAnimationFrame(increaseCounter);
+                else if (this.value === 'beforeLeaved') this.onCounterDone()
 
-            this.counterOutput = Math.floor(progress * (LAST_VALUE - INIT_VALUE) + INIT_VALUE);
+            };
 
-            if (progress < 1) window.requestAnimationFrame(this.step);
-            else window.cancelAnimationFrame(window.requestAnimationFrame(this.step));
+            window.requestAnimationFrame(increaseCounter);
         },
-        onTransitionEnd(state: AnimationState) {
-            if (state === 'afterEnter') this.onLeaveFinish()
-            else if (state === 'entering') this.onEnterFinish()
+        onCounterDone() {
+            this.$emit('input', 'leave')
         },
-        onEnter() {
-            this.animationState = 'entering'
+        onBeforeLeaved() {
+            const enterDelay = parseInt(loading['counter-duration']) - parseInt(loading['enter-duration']) - 450
+            window.setTimeout(() => {
+                this.$emit('input', 'beforeLeaved')
+            }, enterDelay)
         },
-        onEnterFinish() {
-            this.animationState = 'afterEnter'
-        },
-        onLeaveFinish() {
-            this.$emit('input', 'beforeLeaved')
-            this.animationState = 'afterLeave'
-        },
+        onLeaveDone() {
+            window.setTimeout(() => {
+                this.$emit('input', 'done')
+            }, parseInt(loading['leave-duration']) )
+
+        }
     },
 })
 </script>
@@ -99,23 +95,23 @@ export default Vue.extend({
     height: 100%;
     align-items: center;
     justify-content: center;
-    background-color: var(--color-main);
+    color: color(white);
 
     &::after {
         position: absolute;
-        background-color: var(--color-bg);
-        border-radius: app(border-radius);
+        background-color: color(dark);
+        border-radius: rem(24);
         content: '';
         inset: rem(10);
         transform: scale(1);
     }
 
-    &--enter-animation::after {
-        animation: enter 1.4s ease(in-back) forwards;
+    &--before-leave::after {
+        animation: enter unquote("#{map-get($loading, 'enter-duration')}ms") ease(in-back) forwards;
     }
 
-    &--leave-animation::after {
-        animation: leave 1.2s ease(in-back) backwards;
+    &--leave::after {
+        animation: leave unquote("#{map-get($loading, 'leave-duration')}ms") ease(in-back) forwards;
     }
 }
 
@@ -124,30 +120,25 @@ export default Vue.extend({
         transform: scale(1);
     }
     to {
-        transform: scale(0.985);
+        transform: scale(0.9);
     }
 }
 
 @keyframes leave {
     from {
-        transform: scale(0.985);
+        transform: scale(0.9);
     }
     to {
-        transform: scale(1.15);
+        transform: scale(1.1);
     }
 }
 
-.center {
+.content {
     position: relative;
     z-index: 1;
     display: flex;
     flex-direction: column;
+    align-items: center;
     justify-content: center;
-}
-
-.title {
-    margin-bottom: 40px;
-    color: var(--color-main);
-    text-align: center;
 }
 </style>

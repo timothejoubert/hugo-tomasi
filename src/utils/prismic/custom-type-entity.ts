@@ -1,5 +1,7 @@
 import { CustomTypeName } from '~/types/prismic/app-prismic'
 import { hasType } from '~/types/prismic/prismic-guard'
+import {PrismicDocument} from "@prismicio/types";
+import {isDocumentByUid} from "~/utils/prismic/document-entity";
 
 export function isEntityType(document: unknown & { type: string }, type: CustomTypeName): boolean {
     return hasType(document) && document?.type === type
@@ -16,6 +18,11 @@ export const isPage = (document?: unknown & { type: string }): boolean => {
 export const isProjectDocument = (document: unknown & { type: string }): boolean => {
     return isEntityType(document, 'project')
 }
+
+export const isDefaultPageDocument = (document: unknown & { type: string }): boolean => {
+    return isEntityType(document, 'page')
+}
+
 
 export const isMainMenu = (document: unknown & { type: string }): boolean => {
     return isEntityType(document, 'main_menu')

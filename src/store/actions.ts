@@ -27,6 +27,7 @@ const actions: ActionTree<RootState, RootState> = {
         await dispatch('getProjects', context)
             .then((projects: Array<ProjectDocument>) => {
                 // TODO: order project by date
+                // TODO: fetch current locale
                 commit(MutationType.SET_PROJECTS, projects)
             })
             .catch((fetchError: Error) => {
@@ -43,7 +44,6 @@ const actions: ActionTree<RootState, RootState> = {
         const mainMenu = context.$prismic.api.getSingle(CustomType.MAIN_MENU as CustomTypeName, localeOptions)
         const settings = context.$prismic.api.getSingle(CustomType.SETTINGS as CustomTypeName, localeOptions)
 
-        console.log('mainMenu', mainMenu)
         return Promise.all([mainMenu, settings])
     },
     getProjects(

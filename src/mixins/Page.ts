@@ -9,7 +9,7 @@ import DocumentUid from '~/constants/document-uid'
 import CustomType from '~/constants/custom-type'
 import {SliceZone} from "@prismicio/types/src/value/sliceZone";
 import {isHomePageDocument, isProjectListingDocument} from "~/utils/prismic/document-entity";
-import {isProjectDocument} from "~/utils/prismic/custom-type-entity";
+import {isDefaultPageDocument, isProjectDocument} from "~/utils/prismic/custom-type-entity";
 import {getDocumentData} from "~/utils/prismic/types-utilities";
 import {isFilledLinkToMediaField} from "~/utils/prismic/field-media";
 import {LinkToMediaField} from "@prismicio/types/src/value/linkToMedia";
@@ -23,25 +23,34 @@ export default Vue.extend({
         const { $prismic, params, store, route, error } = context
         let page
 
+        const isPreview = route.fullPath.includes('/preview/')
+
         // Root & Local
         const hasEnInUrl = route.fullPath.includes('/en')
-        const localeOptions = hasEnInUrl ? { lang: 'en-gb' } : undefined
         const isRootPath = hasEnInUrl || route.fullPath === '/' || route.fullPath === '/fr' || route.fullPath.includes('accueil')
 
         // Projects
         const isProjectListingUrl = route.path.substring(1) === DocumentUid.PROJECT_LISTING
-        const isProjectUrl = route.path.includes(`/${DocumentUid.PROJECT_LISTING}/`) && !!params?.uid
+        const isProjectUrl = route.path.includes(`/${DocumentUid.PROJECT_LISTING}/`) && !!params?.pathMatch
 
-        const uid = isRootPath ? DocumentUid.HOME  : params?.uid || (isProjectListingUrl ? DocumentUid.PROJECT_LISTING : DocumentUid.HOME)
 
-        if (isProjectUrl) {
+        let uid: string
+        if (isRootPath) uid = DocumentUid.HOME
+        else if (isProjectUrl) uid = params.pathMatch.replace(`${DocumentUid.PROJECT_LISTING}/`, '');
+        else if (isProjectListingUrl) uid = DocumentUid.PROJECT_LISTING
+        else {
+            uid = params.pathMatch || DocumentUid.HOME
+        }
+
+        if (isPreview) {
+            page = await $prismic.api.getByID(route.params.documentId)
+        } else if (isProjectUrl) {
             page = store.getters.getProjectByUid(uid)
         } else {
             try {
                 const customType= isRootPath ? CustomType.HOME_PAGE : CustomType.PAGE
 
-                console.log('fetch by uid doc', customType, uid, localeOptions)
-                page =  await $prismic.api.getByUID(customType, uid, localeOptions)
+                page =  await $prismic.api.getByUID(customType, uid, hasEnInUrl ? { lang: 'en-gb' } : undefined)
 
             } catch (fetchError: any | Error) {
                 error({
@@ -50,8 +59,6 @@ export default Vue.extend({
                 } as NuxtError)
             }
         }
-
-        // console.log(page?.data)
 
         if (page) {
             await store.dispatch('updatePageData', page)
@@ -84,9 +91,6 @@ export default Vue.extend({
         pageData(): DocumentWithUidData {
             return getDocumentData<DocumentWithUidData>(this.page)
         },
-        myCustomPageData(): DocumentWithUidData {
-            return getDocumentData<DocumentWithUidData>(this.page)
-        },
         appTitle(): string {
             return this.$store.state.settings?.data?.site_name || this.$config.appName
         },
@@ -107,18 +111,17 @@ export default Vue.extend({
         pageUrl(): string {
             return this.appTitle + this.$route.fullPath.substring(1)
         },
-        pageDescription(): string {
-            return (
-                this.pageData?.meta_description ||
-                this.$prismic.asText(this.pageData?.description) ||
-                this.$prismic.asText(this.$store.state.settings?.data?.description)
-            )
+        pageDescription(): string | undefined {
+            return (this.pageData?.meta_description || this.$store.state.settings?.data?.description)
         },
         isHome(): boolean {
             return !!this.page && isHomePageDocument(this.page)
         },
         isProjectListing(): boolean {
             return !!this.page && isProjectListingDocument(this.page)
+        },
+        isDefaultPage(): boolean {
+            return !!this.page && isDefaultPageDocument(this.page)
         },
         isProjectPage(): boolean {
             return !!this.page && isProjectDocument(this.page)

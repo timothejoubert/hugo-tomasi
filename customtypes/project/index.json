@@ -58,6 +58,30 @@
           "label": "Tags"
         }
       }
+    },
+    "Meta data": {
+      "meta_title": {
+        "type": "Text",
+        "config": {
+          "label": "Meta title",
+          "placeholder": ""
+        }
+      },
+      "meta_description": {
+        "type": "Text",
+        "config": {
+          "label": "Meta description",
+          "placeholder": ""
+        }
+      },
+      "meta_image": {
+        "type": "Link",
+        "config": {
+          "label": "Meta image",
+          "placeholder": "",
+          "select": "media"
+        }
+      }
     }
   }
 }

@@ -1,6 +1,6 @@
 <template>
     <transition :name="$style['splash-screen']">
-        <v-splash-screen v-if="splashScreenState !== 'leaved'" v-model="splashScreenState" />
+        <v-splash-screen v-if="splashScreenState !== 'done'" v-model="splashScreenState" />
     </transition>
 </template>
 
@@ -10,7 +10,7 @@ import toBoolean from '~/utils/to-boolean'
 import GeneralsConst from '~/constants/app'
 import MutationType from '~/constants/mutation-type'
 
-export type SplashScreenState = 'pending' | 'beforeEnter' | 'beforeLeaved' | 'leaved'
+export type SplashScreenState = 'pending' | 'beforeEnter' | 'beforeLeaved' | 'leave' | 'done'
 
 export default Vue.extend({
     name: 'VSplashScreenWrapper',
@@ -21,7 +21,7 @@ export default Vue.extend({
     },
     watch: {
         splashScreenState(state: SplashScreenState) {
-            if (state === 'beforeLeaved') this.onSplashScreenDone()
+            if (state === 'done') this.onSplashScreenDone()
         },
     },
     mounted() {
@@ -35,13 +35,11 @@ export default Vue.extend({
         setSplashScreenState() {
             const displayed = toBoolean(GeneralsConst.DISPLAY_SPLASH_SCREEN_ONCE) || !this.hasAlreadyVisited()
 
-            console.log('display splash', displayed)
             if (displayed) this.splashScreenState = 'beforeEnter'
             else this.onSplashScreenDone()
         },
         onSplashScreenDone() {
             this.$store.commit(MutationType.SPLASH_SCREEN_DONE, true)
-            this.splashScreenState = 'leaved'
         },
         hasAlreadyVisited(): boolean {
             return !!localStorage.getItem('visited')

@@ -1,11 +1,11 @@
 {
   "uid": {
     "__TYPE__": "UIDContent",
-    "value": "throat"
+    "value": "yet"
   },
   "title": {
     "__TYPE__": "FieldContent",
-    "value": "dirt",
+    "value": "even",
     "type": "Text"
   },
   "description": {
@@ -14,7 +14,7 @@
       {
         "type": "paragraph",
         "content": {
-          "text": "Ad excepteur esse non fugiat anim eiusmod aute voluptate consectetur mollit minim nostrud sunt. Aute ullamco irure consequat quis. Eu incididunt nostrud ex consequat reprehenderit."
+          "text": "Id culpa ipsum sint veniam eiusmod reprehenderit occaecat ipsum. Amet cillum ullamco nisi tempor ut. Sit exercitation aliqua eiusmod commodo."
         }
       }
     ]
@@ -22,19 +22,19 @@
   "date": {
     "__TYPE__": "FieldContent",
     "type": "Date",
-    "value": "2020-11-13"
+    "value": "2016-11-29"
   },
   "thumbnail": {
     "__TYPE__": "ImageContent",
     "origin": {
       "id": "main",
-      "url": "https://images.unsplash.com/photo-1493119508027-2b584f234d6c",
-      "width": 3424,
-      "height": 3424
+      "url": "https://images.unsplash.com/photo-1606248897732-2c5ffe759c04",
+      "width": 4000,
+      "height": 4000
     },
-    "url": "https://images.unsplash.com/photo-1493119508027-2b584f234d6c",
-    "width": 3424,
-    "height": 3424,
+    "url": "https://images.unsplash.com/photo-1606248897732-2c5ffe759c04",
+    "width": 4000,
+    "height": 4000,
     "edit": {
       "zoom": 1,
       "crop": {
@@ -55,12 +55,33 @@
             "label",
             {
               "__TYPE__": "FieldContent",
-              "value": "skin",
+              "value": "nice",
               "type": "Text"
             }
           ]
         ]
       }
     ]
+  },
+  "meta_title": {
+    "__TYPE__": "FieldContent",
+    "value": "minerals",
+    "type": "Text"
+  },
+  "meta_description": {
+    "__TYPE__": "FieldContent",
+    "value": "habit",
+    "type": "Text"
+  },
+  "meta_image": {
+    "__TYPE__": "LinkContent",
+    "value": {
+      "id": "mock_Media_link",
+      "kind": "image/jpeg",
+      "name": "mock_name",
+      "url": "https://source.unsplash.com/daily",
+      "size": "0",
+      "__TYPE__": "FileLink"
+    }
   }
 }

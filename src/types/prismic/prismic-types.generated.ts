@@ -199,6 +199,17 @@ interface PageDocumentData {
      */
     description: prismicT.RichTextField;
     /**
+     * Type field in *Page*
+     *
+     * - **Field Type**: Select
+     * - **Placeholder**: *None*
+     * - **API ID Path**: page.type
+     * - **Tab**: Main
+     * - **Documentation**: https://prismic.io/docs/core-concepts/select
+     *
+     */
+    type: prismicT.SelectField<"Default" | "Project listing">;
+    /**
      * Meta title field in *Page*
      *
      * - **Field Type**: Text
@@ -243,7 +254,112 @@ interface PageDocumentData {
  */
 export type PageDocument<Lang extends string = string> = prismicT.PrismicDocumentWithUID<Simplify<PageDocumentData>, "page", Lang>;
 /** Content for Project documents */
-type ProjectDocumentData = Record<string, never>;
+interface ProjectDocumentData {
+    /**
+     * Title field in *Project*
+     *
+     * - **Field Type**: Text
+     * - **Placeholder**: Titre du projet
+     * - **API ID Path**: project.title
+     * - **Tab**: Main
+     * - **Documentation**: https://prismic.io/docs/core-concepts/key-text
+     *
+     */
+    title: prismicT.KeyTextField;
+    /**
+     * Description field in *Project*
+     *
+     * - **Field Type**: Rich Text
+     * - **Placeholder**: Description du projet
+     * - **API ID Path**: project.description
+     * - **Tab**: Main
+     * - **Documentation**: https://prismic.io/docs/core-concepts/rich-text-title
+     *
+     */
+    description: prismicT.RichTextField;
+    /**
+     * Date field in *Project*
+     *
+     * - **Field Type**: Date
+     * - **Placeholder**: Date du projet
+     * - **API ID Path**: project.date
+     * - **Tab**: Main
+     * - **Documentation**: https://prismic.io/docs/core-concepts/date
+     *
+     */
+    date: prismicT.DateField;
+    /**
+     * Thumbnail field in *Project*
+     *
+     * - **Field Type**: Image
+     * - **Placeholder**: *None*
+     * - **API ID Path**: project.thumbnail
+     * - **Tab**: Main
+     * - **Documentation**: https://prismic.io/docs/core-concepts/image
+     *
+     */
+    thumbnail: prismicT.ImageField<never>;
+    /**
+     * Tags field in *Project*
+     *
+     * - **Field Type**: Group
+     * - **Placeholder**: *None*
+     * - **API ID Path**: project.tags[]
+     * - **Tab**: Main
+     * - **Documentation**: https://prismic.io/docs/core-concepts/group
+     *
+     */
+    tags: prismicT.GroupField<Simplify<ProjectDocumentDataTagsItem>>;
+    /**
+     * Meta title field in *Project*
+     *
+     * - **Field Type**: Text
+     * - **Placeholder**: *None*
+     * - **API ID Path**: project.meta_title
+     * - **Tab**: Meta data
+     * - **Documentation**: https://prismic.io/docs/core-concepts/key-text
+     *
+     */
+    meta_title: prismicT.KeyTextField;
+    /**
+     * Meta description field in *Project*
+     *
+     * - **Field Type**: Text
+     * - **Placeholder**: *None*
+     * - **API ID Path**: project.meta_description
+     * - **Tab**: Meta data
+     * - **Documentation**: https://prismic.io/docs/core-concepts/key-text
+     *
+     */
+    meta_description: prismicT.KeyTextField;
+    /**
+     * Meta image field in *Project*
+     *
+     * - **Field Type**: Link to Media
+     * - **Placeholder**: *None*
+     * - **API ID Path**: project.meta_image
+     * - **Tab**: Meta data
+     * - **Documentation**: https://prismic.io/docs/core-concepts/link-content-relationship
+     *
+     */
+    meta_image: prismicT.LinkToMediaField;
+}
+/**
+ * Item in Project → Tags
+ *
+ */
+export interface ProjectDocumentDataTagsItem {
+    /**
+     * Label field in *Project → Tags*
+     *
+     * - **Field Type**: Text
+     * - **Placeholder**: Label du tag
+     * - **API ID Path**: project.tags[].label
+     * - **Documentation**: https://prismic.io/docs/core-concepts/key-text
+     *
+     */
+    label: prismicT.KeyTextField;
+}
 /**
  * Project document from Prismic
  *
@@ -253,7 +369,7 @@ type ProjectDocumentData = Record<string, never>;
  *
  * @typeParam Lang - Language API ID of the document.
  */
-export type ProjectDocument<Lang extends string = string> = prismicT.PrismicDocumentWithoutUID<Simplify<ProjectDocumentData>, "project", Lang>;
+export type ProjectDocument<Lang extends string = string> = prismicT.PrismicDocumentWithUID<Simplify<ProjectDocumentData>, "project", Lang>;
 /** Content for Settings documents */
 interface SettingsDocumentData {
     /**
@@ -337,62 +453,11 @@ export interface SettingsDocumentDataSocialsItem {
  */
 export type SettingsDocument<Lang extends string = string> = prismicT.PrismicDocumentWithoutUID<Simplify<SettingsDocumentData>, "settings", Lang>;
 export type AllDocumentTypes = HomePageDocument | MainMenuDocument | PageDocument | ProjectDocument | SettingsDocument;
-/**
- * Primary content in TestSlice → Primary
- *
- */
-interface TestSliceSliceDefaultPrimary {
-    /**
-     * Title field in *TestSlice → Primary*
-     *
-     * - **Field Type**: Title
-     * - **Placeholder**: This is where it all begins...
-     * - **API ID Path**: test_slice.primary.title
-     * - **Documentation**: https://prismic.io/docs/core-concepts/rich-text-title
-     *
-     */
-    title: prismicT.TitleField;
-    /**
-     * Description field in *TestSlice → Primary*
-     *
-     * - **Field Type**: Rich Text
-     * - **Placeholder**: A nice description of your product
-     * - **API ID Path**: test_slice.primary.description
-     * - **Documentation**: https://prismic.io/docs/core-concepts/rich-text-title
-     *
-     */
-    description: prismicT.RichTextField;
-}
-/**
- * Default Slice variation for TestSlice Slice
- *
- * - **API ID**: `default`
- * - **Description**: `Test Slice`
- * - **Documentation**: https://prismic.io/docs/core-concepts/reusing-slices
- *
- */
-export type TestSliceSliceDefault = prismicT.SharedSliceVariation<"default", Simplify<TestSliceSliceDefaultPrimary>, never>;
-/**
- * Slice variation for *TestSlice*
- *
- */
-type TestSliceSliceVariation = TestSliceSliceDefault;
-/**
- * TestSlice Shared Slice
- *
- * - **API ID**: `test_slice`
- * - **Description**: `Test Slice`
- * - **Documentation**: https://prismic.io/docs/core-concepts/reusing-slices
- *
- */
-export type TestSliceSlice = prismicT.SharedSlice<"test_slice", TestSliceSliceVariation>;
-
 declare module "@prismicio/client" {
     interface CreateClient {
-        (repositoryNameOrEndpoint?: string, options?: CustomTypesClientConfig): Promise<AllDocumentTypes>;
+        (repositoryNameOrEndpoint?: string, options?: CustomTypesClientConfig): typeof CustomTypesClient;
     }
     namespace Content {
-        export type { HomePageDocumentData, HomePageDocumentDataSlicesSlice, HomePageDocument, MainMenuDocumentData, MainMenuDocumentDataLinksItem, MainMenuDocument, PageDocumentData, PageDocument, ProjectDocumentData, ProjectDocument, SettingsDocumentData, SettingsDocumentDataSocialsItem, SettingsDocument, AllDocumentTypes, TestSliceSliceDefaultPrimary, TestSliceSliceDefault, TestSliceSliceVariation, TestSliceSlice };
+        export type { HomePageDocumentData, HomePageDocumentDataSlicesSlice, HomePageDocument, MainMenuDocumentData, MainMenuDocumentDataLinksItem, MainMenuDocument, PageDocumentData, PageDocument, ProjectDocumentData, ProjectDocumentDataTagsItem, ProjectDocument, SettingsDocumentData, SettingsDocumentDataSocialsItem, SettingsDocument, AllDocumentTypes };
     }
 }
-//         (repositoryNameOrEndpoint: string, options?: prismic.ClientConfig): prismic.Client<AllDocumentTypes>;

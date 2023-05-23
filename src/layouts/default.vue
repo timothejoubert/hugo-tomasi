@@ -1,7 +1,7 @@
 <template>
     <div :class="[$style.root, (isSplashScreenDone || !displaySplashScreen) && $style['root--ready']]">
-        <v-top-bar />
         <v-splash-screen-wrapper v-if="displaySplashScreen" />
+        <v-top-bar />
         <Nuxt />
 
         <!-- eslint-disable-next-line vue/no-v-html -->

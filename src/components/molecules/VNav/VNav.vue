@@ -1,6 +1,6 @@
 <template>
     <div :class="$style.root">
-        <nuxt-link v-for="(item, i) in navItemList" :key="i" :to="item.link.uid" class="text-over-title-s">{{item.label}}</nuxt-link>
+        <nuxt-link v-for="(item, i) in navItemList" :key="i" :to="isHomePath(item.link.uid) ? '/' : item.link.uid" class="text-over-title-s">{{item.label}}</nuxt-link>
         <script v-if="breadcrumbJsonldB" type="application/ld+json" v-html="breadcrumbJsonldB"></script>
     </div>
 </template>
@@ -45,6 +45,11 @@ export default Vue.extend({
                 }),
             }
         },
+    },
+    methods: {
+        isHomePath(documentUid: string | undefined) {
+            return !documentUid || documentUid === DocumentUid.HOME
+        }
     },
 })
 </script>

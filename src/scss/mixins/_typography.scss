@@ -13,7 +13,7 @@
 }
 
 @mixin text-h3 {
-    font-size: rem(82);
+    @include font-size-fluid((xs: 38, xl: 68));
     font-weight: 500;
     line-height: 1;
 }

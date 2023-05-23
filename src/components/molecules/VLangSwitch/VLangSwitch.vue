@@ -17,7 +17,7 @@
             </div>
 
     </div>
-    <div v-else>No other lang detect</div>
+    <div v-else class="text-body-xs">En not set</div>
 </template>
 
 <script lang="ts">

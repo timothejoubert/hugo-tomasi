@@ -21,7 +21,7 @@ export default {
   srcDir: 'src',
 
     router: {
-        base: process.env.HOME_PATH || '/',
+        base: process.env.HOME_PATH || '/'
     },
 
   image: {
