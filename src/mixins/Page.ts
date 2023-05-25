@@ -25,9 +25,8 @@ export default Vue.extend({
 
         const isPreview = route.fullPath.includes('/preview/')
 
-        // Root & Local
-        const hasEnInUrl = route.fullPath.includes('/en')
-        const isRootPath = hasEnInUrl || route.fullPath === '/' || route.fullPath === '/fr' || route.fullPath.includes('accueil')
+        // Root
+        const isRootPath = route.fullPath === '/en' || route.fullPath === '/'
 
         // Projects
         const isProjectListingUrl = route.path.substring(1) === DocumentUid.PROJECT_LISTING
@@ -38,21 +37,20 @@ export default Vue.extend({
         if (isRootPath) uid = DocumentUid.HOME
         else if (isProjectUrl) uid = params.pathMatch.replace(`${DocumentUid.PROJECT_LISTING}/`, '');
         else if (isProjectListingUrl) uid = DocumentUid.PROJECT_LISTING
-        else {
-            uid = params.pathMatch || DocumentUid.HOME
-        }
+        else uid = params.pathMatch
 
         if (isPreview) {
             page = await $prismic.api.getByID(route.params.documentId)
         } else if (isProjectUrl) {
             page = store.getters.getProjectByUid(uid)
         } else {
+            // customType with Uid: 'home_page' | 'page'
             try {
                 const customType= isRootPath ? CustomType.HOME_PAGE : CustomType.PAGE
 
-                page =  await $prismic.api.getByUID(customType, uid, hasEnInUrl ? { lang: 'en-gb' } : undefined)
+                page =  await $prismic.api.getByUID(customType, uid, route.fullPath.includes('/en')  ? { lang: 'en-gb' } : undefined)
 
-            } catch (fetchError: any | Error) {
+            } catch (fetchError: Error | any) {
                 error({
                     statusCode: fetchError?.response?.status,
                     message: fetchError?.message,
@@ -118,13 +116,14 @@ export default Vue.extend({
             return !!this.page && isHomePageDocument(this.page)
         },
         isProjectListing(): boolean {
+            console.log(this.page)
             return !!this.page && isProjectListingDocument(this.page)
-        },
-        isDefaultPage(): boolean {
-            return !!this.page && isDefaultPageDocument(this.page)
         },
         isProjectPage(): boolean {
             return !!this.page && isProjectDocument(this.page)
+        },
+        isDefaultPage(): boolean {
+            return !!this.page && isDefaultPageDocument(this.page)
         },
         slices(): SliceZone | [] {
             return !!this.page && this.page.data?.slices

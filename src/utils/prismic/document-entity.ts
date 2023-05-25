@@ -12,7 +12,7 @@ export const isHomePageDocument = (document?: PrismicDocument): boolean => {
 }
 
 export const isProjectListingDocument = (document?: PrismicDocument): boolean => {
-    return isDocument(document) && isDocumentByUid(document, 'projects')
+    return isDocument(document) && isDocumentByUid(document, DocumentUid.PROJECT_LISTING)
 }
 
 export const hasParentPage = (document: PrismicDocument): boolean => {

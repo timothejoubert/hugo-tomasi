@@ -1,6 +1,6 @@
 <template>
-    <div :class="rootClass">
-        <nuxt-link to="/">logo</nuxt-link>
+    <div :class="$style.root">
+        <nuxt-link :to="homeLink">logo</nuxt-link>
         <v-nav :class="$style.nav"/>
         <v-lang-switch />
     </div>
@@ -11,13 +11,11 @@ import Vue from 'vue'
 
 export default Vue.extend({
     name: 'VTopBar',
-    props: {},
     computed: {
-        rootClass(): (undefined | false | string)[] {
-            return [this.$style.root]
-        },
+        homeLink(): string {
+            return this.$i18n.locale === 'en' ? '/en' : '/'
+        }
     },
-    methods: {},
 })
 </script>
 

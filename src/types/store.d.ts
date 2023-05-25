@@ -10,8 +10,10 @@ interface RootState {
     projects: ProjectDocument[] | null
     currentPageData: PrismicDocument | null
 
-    // SplashScreen
+    // components
     splashScreenDone: Boolean
+    mediaViewerData: null | prismicT.ImageField[]
+    mediaViewerSlideIndex: number
 
     // Global
     windowWidth: number
@@ -19,6 +21,6 @@ interface RootState {
     errorPage: NuxtError | null
     prefersReducedMotion: boolean
     scrollIsDisabled: boolean
-    mediaViewerData: null | prismicT.ImageField[]
-    mediaViewerSlideIndex: number
+
+
 }

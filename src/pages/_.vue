@@ -1,9 +1,9 @@
 <template>
     <div v-if="pageData">
         <lazy-v-home-page v-if="isHome" :page-data="pageData" />
-        <lazy-v-project-listing v-if="isProjectListing" :page-data="pageData" />
-        <lazy-v-project-page v-if="isProjectPage" :page-data="pageData" />
-        <lazy-v-default-page v-if="isDefaultPage" :page-data="pageData" />
+        <lazy-v-project-listing v-else-if="isProjectListing" :page-data="pageData" />
+        <lazy-v-project-page v-else-if="isProjectPage" :page-data="pageData" />
+        <lazy-v-default-page v-else-if="isDefaultPage" :page-data="pageData" />
 
         <slice-zone
             v-if="slices && components"

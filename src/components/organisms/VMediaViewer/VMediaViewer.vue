@@ -144,7 +144,7 @@ $space-bottom: rem(86);
     flex-direction: column;
     justify-content: center;
     background: color(white);
-    color: color(dark);
+    color: color(black);
     inset: 0;
 }
 

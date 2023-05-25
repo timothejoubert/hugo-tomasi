@@ -9,7 +9,7 @@
             "label",
             {
               "__TYPE__": "FieldContent",
-              "value": "moon",
+              "value": "detail",
               "type": "Text"
             }
           ],

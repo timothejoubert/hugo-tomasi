@@ -8,7 +8,7 @@
                 <a
                     v-for="(lang, i) in langList"
                     :key="lang.locale + i"
-                    :href="lang.url"
+                    :href="lang.url === '/fr' ? '/' : lang.url"
                     :class="$style.link"
                     class="text-over-title-s"
                 >
@@ -17,7 +17,7 @@
             </div>
 
     </div>
-    <div v-else class="text-body-xs">En not set</div>
+    <div v-else class="text-body-xs">No other lang</div>
 </template>
 
 <script lang="ts">
@@ -61,13 +61,12 @@ interface Lang {
     url: string
 }
 
-// TODO: re mainMenu document (and settings) data on lang switch
-
 export default Vue.extend({
     name: 'VLangSwitch',
     components: { IconChevronDown },
     computed: {
         currentLang(): Lang {
+            console.log(this.$route)
             return this.formatLang(getFormattedLocale(this.$i18n.locale, 'full'))
         },
         langList(): Lang[] {
@@ -95,15 +94,17 @@ export default Vue.extend({
 
 <style lang="scss" module>
 .root {
+    position: relative;
     display: flex;
     flex-direction: column;
 }
 
 .list {
     position: absolute;
+    inset: 0;
     opacity: 0;
     transform: translateY(50%);
-    transition: transform 0.4s ease(out-quad);
+    transition: transform 0.3s ease(out-quad);
     transition-property: transform, opacity;
 
     @media (hover: hover) {

@@ -48,11 +48,9 @@ export default Vue.extend({
         if (isProject) {
             url = `/${DocumentUid.PROJECT_LISTING}/${reference.uid}`
         } else if (isDocument) {
-            url = reference.uid
+            url = '/' + reference.uid
         } else if (href) {
             url = href
-        } else {
-            url = context.parent.$config.homePath
         }
 
         const data: CustomVNodeData = Object.assign({ props: {}, attrs: {} }, context.data)

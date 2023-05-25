@@ -9,17 +9,18 @@ import {CustomTypesClientConfig} from "@prismicio/custom-types-client";
 
 
 ### IN PROGRESS
-* **(VLink)** Check component with prismic document
-* **(Setup)** Check if ld+json is correct [ref](https://jsonld.com/person/)
-* **(Style)** typography mixin
+* **(Internalization)** when switch lang => go to current page 
+* **(Config)** esLint and styleLint on save
 * **(VNav)** when sub page (projects/slug) menu url keep '/project/uid-page'
 
 ### TODOS
-* **(Internalization)** refetch project with current locale
-* **(Config)**: I18n
-* **(Nav && Config)**: Configure nested route
+* **(Internalization)** re fetch project with current locale
 
 ### DONE
+* **(Internalization)** update nav link if locale is 'en' => /en/projects (actually: /projects)
+* **(VLink)** Check component with prismic document
+* **(Setup)** Check if ld+json is correct [ref](https://jsonld.com/person/)
+* **(Style)** typography mixin
 * **(Setup)** Fix generated prismic ts 
 * **(Internalization)** Set Fr as Default
 * **(PageComponent)** ProjectPage | HomePage | DefaultPage
@@ -27,3 +28,7 @@ import {CustomTypesClientConfig} from "@prismicio/custom-types-client";
 
 ### ABANDONED
 * **(Setup)** Add storybook
+
+### LATER 
+* **(Nav && Config)**: Configure nested route
+* **(Config)**: I18n

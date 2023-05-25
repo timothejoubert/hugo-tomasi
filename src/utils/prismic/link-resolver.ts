@@ -1,6 +1,6 @@
 import { Document } from '@prismicio/client/types/documents'
 import DocumentUid from '../../constants/document-uid'
-import CustomType from '../../constants/custom-type'
+// import CustomType from '../../constants/custom-type'
 
 export default function linkResolver({ uid, type }: Document) {
     if (uid === DocumentUid.HOME) return '/'

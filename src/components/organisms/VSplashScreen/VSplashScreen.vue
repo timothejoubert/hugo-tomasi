@@ -99,7 +99,7 @@ export default Vue.extend({
 
     &::after {
         position: absolute;
-        background-color: color(dark);
+        background-color: color(black);
         border-radius: rem(24);
         content: '';
         inset: rem(10);

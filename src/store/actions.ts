@@ -15,6 +15,9 @@ const actions: ActionTree<RootState, RootState> = {
     async nuxtServerInit({ commit, dispatch }: ActionContext<RootState, RootState>, context: Context) {
         if (!('$prismic' in this)) console.log('prismic module not found')
 
+        if (context.route.fullPath.includes('/en')) await context.app.i18n.setLocale('en')
+        else await context.app.i18n.setLocale('fr')
+
         await dispatch('getCommonContent', context)
             .then(([mainMenu, settings]: Array<SettingsDocument | MainMenuDocument>) => {
                 commit(MutationType.SET_MAIN_MENU, mainMenu)
@@ -27,7 +30,6 @@ const actions: ActionTree<RootState, RootState> = {
         await dispatch('getProjects', context)
             .then((projects: Array<ProjectDocument>) => {
                 // TODO: order project by date
-                // TODO: fetch current locale
                 commit(MutationType.SET_PROJECTS, projects)
             })
             .catch((fetchError: Error) => {
@@ -38,8 +40,7 @@ const actions: ActionTree<RootState, RootState> = {
         _actionContext: ActionContext<RootState, RootState>,
         context: Context
     ): Promise<Document<SettingsDocument | MainMenuDocument>[]> {
-        const hasEnInUrl = context.route.fullPath.includes('/en')
-        const localeOptions = hasEnInUrl ? { lang: 'en-gb' } : undefined
+        const localeOptions = context.route.fullPath.includes('/en') ? { lang: 'en-gb' } : undefined
 
         const mainMenu = context.$prismic.api.getSingle(CustomType.MAIN_MENU as CustomTypeName, localeOptions)
         const settings = context.$prismic.api.getSingle(CustomType.SETTINGS as CustomTypeName, localeOptions)
@@ -50,10 +51,13 @@ const actions: ActionTree<RootState, RootState> = {
         _actionContext: ActionContext<RootState, RootState>,
         context: Context
     ): Promise<Document<ProjectDocument>[]> {
+        const localeOptions = context.route.fullPath.includes('/en') ? { lang: 'en-gb' } : undefined
+
         const projects = context.$prismic.api
-            .query(context.$prismic.predicates.at('document.type', CustomType.PROJECT as CustomTypeName))
+            .query(context.$prismic.predicates.at('document.type', CustomType.PROJECT as CustomTypeName), localeOptions)
             .then((response) => response.results)
 
+        console.log(projects)
         return Promise.resolve(projects)
     },
     updatePageData({ commit }: ActionContext<RootState, RootState>, data: PrismicDocument) {
