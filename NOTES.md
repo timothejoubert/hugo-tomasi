@@ -9,14 +9,15 @@ import {CustomTypesClientConfig} from "@prismicio/custom-types-client";
 
 
 ### IN PROGRESS
-* **(Internalization)** when switch lang => go to current page 
-* **(Config)** esLint and styleLint on save
-* **(VNav)** when sub page (projects/slug) menu url keep '/project/uid-page'
 
 ### TODOS
-* **(Internalization)** re fetch project with current locale
 
 ### DONE
+* **(I18n)** get locale trad
+* **(VNav)** when sub page (projects/slug) menu url keep '/project/uid-page'
+* **(Internalization)** re fetch project with current locale
+* **(VNav)** when switch lang => go to current page
+* **(Config)** esLint and styleLint on save
 * **(Internalization)** update nav link if locale is 'en' => /en/projects (actually: /projects)
 * **(VLink)** Check component with prismic document
 * **(Setup)** Check if ld+json is correct [ref](https://jsonld.com/person/)

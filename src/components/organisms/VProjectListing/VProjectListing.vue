@@ -1,12 +1,12 @@
 <template>
     <div :class="$style.root">
         <div :class="$style.head">
-            <div v-if="pageData.title">{{pageData.title}}</div>
-            <div :class="$style.filters">mes filtres</div>
+            <div v-if="pageData.title">{{ pageData.title }}</div>
+            <div :class="$style.filters">{{ $t('filter.label') }}</div>
         </div>
         <div :class="$style.body">
             <ul :class="$style.projects">
-                <li v-for="project in projects" :key="project.uid"  :class="$style.project">
+                <li v-for="project in projects" :key="project.uid" :class="$style.project">
                     <v-link :reference="project">
                         <v-project-card :project="project.data" />
                     </v-link>
@@ -17,9 +17,9 @@
 </template>
 
 <script lang="ts">
-import {ProjectDocument} from "~/types/prismic/prismic-types.generated";
-import mixins from "vue-typed-mixins";
-import PageDataProvider from "~/mixins/PageDataProvider";
+import mixins from 'vue-typed-mixins'
+import { ProjectDocument } from '~/types/prismic/prismic-types.generated'
+import PageDataProvider from '~/mixins/PageDataProvider'
 
 export default mixins(PageDataProvider).extend({
     name: 'VProjectListing',

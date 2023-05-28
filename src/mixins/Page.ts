@@ -1,19 +1,18 @@
-import type {MetaInfo} from 'vue-meta'
+import type { MetaInfo } from 'vue-meta'
 import Vue from 'vue'
-import {Context, NuxtError} from '@nuxt/types'
-import {FacebookMetaOptions, PageMetaPropertyName, TwitterMetaOptions} from '~/types/meta'
-import {createFacebookMeta} from '~/utils/meta/facebook'
-import {createTwitterMeta} from '~/utils/meta/twitter'
-import {DocumentWithUidData} from '~/types/prismic/app-prismic'
+import { Context, NuxtError } from '@nuxt/types'
+import { SliceZone } from '@prismicio/types/src/value/sliceZone'
+import { FilledLinkToMediaField, LinkToMediaField } from '@prismicio/types/src/value/linkToMedia'
+import { FacebookMetaOptions, PageMetaPropertyName, TwitterMetaOptions } from '~/types/meta'
+import { createFacebookMeta } from '~/utils/meta/facebook'
+import { createTwitterMeta } from '~/utils/meta/twitter'
+import { DocumentWithUidData } from '~/types/prismic/app-prismic'
 import DocumentUid from '~/constants/document-uid'
 import CustomType from '~/constants/custom-type'
-import {SliceZone} from "@prismicio/types/src/value/sliceZone";
-import {isHomePageDocument, isProjectListingDocument} from "~/utils/prismic/document-entity";
-import {isDefaultPageDocument, isProjectDocument} from "~/utils/prismic/custom-type-entity";
-import {getDocumentData} from "~/utils/prismic/types-utilities";
-import {isFilledLinkToMediaField} from "~/utils/prismic/field-media";
-import {LinkToMediaField} from "@prismicio/types/src/value/linkToMedia";
-import {FilledLinkToMediaField} from "@prismicio/types";
+import { isHomePageDocument, isProjectListingDocument } from '~/utils/prismic/document-entity'
+import { isDefaultPageDocument, isProjectDocument } from '~/utils/prismic/custom-type-entity'
+import { getDocumentData } from '~/utils/prismic/types-utilities'
+import { isFilledLinkToMediaField } from '~/utils/prismic/field-media'
 import { getFormattedLocale } from '~/components/molecules/VLangSwitch/VLangSwitch.vue'
 
 export default Vue.extend({
@@ -32,10 +31,9 @@ export default Vue.extend({
         const isProjectListingUrl = route.path.substring(1) === DocumentUid.PROJECT_LISTING
         const isProjectUrl = route.path.includes(`/${DocumentUid.PROJECT_LISTING}/`) && !!params?.pathMatch
 
-
         let uid: string
         if (isRootPath) uid = DocumentUid.HOME
-        else if (isProjectUrl) uid = params.pathMatch.replace(`${DocumentUid.PROJECT_LISTING}/`, '');
+        else if (isProjectUrl) uid = params.pathMatch.replace(`${DocumentUid.PROJECT_LISTING}/`, '')
         else if (isProjectListingUrl) uid = DocumentUid.PROJECT_LISTING
         else uid = params.pathMatch
 
@@ -46,10 +44,13 @@ export default Vue.extend({
         } else {
             // customType with Uid: 'home_page' | 'page'
             try {
-                const customType= isRootPath ? CustomType.HOME_PAGE : CustomType.PAGE
+                const customType = isRootPath ? CustomType.HOME_PAGE : CustomType.PAGE
 
-                page =  await $prismic.api.getByUID(customType, uid, route.fullPath.includes('/en')  ? { lang: 'en-gb' } : undefined)
-
+                page = await $prismic.api.getByUID(
+                    customType,
+                    uid,
+                    route.fullPath.includes('/en') ? { lang: 'en-gb' } : undefined
+                )
             } catch (fetchError: Error | any) {
                 error({
                     statusCode: fetchError?.response?.status,
@@ -62,7 +63,7 @@ export default Vue.extend({
             await store.dispatch('updatePageData', page)
             return { page }
         } else {
-            return { page: { title : 'can\'t fetch title in Page mixin'} }
+            return { page: { title: "can't fetch title in Page mixin" } }
         }
     },
     head(): MetaInfo {
@@ -110,13 +111,12 @@ export default Vue.extend({
             return this.appTitle + this.$route.fullPath.substring(1)
         },
         pageDescription(): string | undefined {
-            return (this.pageData?.meta_description || this.$store.state.settings?.data?.description)
+            return this.pageData?.meta_description || this.$store.state.settings?.data?.description
         },
         isHome(): boolean {
             return !!this.page && isHomePageDocument(this.page)
         },
         isProjectListing(): boolean {
-            console.log(this.page)
             return !!this.page && isProjectListingDocument(this.page)
         },
         isProjectPage(): boolean {
@@ -128,6 +128,10 @@ export default Vue.extend({
         slices(): SliceZone | [] {
             return !!this.page && this.page.data?.slices
         },
+    },
+    created() {
+        // set the locale for first render on the client side (without asyncData)
+        if (this.page?.lang) this.$i18n.locale = getFormattedLocale(this.page.lang, 'minify')
     },
     methods: {
         getTwitterMetaOptions(): TwitterMetaOptions {
@@ -147,9 +151,5 @@ export default Vue.extend({
                 image: this.metaImage,
             }
         },
-    },
-    created() {
-        // set the locale for first render on the client side (without asyncData)
-        if (this.page?.lang) this.$i18n.locale = getFormattedLocale(this.page.lang, 'minify')
     },
 })

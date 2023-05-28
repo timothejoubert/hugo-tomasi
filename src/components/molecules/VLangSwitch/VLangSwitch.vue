@@ -1,40 +1,32 @@
 <template>
-    <div :class="$style.root" v-if="langList.length">
-            <div :class="[$style.link, $style['link--current']]" class="text-over-title-s">
-                {{currentLang.label}}
-                <icon-chevron-down />
-            </div>
-            <div :class="$style.list">
-                <a
-                    v-for="(lang, i) in langList"
-                    :key="lang.locale + i"
-                    :href="lang.url === '/fr' ? '/' : lang.url"
-                    :class="$style.link"
-                    class="text-over-title-s"
-                >
-                    {{lang.label}}
-                </a>
-            </div>
-
+    <div v-if="langList.length" :class="$style.root">
+        <div :class="[$style.link, $style['link--current']]" class="text-over-title-s">
+            {{ currentLang.label }}
+            <icon-chevron-down />
+        </div>
+        <div :class="$style.list">
+            <a
+                v-for="(lang, i) in langList"
+                :key="lang.locale + i"
+                :href="getUrl(lang)"
+                :class="$style.link"
+                class="text-over-title-s"
+            >
+                {{ lang.label }}
+            </a>
+        </div>
     </div>
-    <div v-else class="text-body-xs">No other lang</div>
+    <div v-else :class="[$style.link, $style['link--fallback']]" class="text-over-title-s">Null</div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
-import {AlternateLanguage} from "@prismicio/types/src/value/document";
+import { AlternateLanguage } from '@prismicio/types/src/value/document'
 import IconChevronDown from '~/assets/images/icons/chevron-down.svg?sprite'
-
-const isFrLocal = (local: string): boolean => {
-    return local === 'fr' || local === 'fr-fr'
-}
-const isEnLocal = (local: string): boolean =>{
-    return local === 'en' || local === 'en-gb' || local === 'en-us'
-}
 
 export const getFormattedLocale = (local: string, output: 'minify' | 'full'): string => {
     if (output === 'full') {
-        switch (local){
+        switch (local) {
             case 'fr':
                 return 'fr-fr'
             case 'en':
@@ -66,15 +58,16 @@ export default Vue.extend({
     components: { IconChevronDown },
     computed: {
         currentLang(): Lang {
-            console.log(this.$route)
             return this.formatLang(getFormattedLocale(this.$i18n.locale, 'full'))
         },
         langList(): Lang[] {
             const availableLangList = this.$store.state.currentPageData?.alternate_languages
 
-            return availableLangList?.map((alternate: AlternateLanguage) => {
-                return this.formatLang(alternate.lang)
-            }) || []
+            return (
+                availableLangList?.map((alternate: AlternateLanguage) => {
+                    return this.formatLang(alternate.lang)
+                }) || []
+            )
         },
     },
     methods: {
@@ -82,12 +75,22 @@ export default Vue.extend({
             const minifyLocal = getFormattedLocale(locale, 'minify')
 
             return {
-                locale: locale,
+                locale,
                 title: minifyLocal,
                 label: minifyLocal.charAt(0).toUpperCase() + minifyLocal.slice(1),
                 url: '/' + minifyLocal,
             }
-        }
+        },
+        getUrl(lang: Lang): string {
+            const fullPath = this.$route.fullPath
+            const isHomePath = fullPath === '/' || fullPath === '/en'
+            const uid = this.$route.params.pathMatch
+            const isDefaultLocale = lang.title === this.$config.defaultLocale
+
+            if (isDefaultLocale) return isHomePath ? this.$router.options.base || '/' : '/' + uid
+            else if (lang.url === '/en') return isHomePath ? '/en' : '/en/' + uid
+            return '/'
+        },
     },
 })
 </script>
@@ -111,7 +114,6 @@ export default Vue.extend({
         .root:hover & {
             opacity: 1;
             transform: translateY(100%);
-
         }
     }
 }
@@ -125,6 +127,13 @@ export default Vue.extend({
         display: flex;
         align-items: center;
         gap: rem(2);
+    }
+
+    &--fallback {
+        display: flex;
+        width: rem(75);
+        min-height: rem(36);
+        align-items: center;
     }
 }
 </style>

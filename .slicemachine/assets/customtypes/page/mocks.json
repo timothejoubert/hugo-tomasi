@@ -1,11 +1,11 @@
 {
   "uid": {
     "__TYPE__": "UIDContent",
-    "value": "was"
+    "value": "exact"
   },
   "title": {
     "__TYPE__": "FieldContent",
-    "value": "glad",
+    "value": "year",
     "type": "Text"
   },
   "description": {
@@ -14,19 +14,24 @@
       {
         "type": "paragraph",
         "content": {
-          "text": "Duis aliquip dolore aliqua veniam aute do in eu mollit."
+          "text": "Nostrud incididunt ad ea veniam duis aliquip ea eu et dolore anim. Consectetur et Lorem non quis dolore incididunt pariatur quis."
         }
       }
     ]
   },
+  "type": {
+    "__TYPE__": "FieldContent",
+    "value": "About",
+    "type": "Select"
+  },
   "meta_title": {
     "__TYPE__": "FieldContent",
-    "value": "mouse",
+    "value": "longer",
     "type": "Text"
   },
   "meta_description": {
     "__TYPE__": "FieldContent",
-    "value": "badly",
+    "value": "continent",
     "type": "Text"
   },
   "meta_image": {
