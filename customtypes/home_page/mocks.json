@@ -1,0 +1,76 @@
+[
+  {
+    "uid": {
+      "__TYPE__": "UIDContent",
+      "value": "slope"
+    },
+    "title": {
+      "__TYPE__": "FieldContent",
+      "value": "moment",
+      "type": "Text"
+    },
+    "header_media": {
+      "__TYPE__": "LinkContent",
+      "value": {
+        "id": "mock_Media_link",
+        "kind": "image/jpeg",
+        "name": "mock_name",
+        "url": "https://source.unsplash.com/daily",
+        "size": "0",
+        "__TYPE__": "FileLink"
+      }
+    },
+    "over_title": {
+      "__TYPE__": "FieldContent",
+      "value": "expect",
+      "type": "Text"
+    },
+    "description": {
+      "__TYPE__": "StructuredTextContent",
+      "value": [
+        {
+          "type": "paragraph",
+          "content": {
+            "text": "Voluptate sunt aute voluptate tempor proident in fugiat ipsum labore. Ex quis aliqua officia eiusmod amet non esse ad labore magna ea. Exercitation velit mollit nulla incididunt eu duis elit dolore nisi et velit non consectetur excepteur."
+          }
+        }
+      ]
+    },
+    "excerpt": {
+      "__TYPE__": "StructuredTextContent",
+      "value": [
+        {
+          "type": "paragraph",
+          "content": {
+            "text": "Do ullamco ad ex enim magna nisi in amet dolore aliqua cillum."
+          }
+        }
+      ]
+    },
+    "slices": {
+      "__TYPE__": "SliceContentType",
+      "value": []
+    },
+    "meta_title": {
+      "__TYPE__": "FieldContent",
+      "value": "teacher",
+      "type": "Text"
+    },
+    "meta_description": {
+      "__TYPE__": "FieldContent",
+      "value": "two",
+      "type": "Text"
+    },
+    "meta_image": {
+      "__TYPE__": "LinkContent",
+      "value": {
+        "id": "mock_Media_link",
+        "kind": "image/jpeg",
+        "name": "mock_name",
+        "url": "https://source.unsplash.com/daily",
+        "size": "0",
+        "__TYPE__": "FileLink"
+      }
+    }
+  }
+]

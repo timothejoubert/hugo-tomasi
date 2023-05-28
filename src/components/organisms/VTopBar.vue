@@ -1,7 +1,7 @@
 <template>
-    <div :class="$style.root">
+    <div :class="$style.root" class="container">
         <nuxt-link :to="homeLink">logo</nuxt-link>
-        <v-nav :class="$style.nav"/>
+        <v-nav :class="$style.nav" />
         <v-lang-switch />
     </div>
 </template>
@@ -14,16 +14,19 @@ export default Vue.extend({
     computed: {
         homeLink(): string {
             return this.$i18n.locale === 'en' ? '/en' : '/'
-        }
+        },
     },
 })
 </script>
 
 <style lang="scss" module>
 .root {
+    position: relative;
+    z-index: 101;
     display: flex;
+    height: $v-top-bar-height;
     align-items: center;
-    padding: rem(24);
+    color: color(white);
 }
 .nav {
     margin-right: rem(20);

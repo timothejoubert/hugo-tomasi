@@ -1,9 +1,11 @@
 ### Prismic type in generated ts
 
 ```` javascript
-import type * as prismicT from "@prismicio/types";
-import CustomTypesClient from "@prismicio/custom-types-client/dist/index";
-import {CustomTypesClientConfig} from "@prismicio/custom-types-client";
+// @ts-ignore
+import type * as prismic from '@prismicio/types'
+// eslint-disable-next-line import/named,import/no-named-as-default
+import CustomTypesClient, { CustomTypesClientConfig } from '@prismicio/custom-types-client/dist/index'
+
 (repositoryNameOrEndpoint?: string, options?: CustomTypesClientConfig): typeof CustomTypesClient;
 ````
 

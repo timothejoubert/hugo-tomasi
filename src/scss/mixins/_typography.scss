@@ -2,8 +2,9 @@
 
 @mixin text-h1 {
     @include font-size-fluid((xs: 54, xl: 120));
-    font-weight: 600;
+    font-weight: 700;
     line-height: math.div(108, 120);
+    text-transform: uppercase;
 }
 
 @mixin text-h2 {
@@ -25,9 +26,9 @@
 }
 
 @mixin text-h5 {
-    @include font-size-fluid((xs: 20, xl: 40));
+    @include font-size-fluid((xs: 20, xl: 48));
     font-weight: 400;
-    line-height: 1;
+    line-height: 1.1;
 }
 
 @mixin text-over-title-l {
@@ -44,8 +45,9 @@
 
 @mixin text-over-title-s {
     font-size: rem(18);
-    font-weight: 500;
+    font-weight: 550;
     line-height: 1;
+    text-transform: uppercase;
 }
 
 @mixin text-body-l {
@@ -62,8 +64,6 @@
 
 @mixin text-body-s {
     @include font-size-fluid((xs: 14, xl: 16));
-
-    font-size: rem(19);
     font-weight: 300;
     line-height: 1.4;
 }

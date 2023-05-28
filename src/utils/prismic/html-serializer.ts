@@ -12,7 +12,7 @@ export default function htmlSerializer(type: string, element: PrismicDocument, _
             return /* html */ `<h3 class="text-h3">${children.join('')}</h3>`
 
         case 'paragraph':
-            return /* html */ `<p class="text-body-m">${children.join('')}</p>`
+            return /* html */ `<p>${children.join('')}</p>`
 
         case 'group-o-list-item':
             return /* html */ `<ol>${children.join('')}</ol>`

@@ -1,0 +1,50 @@
+[
+  {
+    "uid": {
+      "__TYPE__": "UIDContent",
+      "value": "dot"
+    },
+    "title": {
+      "__TYPE__": "FieldContent",
+      "value": "service",
+      "type": "Text"
+    },
+    "description": {
+      "__TYPE__": "StructuredTextContent",
+      "value": [
+        {
+          "type": "paragraph",
+          "content": {
+            "text": "Officia ex amet incididunt culpa enim tempor qui est ullamco consequat culpa esse ullamco nostrud consequat. Consequat tempor excepteur ullamco eu et eiusmod eiusmod elit laboris irure."
+          }
+        }
+      ]
+    },
+    "type": {
+      "__TYPE__": "FieldContent",
+      "value": "Default",
+      "type": "Select"
+    },
+    "meta_title": {
+      "__TYPE__": "FieldContent",
+      "value": "stand",
+      "type": "Text"
+    },
+    "meta_description": {
+      "__TYPE__": "FieldContent",
+      "value": "his",
+      "type": "Text"
+    },
+    "meta_image": {
+      "__TYPE__": "LinkContent",
+      "value": {
+        "id": "mock_Media_link",
+        "kind": "image/jpeg",
+        "name": "mock_name",
+        "url": "https://source.unsplash.com/daily",
+        "size": "0",
+        "__TYPE__": "FileLink"
+      }
+    }
+  }
+]

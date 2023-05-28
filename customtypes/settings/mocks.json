@@ -1,0 +1,56 @@
+[
+  {
+    "site_name": {
+      "__TYPE__": "FieldContent",
+      "value": "manner",
+      "type": "Text"
+    },
+    "tagline": {
+      "__TYPE__": "StructuredTextContent",
+      "value": [
+        {
+          "type": "paragraph",
+          "content": {
+            "text": "Ullamco in nostrud ut fugiat consectetur non commodo irure labore sint ut."
+          }
+        }
+      ]
+    },
+    "socials": {
+      "__TYPE__": "GroupContentType",
+      "value": [
+        {
+          "__TYPE__": "GroupItemContent",
+          "value": [
+            [
+              "social",
+              {
+                "__TYPE__": "FieldContent",
+                "value": "Youtube",
+                "type": "Select"
+              }
+            ],
+            [
+              "link",
+              {
+                "__TYPE__": "LinkContent",
+                "value": {
+                  "__TYPE__": "ExternalLink",
+                  "url": "https://prismic.io"
+                }
+              }
+            ],
+            [
+              "label",
+              {
+                "__TYPE__": "FieldContent",
+                "value": "year",
+                "type": "Text"
+              }
+            ]
+          ]
+        }
+      ]
+    }
+  }
+]

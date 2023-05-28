@@ -1,9 +1,10 @@
 import Vue from 'vue'
-import  {PropType} from 'vue'
-import {DocumentWithUi, DocumentWithUidData} from '~/types/prismic/app-prismic'
+import type { PropType } from 'vue'
+
+import { DocumentWithUidData } from '~/types/prismic/app-prismic'
 
 export default Vue.extend({
     props: {
-        pageData: Object as PropType<DocumentWithUidData>
+        pageData: Object as PropType<DocumentWithUidData>,
     },
 })

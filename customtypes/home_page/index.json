@@ -5,35 +5,10 @@
   "status": true,
   "json": {
     "Main": {
-      "uid": {
-        "type": "UID",
-        "config": {
-          "label": "Slug",
-          "placeholder": "Le nom de ta page dans l'url"
-        }
-      },
-      "title": {
-        "type": "Text",
-        "config": {
-          "label": "Title",
-          "placeholder": "Titre de la page"
-        }
-      },
-      "header_media": {
-        "type": "Link",
-        "config": {
-          "label": "Header media",
-          "placeholder": "",
-          "select": "media"
-        }
-      },
-      "over_title": {
-        "type": "Text",
-        "config": {
-          "label": "Over title",
-          "placeholder": ""
-        }
-      },
+      "uid": { "type": "UID", "config": { "label": "Slug", "placeholder": "Le nom de ta page dans l'url" } },
+      "title": { "type": "Text", "config": { "label": "Title", "placeholder": "Titre de la page" } },
+      "header_media": { "type": "Link", "config": { "label": "Header media", "placeholder": "", "select": "media" } },
+      "over_title": { "type": "Text", "config": { "label": "Over title", "placeholder": "" } },
       "description": {
         "type": "StructuredText",
         "config": {
@@ -52,37 +27,12 @@
           "multi": "paragraph,strong,em,hyperlink"
         }
       },
-      "slices": {
-        "type": "Slices",
-        "fieldset": "Slice Zone",
-        "config": {
-          "choices": {}
-        }
-      }
+      "slices": { "type": "Slices", "fieldset": "Slice Zone", "config": { "choices": {} } }
     },
     "Meta data": {
-      "meta_title": {
-        "type": "Text",
-        "config": {
-          "label": "Meta title",
-          "placeholder": ""
-        }
-      },
-      "meta_description": {
-        "type": "Text",
-        "config": {
-          "label": "Meta description",
-          "placeholder": ""
-        }
-      },
-      "meta_image": {
-        "type": "Link",
-        "config": {
-          "label": "Meta image",
-          "placeholder": "",
-          "select": "media"
-        }
-      }
+      "meta_title": { "type": "Text", "config": { "label": "Meta title", "placeholder": "" } },
+      "meta_description": { "type": "Text", "config": { "label": "Meta description", "placeholder": "" } },
+      "meta_image": { "type": "Link", "config": { "label": "Meta image", "placeholder": "", "select": "media" } }
     }
   }
 }

@@ -1,7 +1,6 @@
 <template>
     <div :class="$style.root">
-        <v-header-home />
-        <div v-if="pageData.title">{{ pageData.title }}</div>
+        <v-header-home :page-data="pageData" />
     </div>
 </template>
 
