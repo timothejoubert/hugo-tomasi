@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import type { VueConstructor } from 'vue'
-import { Inject } from '~/components/organisms/VCarousel/VCarousel.vue'
+import { Inject } from '~/components/organisms/VCarousel.vue'
 
 export default (Vue as VueConstructor<Vue & Inject>).extend({
     inject: {

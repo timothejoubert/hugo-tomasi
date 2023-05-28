@@ -1,11 +1,27 @@
 {
   "uid": {
     "__TYPE__": "UIDContent",
-    "value": "met"
+    "value": "take"
   },
   "title": {
     "__TYPE__": "FieldContent",
-    "value": "leave",
+    "value": "agree",
+    "type": "Text"
+  },
+  "header_media": {
+    "__TYPE__": "LinkContent",
+    "value": {
+      "id": "mock_Media_link",
+      "kind": "image/jpeg",
+      "name": "mock_name",
+      "url": "https://source.unsplash.com/daily",
+      "size": "0",
+      "__TYPE__": "FileLink"
+    }
+  },
+  "over_title": {
+    "__TYPE__": "FieldContent",
+    "value": "bank",
     "type": "Text"
   },
   "description": {
@@ -14,46 +30,18 @@
       {
         "type": "paragraph",
         "content": {
-          "text": "Laboris velit ipsum ad aliqua et non tempor. Cupidatat commodo cupidatat eiusmod aute voluptate esse."
+          "text": "Amet aliqua tempor tempor minim sit velit quis irure ex nulla ad fugiat ipsum nulla quis. Commodo anim enim est qui esse ullamco deserunt esse et fugiat nulla minim id cillum pariatur. Non adipisicing deserunt consectetur aute culpa."
         }
       }
     ]
   },
-  "thumbnail": {
-    "__TYPE__": "ImageContent",
-    "origin": {
-      "id": "main",
-      "url": "https://images.unsplash.com/photo-1596195689404-24d8a8d1c6ea",
-      "width": 5000,
-      "height": 4613
-    },
-    "url": "https://images.unsplash.com/photo-1596195689404-24d8a8d1c6ea",
-    "width": 5000,
-    "height": 4613,
-    "edit": {
-      "zoom": 1,
-      "crop": {
-        "x": 0,
-        "y": 0
-      },
-      "background": "transparent"
-    },
-    "thumbnails": {}
-  },
-  "link": {
-    "__TYPE__": "LinkContent",
-    "value": {
-      "__TYPE__": "ExternalLink",
-      "url": "https://slicemachine.dev"
-    }
-  },
-  "link_label": {
+  "excerpt": {
     "__TYPE__": "StructuredTextContent",
     "value": [
       {
         "type": "paragraph",
         "content": {
-          "text": "Et nisi enim ullamco esse id quis mollit qui consequat excepteur anim fugiat sit fugiat. Quis sunt ea enim adipisicing eiusmod velit ea mollit Lorem duis ex magna qui dolore velit."
+          "text": "Qui non adipisicing id veniam nisi dolore ullamco eiusmod fugiat mollit adipisicing qui."
         }
       }
     ]
@@ -64,12 +52,12 @@
   },
   "meta_title": {
     "__TYPE__": "FieldContent",
-    "value": "piano",
+    "value": "expect",
     "type": "Text"
   },
   "meta_description": {
     "__TYPE__": "FieldContent",
-    "value": "solve",
+    "value": "found",
     "type": "Text"
   },
   "meta_image": {

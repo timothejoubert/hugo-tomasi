@@ -20,6 +20,28 @@ interface HomePageDocumentData {
      */
     title: prismic.KeyTextField;
     /**
+     * Header media field in *Home page*
+     *
+     * - **Field Type**: Link to Media
+     * - **Placeholder**: *None*
+     * - **API ID Path**: home_page.header_media
+     * - **Tab**: Main
+     * - **Documentation**: https://prismic.io/docs/core-concepts/link-content-relationship
+     *
+     */
+    header_media: prismic.LinkToMediaField;
+    /**
+     * Over title field in *Home page*
+     *
+     * - **Field Type**: Text
+     * - **Placeholder**: *None*
+     * - **API ID Path**: home_page.over_title
+     * - **Tab**: Main
+     * - **Documentation**: https://prismic.io/docs/core-concepts/key-text
+     *
+     */
+    over_title: prismic.KeyTextField;
+    /**
      * Description field in *Home page*
      *
      * - **Field Type**: Rich Text
@@ -31,38 +53,16 @@ interface HomePageDocumentData {
      */
     description: prismic.RichTextField;
     /**
-     * Thumbnail field in *Home page*
-     *
-     * - **Field Type**: Image
-     * - **Placeholder**: *None*
-     * - **API ID Path**: home_page.thumbnail
-     * - **Tab**: Main
-     * - **Documentation**: https://prismic.io/docs/core-concepts/image
-     *
-     */
-    thumbnail: prismic.ImageField<never>;
-    /**
-     * Link field in *Home page*
-     *
-     * - **Field Type**: Link
-     * - **Placeholder**: *None*
-     * - **API ID Path**: home_page.link
-     * - **Tab**: Main
-     * - **Documentation**: https://prismic.io/docs/core-concepts/link-content-relationship
-     *
-     */
-    link: prismic.LinkField;
-    /**
-     * Link label field in *Home page*
+     * Excerpt field in *Home page*
      *
      * - **Field Type**: Rich Text
      * - **Placeholder**: *None*
-     * - **API ID Path**: home_page.link_label
+     * - **API ID Path**: home_page.excerpt
      * - **Tab**: Main
      * - **Documentation**: https://prismic.io/docs/core-concepts/rich-text-title
      *
      */
-    link_label: prismic.RichTextField;
+    excerpt: prismic.RichTextField;
     /**
      * Slice Zone field in *Home page*
      *

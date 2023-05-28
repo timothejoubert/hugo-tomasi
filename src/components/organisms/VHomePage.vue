@@ -1,12 +1,13 @@
 <template>
     <div :class="$style.root">
-        <div v-if="pageData.title">{{pageData.title}}</div>
+        <v-header-home />
+        <div v-if="pageData.title">{{ pageData.title }}</div>
     </div>
 </template>
 
 <script lang="ts">
-import mixins from "vue-typed-mixins";
-import PageDataProvider from "~/mixins/PageDataProvider";
+import mixins from 'vue-typed-mixins'
+import PageDataProvider from '~/mixins/PageDataProvider'
 
 export default mixins(PageDataProvider).extend({
     name: 'VHomePage',

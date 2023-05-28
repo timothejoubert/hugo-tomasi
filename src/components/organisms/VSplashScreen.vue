@@ -1,8 +1,8 @@
 <template>
     <div :class="rootClass">
         <div :class="$style.content">
-            <div class="text-h1">{{siteName}}</div>
-            <span class="text-h3" >{{ counterOutput }}%</span>
+            <div class="text-h1">{{ siteName }}</div>
+            <span class="text-h3">{{ counterOutput }}%</span>
         </div>
     </div>
 </template>
@@ -10,7 +10,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import type { PropType } from 'vue'
-import { SplashScreenState } from '~/components/organisms/VSplashScreenWrapper/VSplashScreenWrapper.vue'
+import { SplashScreenState } from '~/components/organisms/VSplashScreenWrapper.vue'
 import loading from '~/scss/export/_v-splash-screen.scss'
 
 const START_VALUE = 0
@@ -53,17 +53,16 @@ export default Vue.extend({
             let startTimestamp: null | number = null
 
             const increaseCounter = (timestamp: number) => {
-                if (!startTimestamp) startTimestamp = timestamp;
+                if (!startTimestamp) startTimestamp = timestamp
 
                 const progress = Math.min((timestamp - startTimestamp) / parseInt(loading['counter-duration']), 1)
-                this.counterOutput = Math.floor(progress * (LAST_VALUE - START_VALUE) + START_VALUE);
+                this.counterOutput = Math.floor(progress * (LAST_VALUE - START_VALUE) + START_VALUE)
 
-                if (progress < 1) window.requestAnimationFrame(increaseCounter);
+                if (progress < 1) window.requestAnimationFrame(increaseCounter)
                 else if (this.value === 'beforeLeaved') this.onCounterDone()
+            }
 
-            };
-
-            window.requestAnimationFrame(increaseCounter);
+            window.requestAnimationFrame(increaseCounter)
         },
         onCounterDone() {
             this.$emit('input', 'leave')
@@ -77,9 +76,8 @@ export default Vue.extend({
         onLeaveDone() {
             window.setTimeout(() => {
                 this.$emit('input', 'done')
-            }, parseInt(loading['leave-duration']) )
-
-        }
+            }, parseInt(loading['leave-duration']))
+        },
     },
 })
 </script>

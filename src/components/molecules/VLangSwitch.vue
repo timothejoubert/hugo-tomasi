@@ -85,7 +85,7 @@ export default Vue.extend({
             const fullPath = this.$route.fullPath
             const isHomePath = fullPath === '/' || fullPath === '/en'
             const uid = this.$route.params.pathMatch
-            const isDefaultLocale = lang.title === this.$config.defaultLocale
+            const isDefaultLocale = lang.title === this.$config?.defaultLocale
 
             if (isDefaultLocale) return isHomePath ? this.$router.options.base || '/' : '/' + uid
             else if (lang.url === '/en') return isHomePath ? '/en' : '/en/' + uid

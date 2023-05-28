@@ -81,7 +81,7 @@ export default {
         // hostname: process.env.APP_URL,
         i18n: {
             locales,
-            DefaultLocale,
+            DefaultLocale: 'fr',
         },
         path: '/sitemap.xml',
         cacheTime: 1000 * 60 * 60 * 20,
@@ -144,7 +144,7 @@ export default {
     prismic: {
         preview: '/preview',
         components: true,
-        endpoint: apiEndpoint,
+        endpoint: 'https://hugo-tomasi.cdn.prismic.io/api/v2',
         modern: true,
         linkResolver,
         htmlSerializer,
@@ -173,56 +173,6 @@ export default {
         ],
         // fix broken styles during live editing into dev tools https://github.com/vuejs-templates/webpack/issues/1331
         cssSourceMap: false,
-        transpile: ['@prismicio/vue', 'vue-slicezone'],
+        transpile: ['@prismicio/vue', 'vue-slicezone', '@prismicio/vue'],
     },
-    // https://storybook.nuxtjs.org/api/options
-    storybook: {
-        stories: [
-            '~/components/**/*.stories.js',
-            '~/stories/**/*.stories.js',
-            // './slices/**/*.stories.js',
-            // './.slicemachine/assets/**/*.stories.@(js|jsx|ts|tsx|svelte)'
-            // ...getStoriesPaths().map(path => path.replace("../", "~/../"))
-        ],
-        parameters: {
-            viewport: {
-                viewports: {
-                    iPhoneSE: {
-                        name: 'iPhone SE',
-                        styles: {
-                            width: '375px',
-                            height: '660px',
-                        },
-                    },
-                    iPadPortrait: {
-                        name: 'iPad portrait',
-                        styles: {
-                            width: '768px',
-                            height: '1024px',
-                        },
-                    },
-                    iPadLandscape: {
-                        name: 'iPad landscape',
-                        styles: {
-                            width: '1024px',
-                            height: '768px',
-                        },
-                    },
-                },
-            },
-        },
-        addons: [
-            {
-                name: '@storybook/preset-scss',
-                options: {
-                    cssLoaderOptions: {
-                        modules: true,
-                        localIdentName: '[name]__[local]--[hash:base64:5]',
-                    },
-                },
-            },
-        ],
-    },
-
-    ignore: ['**/*.stories.js'],
 }

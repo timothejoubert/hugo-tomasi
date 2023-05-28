@@ -1,8 +1,8 @@
 {
-  "name": "prismic-skeleton-portfolio",
+  "name": "hugo-tomasi-portfolio",
   "version": "1.0.0",
   "author": "Timothé Joubert",
-  "description": "Nuxt skeleton with prismic for simple portfolio",
+  "description": "Nuxt and Prismic api for motion designer and 3D artist portfolio",
   "scripts": {
     "dev": "concurrently \"npm:nuxt:dev\" \"npm:slicemachine\" --names \"nuxt,slicemachine\" --prefix-colors green,magenta",
     "nuxt:dev": "nuxt",
@@ -28,7 +28,6 @@
     "throttle-debounce": "^3.0.1"
   },
   "devDependencies": {
-    "ts-prismic": "^0.3.0",
     "@babel/eslint-parser": "^7.14.7",
     "@nuxt/postcss8": "^1.1.3",
     "@nuxt/types": "^2.15.8",
@@ -40,6 +39,7 @@
     "@nuxtjs/stylelint-module": "^4.0.0",
     "@prismicio/slice-simulator-vue": "^0.2.1",
     "@prismicio/types": "^0.2.7",
+    "@slicemachine/adapter-nuxt2": "^0.1.3",
     "@types/body-scroll-lock": "^3.1.0",
     "@types/node": "^18.11.18",
     "@types/throttle-debounce": "^5.0.0",
@@ -57,7 +57,7 @@
     "prismic-ts-codegen": "^0.1.5",
     "sass": "^1.35.1",
     "sass-loader": "^10.1.1",
-    "slice-machine-ui": "^0.6.0",
+    "slice-machine-ui": "^1.0.3",
     "stylelint": "^13.13.1",
     "stylelint-config-css-modules": "^2.2.0",
     "stylelint-config-idiomatic-order": "^8.1.0",
@@ -66,6 +66,7 @@
     "stylelint-order": "^4.1.0",
     "stylelint-scss": "^3.19.0",
     "ts-node": "^10.5.0",
+    "ts-prismic": "^0.3.0",
     "vue-loader": "15.9.6",
     "vue-typed-mixins": "^0.2.0"
   }

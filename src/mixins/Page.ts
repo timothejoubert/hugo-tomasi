@@ -13,7 +13,7 @@ import { isHomePageDocument, isProjectListingDocument } from '~/utils/prismic/do
 import { isDefaultPageDocument, isProjectDocument } from '~/utils/prismic/custom-type-entity'
 import { getDocumentData } from '~/utils/prismic/types-utilities'
 import { isFilledLinkToMediaField } from '~/utils/prismic/field-media'
-import { getFormattedLocale } from '~/components/molecules/VLangSwitch/VLangSwitch.vue'
+import { getFormattedLocale } from '~/components/molecules/VLangSwitch.vue'
 
 export default Vue.extend({
     // middleware: 'slugParser',

@@ -1,28 +1,34 @@
 <template>
     <div :class="$style.root">
-        <nuxt-link v-for="(item, i) in navItemList"
-                   :key="i" :to="parseLinkUrl(item.link.uid)" class="text-over-title-s"
-                   :class="[$style.item, isHomePath(item.link.uid) && $style['item--home']]"
-                   prefetch
-        >{{item.label}}</nuxt-link>
+        <nuxt-link
+            v-for="(item, i) in navItemList"
+            :key="i"
+            :to="parseLinkUrl(item.link.uid)"
+            class="text-over-title-s"
+            :class="[$style.item, isHomePath(item.link.uid) && $style['item--home']]"
+            prefetch
+            >{{ item.label }}</nuxt-link
+        >
         <script v-if="breadcrumbJsonldB" type="application/ld+json" v-html="breadcrumbJsonldB"></script>
     </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
-import {isInternalRelationLinkWithUidFulled} from "~/utils/prismic/field-relation";
-import DocumentUid from "~/constants/document-uid";
-import {joinURL} from "ufo";
-import {MainMenuDocumentDataLinksItem} from "~/types/prismic/prismic-types.generated";
-import {DocumentWithUidData, DocumentWithUidNames, ProjectDocumentData} from "~/types/prismic/app-prismic";
-import {FilledContentRelationshipField} from "@prismicio/types/src/value/contentRelationship";
-import {FilledLinkToMediaField} from "@prismicio/types/src/value/linkToMedia";
+import { joinURL } from 'ufo'
+import { FilledContentRelationshipField } from '@prismicio/types/src/value/contentRelationship'
+import { FilledLinkToMediaField } from '@prismicio/types/src/value/linkToMedia'
+import { isInternalRelationLinkWithUidFulled } from '~/utils/prismic/field-relation'
+import DocumentUid from '~/constants/document-uid'
+import { MainMenuDocumentDataLinksItem } from '~/types/prismic/prismic-types.generated'
+import { DocumentWithUidData, DocumentWithUidNames, ProjectDocumentData } from '~/types/prismic/app-prismic'
 
-type MenuItem = Omit<MainMenuDocumentDataLinksItem, 'link'> & { link: FilledContentRelationshipField<DocumentWithUidNames, string, DocumentWithUidData> }
+type MenuItem = Omit<MainMenuDocumentDataLinksItem, 'link'> & {
+    link: FilledContentRelationshipField<DocumentWithUidNames, string, DocumentWithUidData>
+}
 
 interface JsonLdbBreadcrumbItem {
-    "@id": string
+    '@id': string
     name: string
     image?: string
 }
@@ -37,22 +43,30 @@ export default Vue.extend({
     name: 'VNav',
     computed: {
         navItemList(): MenuItem[] {
-            return this.$store.state.mainMenu.data.links.filter((menuLink: MainMenuDocumentDataLinksItem) => isInternalRelationLinkWithUidFulled(menuLink.link))
+            const links = this.$store.state.mainMenu?.data?.links
+            if (!links?.length) return []
+            return links.filter((menuLink: MainMenuDocumentDataLinksItem) =>
+                isInternalRelationLinkWithUidFulled(menuLink.link)
+            )
         },
         breadcrumbJsonldB(): Record<string, unknown> | undefined {
             if (!this.navItemList || this.navItemList.length < 2) return
 
-            const itemFulledList = this.navItemList.filter((item) => isInternalRelationLinkWithUidFulled(item.link) && item.link.uid )
+            const itemFulledList = this.navItemList.filter(
+                (item) => isInternalRelationLinkWithUidFulled(item.link) && item.link.uid
+            )
             const items = itemFulledList.map((item, index) => {
                 const result: JsonLdbBreadcrumb = {
                     '@type': 'ListItem',
                     position: index + 1,
                     item: {
-                        "@id": joinURL(this.$config.siteUrl, item.link.uid as string),
+                        '@id': joinURL(this.$config.siteUrl, item.link.uid as string),
                         name: item.label || 'Page label',
                     },
                 }
-                const image = (item.link.data?.meta_image as FilledLinkToMediaField)?.url || (item.link.data as ProjectDocumentData)?.thumbnail?.url
+                const image =
+                    (item.link.data?.meta_image as FilledLinkToMediaField)?.url ||
+                    (item.link.data as ProjectDocumentData)?.thumbnail?.url
                 if (image) result.item.image = image
 
                 return result
@@ -63,7 +77,7 @@ export default Vue.extend({
                 '@type': 'BreadcrumbList',
                 itemListElement: items,
             }
-        }
+        },
     },
     methods: {
         isHomePath(documentUid: string | undefined) {
@@ -72,10 +86,10 @@ export default Vue.extend({
         parseLinkUrl(uid: string | undefined) {
             const isEn = this.$i18n.locale === 'en'
 
-            if (!uid || this.isHomePath(uid) && !isEn) return '/'
+            if (!uid || (this.isHomePath(uid) && !isEn)) return '/'
             else if (isEn && this.isHomePath(uid)) return '/en'
             else return (isEn ? '/en/' : '/') + uid
-        }
+        },
     },
 })
 </script>
@@ -100,7 +114,6 @@ export default Vue.extend({
         height: 1px;
         background-color: color(black);
         content: '';
-
     }
 }
 </style>

@@ -4,9 +4,9 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import type {PropType} from 'vue'
-import {ProjectDocumentData} from "~/types/prismic/app-prismic";
-import {VCardLayout} from "~/components/molecules/VCard/VCard.vue";
+import type { PropType } from 'vue'
+import { ProjectDocumentData } from '~/types/prismic/app-prismic'
+import { VCardLayout } from '~/components/molecules/VCard.vue'
 
 export default Vue.extend({
     name: 'VProjectCard',
@@ -16,15 +16,15 @@ export default Vue.extend({
     },
     computed: {
         cardProps(): Record<string, any> {
-            const {thumbnail, title, tags, date} = this.project
+            const { thumbnail, title, tags, date } = this.project
             return {
                 image: thumbnail,
                 title,
                 tags,
                 date,
-                layout: this.layout
+                layout: this.layout,
             }
-        }
+        },
     },
 })
 </script>
