@@ -21,12 +21,14 @@ export default Vue.extend({
 
 <style lang="scss" module>
 .root {
-    position: relative;
+    position: sticky;
     z-index: 101;
+    top: 0;
     display: flex;
     height: $v-top-bar-height;
     align-items: center;
     color: color(white);
+    mix-blend-mode: difference;
 }
 .nav {
     margin-right: rem(20);

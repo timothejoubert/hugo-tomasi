@@ -1,7 +1,5 @@
 <template>
-    <div :class="$style.root">
-        <v-header-home :page-data="pageData" />
-    </div>
+    <v-header-home :page-data="pageData" />
 </template>
 
 <script lang="ts">
@@ -12,9 +10,3 @@ export default mixins(PageDataProvider).extend({
     name: 'VHomePage',
 })
 </script>
-
-<style lang="scss" module>
-.root {
-    position: relative;
-}
-</style>

@@ -16,7 +16,7 @@
             </a>
         </div>
     </div>
-    <div v-else :class="[$style.link, $style['link--fallback']]" class="text-over-title-s">Null</div>
+    <div v-else :class="[$style.link, $style['link--fallback']]" class="text-over-title-s">Lang</div>
 </template>
 
 <script lang="ts">

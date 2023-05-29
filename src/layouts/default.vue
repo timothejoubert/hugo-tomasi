@@ -4,6 +4,7 @@
         <v-top-bar />
         <Nuxt />
 
+        <v-footer />
         <!-- eslint-disable-next-line vue/no-v-html -->
         <script type="application/ld+json" v-html="websiteInfos"></script>
     </div>
@@ -43,8 +44,10 @@ export default mixins(Resize).extend({
     },
 })
 </script>
+
 <style lang="scss" module>
 .root {
     position: relative;
+    background-color: color(white);
 }
 </style>

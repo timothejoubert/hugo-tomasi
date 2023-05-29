@@ -1,5 +1,5 @@
 <template>
-    <div :class="$style.root">
+    <nav :class="$style.root">
         <nuxt-link
             v-for="(item, i) in navItemList"
             :key="i"
@@ -7,10 +7,12 @@
             class="text-over-title-s"
             :class="[$style.item, isHomePath(item.link.uid) && $style['item--home']]"
             prefetch
-            >{{ item.label }}</nuxt-link
+            :aria-current="$route.fullPath === parseLinkUrl(item.link.uid) ? 'page' : false"
         >
+            <v-split-word :word="item.label" />
+        </nuxt-link>
         <script v-if="breadcrumbJsonldB" type="application/ld+json" v-html="breadcrumbJsonldB"></script>
-    </div>
+    </nav>
 </template>
 
 <script lang="ts">
@@ -22,6 +24,7 @@ import { isInternalRelationLinkWithUidFulled } from '~/utils/prismic/field-relat
 import DocumentUid from '~/constants/document-uid'
 import { MainMenuDocumentDataLinksItem } from '~/types/prismic/prismic-types.generated'
 import { DocumentWithUidData, DocumentWithUidNames, ProjectDocumentData } from '~/types/prismic/app-prismic'
+import VSplitWord from '~/components/atoms/VSplitWord.vue'
 
 type MenuItem = Omit<MainMenuDocumentDataLinksItem, 'link'> & {
     link: FilledContentRelationshipField<DocumentWithUidNames, string, DocumentWithUidData>
@@ -41,6 +44,7 @@ interface JsonLdbBreadcrumb {
 
 export default Vue.extend({
     name: 'VNav',
+    components: { VSplitWord },
     computed: {
         navItemList(): MenuItem[] {
             const links = this.$store.state.mainMenu?.data?.links

@@ -1,5 +1,5 @@
 <template>
-    <div :class="$style.root" class="container">
+    <header :class="$style.root" class="container-fullscreen">
         <template v-if="settings">
             <div v-if="settings.site_name" class="text-h1">{{ settings.site_name }}</div>
             <v-text v-if="settings.tagline" :content="settings.tagline" :class="$style.tagline" class="text-h5" />
@@ -39,7 +39,7 @@
                 />
             </div>
         </div>
-    </div>
+    </header>
 </template>
 
 <script lang="ts">

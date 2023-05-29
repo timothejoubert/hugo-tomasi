@@ -8,6 +8,11 @@ import type { PropType } from 'vue'
 import { ProjectDocumentData } from '~/types/prismic/app-prismic'
 import { VCardLayout } from '~/components/molecules/VCard.vue'
 
+function getProjectYear(date: string | null) {
+    // prismic data => 'YYYY-MM-DD
+    return date?.split('-')?.[0]
+}
+
 export default Vue.extend({
     name: 'VProjectCard',
     props: {
@@ -21,7 +26,7 @@ export default Vue.extend({
                 image: thumbnail,
                 title,
                 tags,
-                date,
+                date: getProjectYear(date),
                 layout: this.layout,
             }
         },

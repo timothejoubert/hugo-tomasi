@@ -322,6 +322,17 @@ interface ProjectDocumentData {
    */
   tags: prismic.GroupField<Simplify<ProjectDocumentDataTagsItem>>
   /**
+   * Long description field in *Project*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: project.long_description
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/core-concepts/rich-text-title
+   *
+   */
+  long_description: prismic.RichTextField
+  /**
    * Meta title field in *Project*
    *
    * - **Field Type**: Text

@@ -1,18 +1,13 @@
 $themes: (
     light: (
-        default: color(light),
-        button-background-hovered: rgba(color(light), 0.9),
-        on-default: color(black),
-    ),
-    orange: (
-        default: color(orange),
-        button-background-hovered: rgba(color(orange), 0.9),
-        on-default: color(light),
+        foreground-color: color(black),
+        background-color: color(white),
+        button-filled-hover-background: rgba(color(light), 0.9),
     ),
     dark: (
-        default: color(black),
-        button-background-hovered: rgba(color(black), 0.9),
-        on-default: color(light),
+        foreground-color: color(white),
+        background-color: color(black),
+        button-filled-hover-background: rgba(color(black), 0.9),
     )
 );
 

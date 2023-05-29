@@ -5,14 +5,7 @@
         <lazy-v-project-page v-else-if="isProjectPage" :page-data="pageData" />
         <lazy-v-default-page v-else-if="isDefaultPage" :page-data="pageData" />
 
-        <slice-zone
-            v-if="slices && components"
-            id="main"
-            wrapper="main"
-            :slices="slices"
-            :components="components"
-        />
-        <v-social-list-link />
+        <slice-zone v-if="slices && components" id="main" wrapper="main" :slices="slices" :components="components" />
     </div>
     <div v-else>
         <p>pageData not find</p>
@@ -24,7 +17,7 @@ import mixins from 'vue-typed-mixins'
 import { SliceZone } from '@prismicio/vue/src/components/SliceZone'
 import { components } from '~~/slices'
 import Page from '~/mixins/Page'
-import cacheControl from "~/middleware/cache-control";
+import cacheControl from '~/middleware/cache-control'
 
 export default mixins(Page).extend({
     name: 'DefaultPage',

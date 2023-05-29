@@ -5,20 +5,8 @@
   "status": true,
   "json": {
     "Main": {
-      "uid": {
-        "type": "UID",
-        "config": {
-          "label": "Slug",
-          "placeholder": "Nom du projet dans l'url"
-        }
-      },
-      "title": {
-        "type": "Text",
-        "config": {
-          "label": "Title",
-          "placeholder": "Titre du projet"
-        }
-      },
+      "uid": { "type": "UID", "config": { "label": "Slug", "placeholder": "Nom du projet dans l'url" } },
+      "title": { "type": "Text", "config": { "label": "Title", "placeholder": "Titre du projet" } },
       "description": {
         "type": "StructuredText",
         "config": {
@@ -28,60 +16,29 @@
           "placeholder": "Description du projet"
         }
       },
-      "date": {
-        "type": "Date",
-        "config": {
-          "label": "Date",
-          "placeholder": "Date du projet"
-        }
-      },
-      "thumbnail": {
-        "type": "Image",
-        "config": {
-          "constraint": {},
-          "thumbnails": [],
-          "label": "Thumbnail"
-        }
-      },
+      "date": { "type": "Date", "config": { "label": "Date", "placeholder": "Date du projet" } },
+      "thumbnail": { "type": "Image", "config": { "constraint": {}, "thumbnails": [], "label": "Thumbnail" } },
       "tags": {
         "type": "Group",
         "config": {
-          "fields": {
-            "label": {
-              "type": "Text",
-              "config": {
-                "label": "Label",
-                "placeholder": "Label du tag"
-              }
-            }
-          },
+          "fields": { "label": { "type": "Text", "config": { "label": "Label", "placeholder": "Label du tag" } } },
           "label": "Tags"
+        }
+      },
+      "long_description": {
+        "type": "StructuredText",
+        "config": {
+          "label": "Long description",
+          "placeholder": "",
+          "allowTargetBlank": true,
+          "multi": "paragraph,strong,em,hyperlink"
         }
       }
     },
     "Meta data": {
-      "meta_title": {
-        "type": "Text",
-        "config": {
-          "label": "Meta title",
-          "placeholder": ""
-        }
-      },
-      "meta_description": {
-        "type": "Text",
-        "config": {
-          "label": "Meta description",
-          "placeholder": ""
-        }
-      },
-      "meta_image": {
-        "type": "Link",
-        "config": {
-          "label": "Meta image",
-          "placeholder": "",
-          "select": "media"
-        }
-      }
+      "meta_title": { "type": "Text", "config": { "label": "Meta title", "placeholder": "" } },
+      "meta_description": { "type": "Text", "config": { "label": "Meta description", "placeholder": "" } },
+      "meta_image": { "type": "Link", "config": { "label": "Meta image", "placeholder": "", "select": "media" } }
     }
   }
 }
