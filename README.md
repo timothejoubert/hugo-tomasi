@@ -8,7 +8,7 @@
 
 
 ### WEBHOOK
-* send prismic webhook to netlify 
+* send prismic webhook to netlify (Netlify build hook)[https://app.netlify.com/sites/hugo-tomasi/settings/deploys#build-hooks]
 
 
 ### PREVIEW

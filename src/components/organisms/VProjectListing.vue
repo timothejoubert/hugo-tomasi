@@ -36,7 +36,7 @@ export default mixins(PageDataProvider).extend({
     name: 'VProjectListing',
     data() {
         return {
-            selectedTags: [],
+            selectedTags: [] as string[],
             isOpen: false,
         }
     },
@@ -45,7 +45,7 @@ export default mixins(PageDataProvider).extend({
         projects(): ProjectDocument[] {
             const projects = this.$store.state.projects
 
-            if (!this.selectedTags?.length) return projects
+            if (!this.selectedTags.length) return projects
             else
                 return projects.filter((project: ProjectDocument) =>
                     project.data.tags.some(
