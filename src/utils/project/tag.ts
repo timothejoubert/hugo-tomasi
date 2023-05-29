@@ -1,6 +1,15 @@
 import { ProjectDocument } from '~/types/prismic/prismic-types.generated'
 import { ProjectDocumentData } from '~/types/prismic/app-prismic'
 
+export function getAllTagProject(projects: ProjectDocument[] | undefined): string[] {
+    return (
+        projects
+            ?.filter((project: ProjectDocument) => !!project?.data?.tags?.length)
+            .map(({ data }: ProjectDocument) => getProjectTags(data))
+            .flat(2) || []
+    )
+}
+
 export function getProjectDocumentTags(project: ProjectDocument): string[] {
     return getProjectTags(project.data)
 }

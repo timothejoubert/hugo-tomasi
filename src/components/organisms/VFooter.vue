@@ -12,6 +12,7 @@
 </template>
 <script lang="ts">
 import Vue from 'vue'
+import { SettingsData } from '~/types/prismic/app-prismic'
 
 export default Vue.extend({
     computed: {

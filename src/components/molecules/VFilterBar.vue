@@ -23,7 +23,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import type { PropType } from 'vue'
-import { ProjectDocument } from '~/types/prismic/prismic-types.generated'
+import { getAllTagProject } from '~/utils/project/tag'
 
 const ALL = 'All'
 
@@ -35,10 +35,7 @@ export default Vue.extend({
     },
     computed: {
         projectTags(): string[] {
-            const tags: string[] = this.$store.state.projects
-                .filter((project: ProjectDocument) => project.data.tags.length)
-                .map((project: ProjectDocument) => project.data.tags.map(({ label }) => label))
-                .flat(2)
+            const tags: string[] = getAllTagProject(this.$store.state.projects)
 
             return [ALL, ...new Set(tags)]
         },
