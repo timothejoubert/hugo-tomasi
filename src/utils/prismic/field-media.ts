@@ -13,10 +13,10 @@ export const isLinkMediaFulled = (
     return 'name' in media && 'url' in media
 }
 
-export const isMediaFulled = (media: unknown & Partial<ImageField>): media is ImageFieldImage<'filled'> => {
-    return 'url' in media
+export const isMediaFulled = (media: Partial<ImageField> | undefined): media is ImageFieldImage<'filled'> => {
+    return typeof media === 'object' && 'url' in media
 }
 
-export const isFilledLinkToMediaField = (link?: unknown & Partial<LinkToMediaField>): link is FilledLinkToMediaField  => {
+export const isFilledLinkToMediaField = (link?: Partial<LinkToMediaField>): link is FilledLinkToMediaField => {
     return !!link && 'link_type' in link && 'name' in link && 'kind' in link && 'url' in link && 'size' in link
 }

@@ -5,13 +5,7 @@
   "status": true,
   "json": {
     "Main": {
-      "site_name": {
-        "type": "Text",
-        "config": {
-          "label": "Site Name",
-          "placeholder": ""
-        }
-      },
+      "site_name": { "type": "Text", "config": { "label": "Site Name", "placeholder": "" } },
       "tagline": {
         "type": "StructuredText",
         "config": {
@@ -29,35 +23,16 @@
               "config": {
                 "label": "Social",
                 "placeholder": "",
-                "options": [
-                  "Instagram",
-                  "Facebook",
-                  "Youtube",
-                  "Vimeo",
-                  "TikTok",
-                  "Behance",
-                  "LinkedIn"
-                ]
+                "options": ["Instagram", "Facebook", "Youtube", "Vimeo", "TikTok", "Behance", "LinkedIn"]
               }
             },
-            "link": {
-              "type": "Link",
-              "config": {
-                "label": "Link",
-                "select": null
-              }
-            },
-            "label": {
-              "type": "Text",
-              "config": {
-                "label": "Label",
-                "placeholder": ""
-              }
-            }
+            "link": { "type": "Link", "config": { "label": "Link", "select": null } },
+            "label": { "type": "Text", "config": { "label": "Label", "placeholder": "" } }
           },
           "label": "Socials"
         }
       }
     }
-  }
+  },
+  "format": "custom"
 }

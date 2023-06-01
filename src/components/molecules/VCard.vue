@@ -1,8 +1,12 @@
 <template>
-    <div :class="[$style.root, typeof layout === 'string' && $style[`root--layout-${layout}`]]">
+    <div
+        :class="[$style.root, typeof layout === 'string' && $style[`root--layout-${layout}`]]"
+        @mouseenter="isEnter = true"
+        @mouseleave="isEnter = false"
+    >
         <div :class="$style.media">
             <v-pill v-if="date" :class="$style.date" :label="date" filled theme="light" size="xs" />
-            <v-image v-if="image" :prismic-image="image" :class="$style.image" />
+            <v-image v-if="image" :prismic-image="image" :ratio="390 / 600" />
             <v-button filled :class="$style.cta">
                 <template #icon>
                     <icon-arrow-up-right />
@@ -10,7 +14,7 @@
             </v-button>
         </div>
         <div :class="$style.body">
-            <div v-if="title" class="text-over-title-m">{{ title }}</div>
+            <v-split-word v-if="title" class="text-over-title-m" :play-animation="isEnter" :word="title" />
             <div v-if="tags.length" :class="$style.tags">
                 <span v-for="tag in tags" :key="'tag-' + tag.label" class="text-body-s" :class="$style.tag">{{
                     tag.label
@@ -31,6 +35,11 @@ export type VCardLayout = 'centered' | null
 export default Vue.extend({
     name: 'VCard',
     components: { IconArrowUpRight },
+    data() {
+        return {
+            isEnter: false,
+        }
+    },
     props: {
         title: String,
         image: Object as PropType<ImageField>,
@@ -50,16 +59,24 @@ export default Vue.extend({
 }
 
 .media {
+    --v-image-border-radius: #{rem(22)};
+
     position: relative;
-    overflow: hidden;
-    border-radius: rem(22);
 
     &::after {
         position: absolute;
-        background-image: linear-gradient(transparent, rgba(color(white), 0.1));
+        z-index: 1;
+        background-image: linear-gradient(transparent, rgba(color(white), 0.15));
         content: '';
         inset: 0;
         pointer-events: none;
+        transition: opacity 0.3s;
+    }
+
+    @media (hover: hover) {
+        .root:hover &::after {
+            opacity: 0;
+        }
     }
 }
 
@@ -69,16 +86,9 @@ export default Vue.extend({
     left: rem(12);
 }
 
-.image {
-    width: 100%;
-    height: 100%;
-    aspect-ratio: 600 / 390;
-    object-fit: cover;
-}
-
 .cta {
     position: absolute;
-    z-index: 1;
+    z-index: 2;
     right: rem(22);
     bottom: rem(22);
 }

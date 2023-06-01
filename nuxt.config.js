@@ -1,4 +1,3 @@
-// import { getStoriesPaths } from 'slice-machine-ui/helpers/storybook';
 // @ts-ignore
 import SpriteLoaderPlugin from 'svg-sprite-loader/plugin'
 import { version } from './package.json'
@@ -16,9 +15,9 @@ export default {
 
     srcDir: 'src',
 
-    router: {
-        base: process.env.HOME_PATH || '/',
-    },
+    // router: {
+    //     base: process.env.HOME_PATH || '/',
+    // },
 
     image: {
         prismic: {},
@@ -76,20 +75,21 @@ export default {
         // https://sitemap.nuxtjs.org/guide/setup
         '@nuxtjs/sitemap',
     ],
+
     // https://sitemap.nuxtjs.org/guide/setup
-    sitemap: {
-        // hostname: process.env.APP_URL,
-        i18n: {
-            locales,
-            DefaultLocale: 'fr',
-        },
-        path: '/sitemap.xml',
-        cacheTime: 1000 * 60 * 60 * 20,
-        defaults: {
-            changefreq: 'daily',
-            lastmod: new Date(),
-        },
-    },
+    // sitemap: {
+    //     hostname: process.env.APP_URL, // required
+    //     i18n: {
+    //         locales,
+    //         DefaultLocale: 'fr',
+    //     },
+    //     path: '/sitemap.xml',
+    //     cacheTime: 1000 * 60 * 60 * 20,
+    //     defaults: {
+    //         changefreq: 'daily',
+    //         lastmod: new Date(),
+    //     },
+    // },
 
     // https://i18n.nuxtjs.org/
     i18n: {
@@ -118,9 +118,16 @@ export default {
     // Redirect to custom Error layout in SPA mode
     generate: {
         fallback: true,
+        exclude: [
+            /^\/slice-simulator/, // path starts with /admin
+            /^\/preview/, // path starts with /preview
+        ],
+        devtools: true,
     },
+
     // Global CSS: https://go.nuxtjs.dev/config-css
     css: ['@/scss/main'],
+
     // https://github.com/nuxt-community/style-resources-module#setup
     // can access @include... in all files
     styleResources: {

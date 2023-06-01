@@ -1,7 +1,7 @@
 {
-  "apiEndpoint": "https://portfolio-skeleton.prismic.io/api/v2",
-  "repositoryName": "portfolio-skeleton",
+  "apiEndpoint": "https://hugo-tomasi.prismic.io/api/v2",
+  "repositoryName": "hugo-tomasi",
   "adapter": "@slicemachine/adapter-nuxt2",
-  "libraries": ["./slices", "./slices"],
+  "libraries": ["./slices"],
   "localSliceSimulatorURL": "http://localhost:3000/slice-simulator"
 }

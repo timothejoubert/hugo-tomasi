@@ -3,7 +3,11 @@
         <div :class="$style.head">
             <div v-if="pageData.title" class="text-h4">{{ pageData.title }}</div>
             <v-button
-                :class="[$style.toggle, isOpen && $style['toggle--open']]"
+                :class="[
+                    $style.toggle,
+                    selectedTags.length && $style['toggle--active'],
+                    isOpen && $style['toggle--open'],
+                ]"
                 :animation="false"
                 @click="isOpen = !isOpen"
             >
@@ -32,6 +36,8 @@ import { ProjectDocument } from '~/types/prismic/prismic-types.generated'
 import PageDataProvider from '~/mixins/PageDataProvider'
 import VFilterBar from '~/components/molecules/VFilterBar.vue'
 
+export const QUERY_TAG = 'tag-filter'
+
 export default mixins(PageDataProvider).extend({
     name: 'VProjectListing',
     data() {
@@ -39,6 +45,10 @@ export default mixins(PageDataProvider).extend({
             selectedTags: [] as string[],
             isOpen: false,
         }
+    },
+    created() {
+        const query = this.$route.query[QUERY_TAG] as string
+        if (query) this.selectedTags.push(query)
     },
     components: { VFilterBar },
     computed: {
@@ -71,8 +81,26 @@ export default mixins(PageDataProvider).extend({
 .toggle {
     ---v-button-icon-margin: #{rem(8)} 0 #{rem(8)} #{rem(8)};
 
+    position: relative;
     display: block;
     margin-left: auto;
+
+    &::before {
+        position: absolute;
+        top: rem(10);
+        left: rem(-6);
+        width: rem(6);
+        height: rem(6);
+        background-color: color(black);
+        border-radius: 100vmax;
+        content: '';
+        scale: 0;
+        transition: scale 0.3s;
+    }
+
+    &--active::before {
+        scale: 1;
+    }
 }
 
 .toggle-icon {
@@ -109,7 +137,7 @@ export default mixins(PageDataProvider).extend({
 }
 
 .body {
-    margin-top: rem(20);
+    margin-block: rem(20);
 }
 
 .projects {

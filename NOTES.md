@@ -11,10 +11,17 @@ import CustomTypesClient, { CustomTypesClientConfig } from '@prismicio/custom-ty
 
 
 ### IN PROGRESS
+* **(Setup)** pushed slices aren't available in prismic repository (can't display block in home_page)
+
+### TO CHECK
+* **(Build)** avoid to generate route for ['/preview', '/en/preview', ''/en/slice-simulator', '/slice-simulator']
 
 ### TODOS
+* **(Build)** disable google crawl during dev
 
 ### DONE
+* **(VImage)** add padding bottom depending on ratio to avoid layout shifting when image isn't load yet
+* **(VHeaderProject)** add link to tag into projectListing with queryParams url
 * **(I18n)** get locale trad
 * **(VNav)** when sub page (projects/slug) menu url keep '/project/uid-page'
 * **(Internalization)** re fetch project with current locale

@@ -112,7 +112,7 @@ interface HomePageDocumentData {
  * Slice for *Home page → Slice Zone*
  *
  */
-type HomePageDocumentDataSlicesSlice = never
+type HomePageDocumentDataSlicesSlice = IntroductionBlockSlice | ProjectPushBlockSlice | ProjectListingBlockSlice
 /**
  * Home page document from Prismic
  *
@@ -217,6 +217,28 @@ interface PageDocumentData {
    */
   type: prismic.SelectField<'Default' | 'About'>
   /**
+   * Test field in *Page*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: page.test
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/core-concepts/key-text
+   *
+   */
+  test: prismic.KeyTextField
+  /**
+   * Slice Zone field in *Page*
+   *
+   * - **Field Type**: Slice Zone
+   * - **Placeholder**: *None*
+   * - **API ID Path**: page.slices[]
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/core-concepts/slices
+   *
+   */
+  slices: prismic.SliceZone<PageDocumentDataSlicesSlice>
+  /**
    * Meta title field in *Page*
    *
    * - **Field Type**: Text
@@ -250,6 +272,11 @@ interface PageDocumentData {
    */
   meta_image: prismic.LinkToMediaField
 }
+/**
+ * Slice for *Page → Slice Zone*
+ *
+ */
+type PageDocumentDataSlicesSlice = IntroductionBlockSlice | ProjectPushBlockSlice | ProjectListingBlockSlice
 /**
  * Page document from Prismic
  *
@@ -483,6 +510,151 @@ export type SettingsDocument<Lang extends string = string> = prismic.PrismicDocu
   Lang
 >
 export type AllDocumentTypes = HomePageDocument | MainMenuDocument | PageDocument | ProjectDocument | SettingsDocument
+/**
+ * Primary content in IntroductionBlock → Primary
+ *
+ */
+interface IntroductionBlockSliceDefaultPrimary {
+  /**
+   * Content field in *IntroductionBlock → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: introduction_block.primary.content
+   * - **Documentation**: https://prismic.io/docs/core-concepts/rich-text-title
+   *
+   */
+  content: prismic.RichTextField
+}
+/**
+ * Item in IntroductionBlock → Items
+ *
+ */
+export interface IntroductionBlockSliceDefaultItem {
+  /**
+   * Media field in *IntroductionBlock → Items*
+   *
+   * - **Field Type**: Link to Media
+   * - **Placeholder**: *None*
+   * - **API ID Path**: introduction_block.items[].media
+   * - **Documentation**: https://prismic.io/docs/core-concepts/link-content-relationship
+   *
+   */
+  media: prismic.LinkToMediaField
+}
+/**
+ * Default variation for IntroductionBlock Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: `Default`
+ * - **Documentation**: https://prismic.io/docs/core-concepts/reusing-slices
+ *
+ */
+export type IntroductionBlockSliceDefault = prismic.SharedSliceVariation<
+  'default',
+  Simplify<IntroductionBlockSliceDefaultPrimary>,
+  Simplify<IntroductionBlockSliceDefaultItem>
+>
+/**
+ * Slice variation for *IntroductionBlock*
+ *
+ */
+type IntroductionBlockSliceVariation = IntroductionBlockSliceDefault
+/**
+ * IntroductionBlock Shared Slice
+ *
+ * - **API ID**: `introduction_block`
+ * - **Description**: `IntroductionBlock`
+ * - **Documentation**: https://prismic.io/docs/core-concepts/reusing-slices
+ *
+ */
+export type IntroductionBlockSlice = prismic.SharedSlice<'introduction_block', IntroductionBlockSliceVariation>
+/**
+ * Primary content in ProjectListingBlock → Primary
+ *
+ */
+interface ProjectListingBlockSliceDefaultPrimary {
+  /**
+   * Title field in *ProjectListingBlock → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: project_listing_block.primary.title
+   * - **Documentation**: https://prismic.io/docs/core-concepts/key-text
+   *
+   */
+  title: prismic.KeyTextField
+}
+/**
+ * Default variation for ProjectListingBlock Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: `Default`
+ * - **Documentation**: https://prismic.io/docs/core-concepts/reusing-slices
+ *
+ */
+export type ProjectListingBlockSliceDefault = prismic.SharedSliceVariation<
+  'default',
+  Simplify<ProjectListingBlockSliceDefaultPrimary>,
+  never
+>
+/**
+ * Slice variation for *ProjectListingBlock*
+ *
+ */
+type ProjectListingBlockSliceVariation = ProjectListingBlockSliceDefault
+/**
+ * ProjectListingBlock Shared Slice
+ *
+ * - **API ID**: `project_listing_block`
+ * - **Description**: `ProjectListingBlock`
+ * - **Documentation**: https://prismic.io/docs/core-concepts/reusing-slices
+ *
+ */
+export type ProjectListingBlockSlice = prismic.SharedSlice<'project_listing_block', ProjectListingBlockSliceVariation>
+/**
+ * Primary content in ProjectPushBlock → Primary
+ *
+ */
+interface ProjectPushBlockSliceDefaultPrimary {
+  /**
+   * Project field in *ProjectPushBlock → Primary*
+   *
+   * - **Field Type**: Content Relationship
+   * - **Placeholder**: *None*
+   * - **API ID Path**: project_push_block.primary.project
+   * - **Documentation**: https://prismic.io/docs/core-concepts/link-content-relationship
+   *
+   */
+  project: prismic.RelationField
+}
+/**
+ * Default variation for ProjectPushBlock Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: `Default`
+ * - **Documentation**: https://prismic.io/docs/core-concepts/reusing-slices
+ *
+ */
+export type ProjectPushBlockSliceDefault = prismic.SharedSliceVariation<
+  'default',
+  Simplify<ProjectPushBlockSliceDefaultPrimary>,
+  never
+>
+/**
+ * Slice variation for *ProjectPushBlock*
+ *
+ */
+type ProjectPushBlockSliceVariation = ProjectPushBlockSliceDefault
+/**
+ * ProjectPushBlock Shared Slice
+ *
+ * - **API ID**: `project_push_block`
+ * - **Description**: `ProjectPushBlock`
+ * - **Documentation**: https://prismic.io/docs/core-concepts/reusing-slices
+ *
+ */
+export type ProjectPushBlockSlice = prismic.SharedSlice<'project_push_block', ProjectPushBlockSliceVariation>
 declare module '@prismicio/client' {
   interface CreateClient {
     (repositoryNameOrEndpoint: string, options?: prismicClient.ClientConfig): prismicClient.Client<AllDocumentTypes>
@@ -496,6 +668,7 @@ declare module '@prismicio/client' {
       MainMenuDocumentDataLinksItem,
       MainMenuDocument,
       PageDocumentData,
+      PageDocumentDataSlicesSlice,
       PageDocument,
       ProjectDocumentData,
       ProjectDocumentDataTagsItem,
@@ -504,6 +677,19 @@ declare module '@prismicio/client' {
       SettingsDocumentDataSocialsItem,
       SettingsDocument,
       AllDocumentTypes,
+      IntroductionBlockSliceDefaultPrimary,
+      IntroductionBlockSliceDefaultItem,
+      IntroductionBlockSliceDefault,
+      IntroductionBlockSliceVariation,
+      IntroductionBlockSlice,
+      ProjectListingBlockSliceDefaultPrimary,
+      ProjectListingBlockSliceDefault,
+      ProjectListingBlockSliceVariation,
+      ProjectListingBlockSlice,
+      ProjectPushBlockSliceDefaultPrimary,
+      ProjectPushBlockSliceDefault,
+      ProjectPushBlockSliceVariation,
+      ProjectPushBlockSlice,
     }
   }
 }

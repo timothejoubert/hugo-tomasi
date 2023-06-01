@@ -1,5 +1,5 @@
 {
-  "name": "hugo-tomasi-portfolio",
+  "name": "hugo-tomasi",
   "version": "1.0.0",
   "author": "Timothé Joubert",
   "description": "Nuxt and Prismic api for motion designer and 3D artist portfolio",
@@ -57,7 +57,7 @@
     "prismic-ts-codegen": "^0.1.5",
     "sass": "^1.35.1",
     "sass-loader": "^10.1.1",
-    "slice-machine-ui": "^1.0.3",
+    "slice-machine-ui": "^1.1.1",
     "stylelint": "^13.13.1",
     "stylelint-config-css-modules": "^2.2.0",
     "stylelint-config-idiomatic-order": "^8.1.0",

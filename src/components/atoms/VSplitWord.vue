@@ -1,14 +1,15 @@
 <template>
-    <div v-if="word" :class="$style.root">
-        <div
-            v-for="(letter, i) in word"
-            :key="i"
-            :class="$style.letter"
-            :style="{ '--letter-index': i }"
-            :aria-content="letter"
-        >
-            {{ letter }}
-        </div>
+    <div v-if="word" :class="[$style.root, playAnimation && $style['root--animate']]">
+        <template v-for="(letter, i) in letters">
+            <div
+                :key="i"
+                :class="[$style.letter, letter.isAfterSpace && $style['letter--after-space']]"
+                :style="{ '--letter-index': i }"
+                :aria-content="letter.content"
+            >
+                {{ letter.content }}
+            </div>
+        </template>
     </div>
 </template>
 <script lang="ts">
@@ -17,6 +18,23 @@ import Vue from 'vue'
 export default Vue.extend({
     props: {
         word: String,
+        isAnimated: { type: Boolean, default: true },
+        playAnimation: Boolean,
+    },
+    computed: {
+        letters(): { content: string; isAfterSpace: boolean }[] | undefined {
+            const letters = this.word?.split('')
+            if (!letters?.length) return undefined
+
+            return letters
+                .map((letter: string, i: number) => {
+                    return {
+                        content: letter,
+                        isAfterSpace: i > 0 && letters[i - 1] === ' ',
+                    }
+                })
+                .filter((letter) => letter.content !== ' ')
+        },
     },
 })
 </script>
@@ -32,6 +50,10 @@ export default Vue.extend({
     display: block;
     opacity: 1;
 
+    &--after-space {
+        margin-left: rem(5);
+    }
+
     &::after {
         position: absolute;
         top: 0;
@@ -42,12 +64,20 @@ export default Vue.extend({
         translate: 0 100%;
     }
 
+    .root--animate & {
+        animation: slide-up 350ms calc(var(--letter-index) * 20ms) ease(out-quad);
+    }
+
+    .root--animate &::after {
+        opacity: 1;
+    }
+
     @media (hover: hover) {
-        .root:hover & {
+        .root:not(.root--animate):hover & {
             animation: slide-up 350ms calc(var(--letter-index) * 20ms) ease(out-quad);
         }
 
-        .root:hover &::after {
+        .root:not(.root--animate):hover &::after {
             opacity: 1;
         }
     }

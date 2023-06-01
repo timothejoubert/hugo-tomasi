@@ -8,8 +8,9 @@
 
 
 ### WEBHOOK
-* send prismic webhook to netlify (Netlify build hook)[https://app.netlify.com/sites/hugo-tomasi/settings/deploys#build-hooks]
+* send prismic webhook to netlify (Prismic tuto)[https://prismic.io/docs/webhooks] | (Netlify build hook page)[https://app.netlify.com/sites/hugo-tomasi/settings/deploys#build-hooks]
 
 
 ### PREVIEW
-* Setup prismic preview
+* Add the cdn preview link in nuxt.config.js
+* Setup prismic preview (add name, domain and path to the preview in prismic settings)
