@@ -35,11 +35,6 @@ export type VCardLayout = 'centered' | null
 export default Vue.extend({
     name: 'VCard',
     components: { IconArrowUpRight },
-    data() {
-        return {
-            isEnter: false,
-        }
-    },
     props: {
         title: String,
         image: Object as PropType<ImageField>,
@@ -49,6 +44,11 @@ export default Vue.extend({
         },
         date: String,
         layout: String as PropType<VCardLayout>,
+    },
+    data() {
+        return {
+            isEnter: false,
+        }
     },
 })
 </script>

@@ -5,7 +5,7 @@ import linkResolver from './src/utils/prismic/link-resolver'
 import htmlSerializer from './src/utils/prismic/html-serializer'
 
 const isProduction = process.env.NODE_ENV === 'production'
-const apiEndpoint = `https://${process.env.PRISMIC_REPOSITORY_NAME}.prismic.io/api/v2`
+const apiEndpoint = `https://${process.env.PRISMIC_REPOSITORY_NAME}.cdn.prismic.io/api/v2`
 
 const locales = ['en', 'fr']
 export const defaultLocale = 'fr'
@@ -14,10 +14,6 @@ export default {
     target: 'static',
 
     srcDir: 'src',
-
-    // router: {
-    //     base: process.env.HOME_PATH || '/',
-    // },
 
     image: {
         prismic: {},
@@ -142,16 +138,15 @@ export default {
         development: process.env.NODE_ENV === 'development',
         appName: process.env.APP_NAME,
         appUrl: process.env.APP_URL,
-        apiUrl: apiEndpoint,
         defaultLocale,
-        homePath: process.env.HOME_PATH || '/',
+        previewPath: process.env.PREVIEW_PATH,
     },
     // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
     plugins: ['~/plugins/prismic-components.ts'],
     prismic: {
-        preview: '/preview',
+        preview: process.env.PREVIEW_PATH,
         components: true,
-        endpoint: 'https://hugo-tomasi.cdn.prismic.io/api/v2',
+        endpoint: apiEndpoint,
         modern: true,
         linkResolver,
         htmlSerializer,

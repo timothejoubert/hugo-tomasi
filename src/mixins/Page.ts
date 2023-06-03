@@ -22,7 +22,7 @@ export default Vue.extend({
         const { $prismic, params, store, route, error } = context
         let page
 
-        const isPreview = route.fullPath.includes('/preview/')
+        const isPreview = route.fullPath.includes(`${context.$config.previewPath}/`)
 
         // Root
         const isRootPath = route.fullPath === '/en' || route.fullPath === '/'

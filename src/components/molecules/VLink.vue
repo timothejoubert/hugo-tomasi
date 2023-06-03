@@ -2,16 +2,15 @@
 import Vue from 'vue'
 import type { PropType, VNode, VNodeData } from 'vue'
 import type { PrismicDocument } from '@prismicio/types'
-import { ContentRelationshipField } from '@prismicio/types/src/value/contentRelationship'
-import type { Document } from '@prismicio/client/types/documents'
+import { LinkField } from '@prismicio/types/src/value/link'
 import { hasUid, isPrismicDocument } from '~/types/prismic/prismic-guard'
-import {isProjectDocument} from "~/utils/prismic/custom-type-entity";
-import { isInternalRelationLinkWithUidFulled } from '~/utils/prismic/field-relation'
-import DocumentUid from "~/constants/document-uid";
+import { isProjectDocument } from '~/utils/prismic/custom-type-entity'
+import DocumentUid from '~/constants/document-uid'
+import { getRelationLinkDocument, isRelationField } from '~/utils/prismic/relation-field'
 
 type CustomVNodeData = VNodeData & Required<Pick<VNodeData, 'props' | 'attrs'>>
 
-type PrismicDocumentLink = Document | PrismicDocument | ContentRelationshipField | { [key: string]: any }
+type LinkReference = PrismicDocument | LinkField
 
 const DEFAULT_LABEL = 'En voir plus'
 
@@ -24,7 +23,7 @@ export default Vue.extend({
             default: undefined,
         },
         href: String,
-        reference: Object as PropType<PrismicDocumentLink>,
+        reference: Object as PropType<LinkReference>,
     },
     render(createElement, context): VNode | VNode[] {
         const { href, reference } = context.props
@@ -38,17 +37,20 @@ export default Vue.extend({
             )
         }
 
-        const isProject =
-            reference &&
-            (isPrismicDocument(reference) || isInternalRelationLinkWithUidFulled(reference)) &&
-            isProjectDocument(reference)
-        const isDocument = reference && hasUid(reference)
+        const document = isPrismicDocument(reference)
+            ? (reference as PrismicDocument)
+            : isRelationField(reference)
+            ? getRelationLinkDocument(reference as LinkField)
+            : undefined
+
+        const isProject = document && isProjectDocument(document)
+        const isDocument = document && hasUid(document)
 
         let url = ''
         if (isProject) {
-            url = `/${DocumentUid.PROJECT_LISTING}/${reference.uid}`
+            url = `/${DocumentUid.PROJECT_LISTING}/${document.uid}`
         } else if (isDocument) {
-            url = '/' + reference.uid
+            url = '/' + document.uid
         } else if (href) {
             url = href
         }

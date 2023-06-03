@@ -11,13 +11,14 @@ import CustomTypesClient, { CustomTypesClientConfig } from '@prismicio/custom-ty
 
 
 ### IN PROGRESS
-* **(Setup)** pushed slices aren't available in prismic repository (can't display block in home_page)
+* **(Setup)** prismic linked to skeleton repository
 
 ### TO CHECK
 * **(Build)** avoid to generate route for ['/preview', '/en/preview', ''/en/slice-simulator', '/slice-simulator']
 
 ### TODOS
 * **(Build)** disable google crawl during dev
+* **(Config)** use PrismicClient (exemple)[https://community.prismic.io/t/an-invalid-prismic-repository-name-was-given/10523/10]
 
 ### DONE
 * **(VImage)** add padding bottom depending on ratio to avoid layout shifting when image isn't load yet

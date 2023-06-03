@@ -1,7 +1,7 @@
 import { LinkToMediaField } from '@prismicio/types/src/value/linkToMedia'
 import { LinkType } from '@prismicio/types/src/value/link'
 import type { EmptyLinkField, FilledLinkToMediaField, ImageField } from '@prismicio/types'
-import { ImageFieldImage } from '@prismicio/types/src/value/image'
+import { FilledImageFieldImage } from '@prismicio/types/src/value/image'
 
 export const getMediaType = (media: LinkToMediaField): typeof LinkType | string | null => {
     return isLinkMediaFulled(media) ? media.link_type : null
@@ -13,7 +13,7 @@ export const isLinkMediaFulled = (
     return 'name' in media && 'url' in media
 }
 
-export const isMediaFulled = (media: Partial<ImageField> | undefined): media is ImageFieldImage<'filled'> => {
+export const isMediaFulled = (media: Partial<ImageField>): media is FilledImageFieldImage => {
     return typeof media === 'object' && 'url' in media
 }
 

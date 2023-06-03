@@ -11,7 +11,12 @@
       "version": "initial",
       "description": "Default",
       "imageUrl": "",
-      "primary": { "project": { "type": "Link", "config": { "label": "Project", "select": "document" } } },
+      "primary": {
+        "project": {
+          "type": "Link",
+          "config": { "label": "Project", "select": "document", "customtypes": ["project"] }
+        }
+      },
       "items": {}
     }
   ]

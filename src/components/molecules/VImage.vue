@@ -2,6 +2,7 @@
 import Vue from 'vue'
 import type { PropType, VNode } from 'vue'
 import type { ImageField } from '@prismicio/types'
+import { FilledLinkToMediaField } from '@prismicio/types/src/value/linkToMedia'
 import { isMediaFulled } from '~/utils/prismic/field-media'
 
 const FALLBACK_ALT = 'Illustration de justine saez'
@@ -10,7 +11,7 @@ export default Vue.extend({
     name: 'VImage',
     props: {
         prismicImage: {
-            type: Object as PropType<ImageField>,
+            type: Object as PropType<ImageField | FilledLinkToMediaField>,
         },
         nativeImg: Boolean,
         ratio: { type: [Boolean, Number], default: true },
@@ -26,7 +27,6 @@ export default Vue.extend({
         const { prismicImage, nativeImg, url } = this.$props
 
         if (!isMediaFulled(prismicImage) && !url) return createElement('')
-        console.log(prismicImage)
 
         const imgTag = nativeImg ? 'img' : 'nuxt-img'
 

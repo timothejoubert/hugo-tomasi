@@ -5,7 +5,7 @@
         <lazy-v-project-page v-else-if="isProjectPage" :page-data="pageData" />
         <lazy-v-default-page v-else-if="isDefaultPage" :page-data="pageData" />
 
-        <slice-zone v-if="slices && components" id="main" wrapper="main" :slices="slices" :components="components" />
+        <slice-zone v-if="slices && components" wrapper="main" :slices="slices" :components="components" />
     </div>
     <div v-else>
         <p>pageData not find</p>

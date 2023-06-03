@@ -18,7 +18,6 @@
         }
       },
       "type": { "type": "Select", "config": { "label": "Type", "placeholder": "", "options": ["Default", "About"] } },
-      "test": { "type": "Text", "config": { "label": "Test", "placeholder": "" } },
       "slices": {
         "type": "Slices",
         "fieldset": "Slice Zone",

@@ -20,11 +20,11 @@ import Vue from 'vue'
 import { joinURL } from 'ufo'
 import { FilledContentRelationshipField } from '@prismicio/types/src/value/contentRelationship'
 import { FilledLinkToMediaField } from '@prismicio/types/src/value/linkToMedia'
-import { isInternalRelationLinkWithUidFulled } from '~/utils/prismic/field-relation'
 import DocumentUid from '~/constants/document-uid'
 import { MainMenuDocumentDataLinksItem } from '~/types/prismic/prismic-types.generated'
 import { DocumentWithUidData, DocumentWithUidNames, ProjectDocumentData } from '~/types/prismic/app-prismic'
 import VSplitWord from '~/components/atoms/VSplitWord.vue'
+import { isInternalRelationLinkWithUidFulled } from '~/utils/prismic/relation-field'
 
 type MenuItem = Omit<MainMenuDocumentDataLinksItem, 'link'> & {
     link: FilledContentRelationshipField<DocumentWithUidNames, string, DocumentWithUidData>

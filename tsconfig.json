@@ -37,7 +37,8 @@
             "@nuxt/content",
             "webpack-env",
             "src/types/prismic/*.ts",
-            "src/types/prismic/*d.ts"
+            "src/types/prismic/*d.ts",
+            "./prismicio-types.d.ts"
         ]
     },
     "exclude": [

@@ -1,0 +1,18 @@
+{
+  "id": "partners_block",
+  "type": "SharedSlice",
+  "name": "PartnersBlock",
+  "description": "PartnersBlock",
+  "variations": [
+    {
+      "id": "default",
+      "name": "Default",
+      "docURL": "...",
+      "version": "initial",
+      "description": "Default",
+      "imageUrl": "",
+      "primary": { "lines": { "type": "Number", "config": { "label": "Lines", "placeholder": "" } } },
+      "items": { "media": { "type": "Link", "config": { "label": "Media", "placeholder": "", "select": "media" } } }
+    }
+  ]
+}
