@@ -51,7 +51,7 @@ export default Vue.extend({
     opacity: 1;
 
     &--after-space {
-        margin-left: rem(5);
+        margin-left: 0.3em;
     }
 
     &::after {

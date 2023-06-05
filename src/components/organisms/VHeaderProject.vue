@@ -52,7 +52,7 @@ export default mixins(PageDataProvider).extend({
     },
     methods: {
         getProjectListingUrlByTag(tag: string): string {
-            return `/${DocumentUid.PROJECT_LISTING}?${QUERY_TAG}=${tag}`
+            return (this.$i18n.locale === 'en' ? '/en' : '') + `/${DocumentUid.PROJECT_LISTING}?${QUERY_TAG}=${tag}`
         },
     },
 })

@@ -35,7 +35,8 @@
           "choices": {
             "introduction_block": { "type": "SharedSlice" },
             "project_push_block": { "type": "SharedSlice" },
-            "project_listing_block": { "type": "SharedSlice" }
+            "project_listing_block": { "type": "SharedSlice" },
+            "partners_block": { "type": "SharedSlice" }
           }
         }
       }

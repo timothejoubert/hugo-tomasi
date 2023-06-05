@@ -112,7 +112,11 @@ interface HomePageDocumentData {
  * Slice for *Home page → Slice Zone*
  *
  */
-type HomePageDocumentDataSlicesSlice = IntroductionBlockSlice | ProjectPushBlockSlice | ProjectListingBlockSlice
+type HomePageDocumentDataSlicesSlice =
+    | IntroductionBlockSlice
+    | ProjectPushBlockSlice
+    | ProjectListingBlockSlice
+    | PartnersBlockSlice
 /**
  * Home page document from Prismic
  *

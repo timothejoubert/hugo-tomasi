@@ -147,6 +147,8 @@ export default mixins(PageDataProvider).extend({
 }
 
 .project {
+    --v-card-description-display: none;
+
     width: 100%;
 }
 

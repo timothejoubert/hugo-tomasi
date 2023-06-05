@@ -18,13 +18,16 @@ export default Vue.extend({
     props: {
         project: Object as PropType<ProjectDocumentData>,
         layout: String as PropType<VCardLayout>,
+        titleClass: String,
     },
     computed: {
         cardProps(): Record<string, any> {
-            const { thumbnail, title, tags, date } = this.project
+            const { thumbnail, title, tags, date, description } = this.project
             return {
                 image: thumbnail,
                 title,
+                titleClass: this.titleClass,
+                description,
                 tags,
                 date: getProjectYear(date),
                 layout: this.layout,

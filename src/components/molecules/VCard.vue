@@ -14,12 +14,15 @@
             </v-button>
         </div>
         <div :class="$style.body">
-            <v-split-word v-if="title" class="text-over-title-m" :play-animation="isEnter" :word="title" />
-            <div v-if="tags.length" :class="$style.tags">
-                <span v-for="tag in tags" :key="'tag-' + tag.label" class="text-body-s" :class="$style.tag">{{
-                    tag.label
-                }}</span>
+            <div :class="$style.body__left">
+                <v-split-word v-if="title" :class="titleClass" :play-animation="isEnter" :word="title" />
+                <div v-if="tags.length" :class="$style.tags">
+                    <span v-for="tag in tags" :key="'tag-' + tag.label" class="text-body-s" :class="$style.tag">{{
+                        tag.label
+                    }}</span>
+                </div>
             </div>
+            <v-text v-if="description" :content="description" :class="$style.description" class="text-body-s" />
         </div>
     </div>
 </template>
@@ -28,6 +31,7 @@
 import Vue from 'vue'
 import type { PropType } from 'vue'
 import type { ImageField } from '@prismicio/types'
+import * as prismicT from '@prismicio/types'
 import IconArrowUpRight from '~/assets/images/icons/arrow-up-right.svg?sprite'
 
 export type VCardLayout = 'centered' | null
@@ -37,12 +41,14 @@ export default Vue.extend({
     components: { IconArrowUpRight },
     props: {
         title: String,
+        titleClass: { type: String, default: 'text-over-title-m' },
         image: Object as PropType<ImageField>,
         tags: {
-            type: Array as PropType<any[]>,
+            type: Array as PropType<String[]>,
             default: () => [],
         },
         date: String,
+        description: [String, Array] as PropType<String | prismicT.RichTextField>,
         layout: String as PropType<VCardLayout>,
     },
     data() {
@@ -94,7 +100,12 @@ export default Vue.extend({
 }
 
 .body {
+    display: flex;
     margin-top: rem(11);
+}
+
+.body__left {
+    flex-grow: 1;
 
     .root--layout-centered & {
         display: flex;
@@ -115,6 +126,15 @@ export default Vue.extend({
         position: relative;
         content: '|';
         margin-inline: rem(6);
+    }
+}
+
+.description {
+    display: var(--v-card-description-display);
+    width: 100%;
+
+    @include media('>=md') {
+        width: clamp(#{rem(360)}, 25%, #{rem(480)});
     }
 }
 </style>

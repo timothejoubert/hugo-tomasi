@@ -95,7 +95,7 @@ export default Vue.extend({
             } else if (typeof this.href === 'string' && isRelativePath(this.href)) {
                 props.to = this.href
             } else if (this.href) {
-                props.href = this.href
+                props.href = (this.$i18n.locale === 'en' ? '/en' : '') + this.href
                 if (!isAnchor(this.href)) props.target = '_blank'
             }
 

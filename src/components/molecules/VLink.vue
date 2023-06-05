@@ -47,9 +47,9 @@ export default Vue.extend({
         const isDocument = document && hasUid(document)
 
         let url = ''
-        if (isProject) {
+        if (isProject && document?.uid) {
             url = `/${DocumentUid.PROJECT_LISTING}/${document.uid}`
-        } else if (isDocument) {
+        } else if (isDocument && document?.uid) {
             url = '/' + document.uid
         } else if (href) {
             url = href
