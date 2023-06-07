@@ -11,16 +11,17 @@ import CustomTypesClient, { CustomTypesClientConfig } from '@prismicio/custom-ty
 
 
 ### IN PROGRESS
-* **(Setup)** prismic linked to skeleton repository
+* **(Config)** use PrismicClient (exemple)[https://community.prismic.io/t/an-invalid-prismic-repository-name-was-given/10523/10]
+* **(Prismic)** use new Page type
 
 ### TO CHECK
-* **(Build)** avoid to generate route for ['/preview', '/en/preview', ''/en/slice-simulator', '/slice-simulator']
+* **(Sitemap && routes)** avoid to generate route for ['/preview', '/en/preview', ''/en/slice-simulator', '/slice-simulator']
 
 ### TODOS
 * **(Build)** disable google crawl during dev
-* **(Config)** use PrismicClient (exemple)[https://community.prismic.io/t/an-invalid-prismic-repository-name-was-given/10523/10]
 
 ### DONE
+* **(Setup)** prismic linked to skeleton repository
 * **(VImage)** add padding bottom depending on ratio to avoid layout shifting when image isn't load yet
 * **(VHeaderProject)** add link to tag into projectListing with queryParams url
 * **(I18n)** get locale trad
