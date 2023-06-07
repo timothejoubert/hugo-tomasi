@@ -1,0 +1,21 @@
+{
+  "id": "gallery_block",
+  "type": "SharedSlice",
+  "name": "GalleryBlock",
+  "description": "GalleryBlock",
+  "variations": [
+    {
+      "id": "default",
+      "name": "Default",
+      "docURL": "...",
+      "version": "initial",
+      "description": "Default",
+      "imageUrl": "",
+      "primary": {},
+      "items": {
+        "media": { "type": "Link", "config": { "label": "Media", "placeholder": "", "select": "media" } },
+        "content": { "type": "Text", "config": { "label": "Content", "placeholder": "" } }
+      }
+    }
+  ]
+}

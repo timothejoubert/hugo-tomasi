@@ -1,9 +1,8 @@
 <script lang="ts">
 import Vue from 'vue'
 import type { PropType, VNode } from 'vue'
-import type { ImageField } from '@prismicio/types'
-import { FilledLinkToMediaField } from '@prismicio/types/src/value/linkToMedia'
 import { isMediaFulled } from '~/utils/prismic/field-media'
+import { PrismicMedia } from '~/types/prismic/app-prismic'
 
 const FALLBACK_ALT = 'Illustration de justine saez'
 
@@ -11,7 +10,7 @@ export default Vue.extend({
     name: 'VImage',
     props: {
         prismicImage: {
-            type: Object as PropType<ImageField | FilledLinkToMediaField>,
+            type: Object as PropType<PrismicMedia>,
         },
         nativeImg: Boolean,
         ratio: { type: [Boolean, Number], default: true },

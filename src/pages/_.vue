@@ -6,6 +6,12 @@
         <lazy-v-default-page v-else-if="isDefaultPage" :page-data="pageData" />
 
         <slice-zone v-if="slices && components" wrapper="main" :slices="slices" :components="components" />
+
+        <lazy-v-projects-carousel
+            v-if="isProjectPage"
+            :title="$t('project_page.see_more').toString()"
+            :class="$style['project-page-carousel']"
+        />
     </div>
     <div v-else>
         <p>pageData not find</p>
@@ -28,3 +34,9 @@ export default mixins(Page).extend({
     },
 })
 </script>
+
+<style lang="scss" module>
+.project-page-carousel {
+    margin-bottom: rem(200);
+}
+</style>

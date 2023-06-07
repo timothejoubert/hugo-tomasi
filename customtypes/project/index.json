@@ -3,6 +3,7 @@
   "label": "Project",
   "repeatable": true,
   "status": true,
+  "format": "custom",
   "json": {
     "Main": {
       "uid": { "type": "UID", "config": { "label": "Slug", "placeholder": "Nom du projet dans l'url" } },
@@ -33,6 +34,13 @@
           "allowTargetBlank": true,
           "multi": "paragraph,strong,em,hyperlink"
         }
+      },
+      "slices": {
+        "type": "Slices",
+        "fieldset": "Slice Zone",
+        "config": {
+          "choices": { "gallery_block": { "type": "SharedSlice" }, "excerpt_block": { "type": "SharedSlice" } }
+        }
       }
     },
     "Meta data": {
@@ -40,6 +48,5 @@
       "meta_description": { "type": "Text", "config": { "label": "Meta description", "placeholder": "" } },
       "meta_image": { "type": "Link", "config": { "label": "Meta image", "placeholder": "", "select": "media" } }
     }
-  },
-  "format": "custom"
+  }
 }

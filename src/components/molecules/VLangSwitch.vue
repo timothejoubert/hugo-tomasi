@@ -119,7 +119,7 @@ export default Vue.extend({
 }
 
 .link {
-    padding: rem(6) rem(14);
+    padding: rem(6) 0 rem(6) rem(14);
     border-radius: rem(10);
     text-transform: uppercase;
 

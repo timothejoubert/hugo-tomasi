@@ -1,5 +1,7 @@
 {
     "cta.label": "See more",
     "filter.label": "Filters",
-    "see_all_project": "Discover all my projects"
+    "see_all_project": "Discover all my projects",
+    "project_page.see_more": "See more"
+
 }

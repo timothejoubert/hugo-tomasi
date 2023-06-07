@@ -1,5 +1,5 @@
 <template>
-    <section :data-slice-type="slice.slice_type" :data-slice-variation="slice.variation" :class="$style.root">
+    <section :class="$style.root">
         <v-marquee :items="medias" :direction="-1" />
     </section>
 </template>

@@ -1,0 +1,20 @@
+[
+	{
+		"__TYPE__": "SharedSliceContent",
+		"variation": "default",
+		"primary": {
+			"content": {
+				"__TYPE__": "StructuredTextContent",
+				"value": [
+					{
+						"type": "paragraph",
+						"content": {
+							"text": "Pariatur eiusmod eu aliquip mollit officia qui laborum elit commodo. Nisi enim voluptate qui anim nostrud eiusmod veniam."
+						}
+					}
+				]
+			}
+		},
+		"items": []
+	}
+]
