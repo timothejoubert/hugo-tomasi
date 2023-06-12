@@ -73,3 +73,7 @@ export const stringDateToYear = (
     const items = date.split(separator)
     return Number(items[position])
 }
+
+export function convertRemToPixels(rem: string) {
+    return Number(rem) * parseFloat(getComputedStyle(document.documentElement).fontSize)
+}
