@@ -8,7 +8,8 @@ import { RootState } from '~/types/store'
 import MutationType from '~/constants/mutation-type'
 import { CustomTypeName } from '~/types/prismic/app-prismic'
 import CustomType from '~/constants/custom-type'
-import {MainMenuDocument, ProjectDocument, SettingsDocument} from "~/types/prismic/prismic-types.generated";
+import { MainMenuDocument, ProjectDocument, SettingsDocument } from '~/types/prismic/prismic-types.generated'
+import { getNumberedDate } from '~/utils/prismic/date'
 // import { Context, NuxtError } from '@nuxt/types'
 
 const actions: ActionTree<RootState, RootState> = {
@@ -30,7 +31,11 @@ const actions: ActionTree<RootState, RootState> = {
         await dispatch('getProjects', context)
             .then((projects: Array<ProjectDocument>) => {
                 // TODO: order project by date
-                commit(MutationType.SET_PROJECTS, projects)
+                const projectOrdered = projects.sort(
+                    (accumulator: ProjectDocument, current: ProjectDocument) =>
+                        getNumberedDate(current.data.date) - getNumberedDate(accumulator.data.date)
+                )
+                commit(MutationType.SET_PROJECTS, projectOrdered)
             })
             .catch((fetchError: Error) => {
                 console.log('failed to fetch mainMenu or setting', fetchError)

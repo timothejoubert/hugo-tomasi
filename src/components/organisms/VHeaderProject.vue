@@ -1,7 +1,7 @@
 <template>
     <div v-if="project" :class="$style.root" class="container-fullscreen">
         <div :class="$style.head">
-            <div v-if="project.title" class="text-h2">{{ project.title }}</div>
+            <div v-if="project.title" class="text-h2" :class="$style.title">{{ project.title }}</div>
             <v-text
                 v-if="project.description"
                 :content="project.description"
@@ -15,7 +15,7 @@
                     :to="getProjectListingUrlByTag(tag)"
                     :label="tag"
                     filled
-                    size="m"
+                    size="l"
                     theme="light"
                 />
             </div>
@@ -73,6 +73,10 @@ export default mixins(PageDataProvider).extend({
     justify-content: space-between;
     gap: rem(12);
     margin-block: $v-top-bar-height + rem(100) rem(22);
+}
+
+.title {
+    margin-right: rem(30);
 }
 
 .description {

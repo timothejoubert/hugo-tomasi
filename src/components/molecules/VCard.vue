@@ -88,8 +88,10 @@ export default Vue.extend({
 
 .date {
     position: absolute;
+    z-index: 2;
     top: rem(12);
     left: rem(12);
+    display: var(--v-card-date-display, flex);
 }
 
 .cta {

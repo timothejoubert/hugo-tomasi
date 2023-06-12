@@ -1,8 +1,13 @@
 <template>
     <section :class="rootClasses" class="container">
         <div v-for="(item, i) in items" :key="i" :class="$style.item">
-            <v-media :video="{ cover: true, controls: false }" :document="item.media" :class="$style.media" />
-            <div v-if="item.content" :class="$style.content">{{ item.content }}</div>
+            <v-media
+                :video="{ cover: true, controls: showControls }"
+                :document="item.media"
+                :class="$style.media"
+                @video-state="onVideoStateUpdate"
+            />
+            <div v-if="item.content" :class="$style.content" class="text-body-s">{{ item.content }}</div>
         </div>
     </section>
 </template>
@@ -12,6 +17,7 @@ import Vue from 'vue'
 import type { PropType } from 'vue'
 import { GalleryBlockSlice, GalleryBlockSliceDefaultItem } from '~~/prismicio-types'
 import { isRelationMediaFulled } from '~/utils/prismic/relation-field'
+import { VideoState } from '~/components/molecules/VVideo.vue'
 
 export default Vue.extend({
     name: 'GalleryBlock',
@@ -20,6 +26,11 @@ export default Vue.extend({
             type: Object as PropType<GalleryBlockSlice>,
             required: true,
         },
+    },
+    data() {
+        return {
+            showControls: false,
+        }
     },
     computed: {
         rootClasses(): (undefined | false | string)[] {
@@ -30,6 +41,11 @@ export default Vue.extend({
         },
         isSolo(): boolean {
             return this.items.length === 1
+        },
+    },
+    methods: {
+        onVideoStateUpdate(state: VideoState) {
+            this.showControls = this.isSolo && state === 'played'
         },
     },
 })
@@ -44,13 +60,21 @@ export default Vue.extend({
     flex-wrap: wrap;
     justify-content: center;
     gap: rem(30);
+
+    @include media('>=md') {
+        flex-wrap: nowrap;
+    }
 }
 
 .item {
-    width: 45%;
+    width: 100%;
 
-    .root--solo & {
-        width: 70%;
+    @include media('>=md') {
+        width: 50%;
+
+        .root--solo & {
+            width: 80%;
+        }
     }
 }
 
@@ -63,5 +87,6 @@ export default Vue.extend({
 
 .content {
     margin-top: rem(12);
+    opacity: 0.8;
 }
 </style>

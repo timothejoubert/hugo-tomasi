@@ -11,8 +11,8 @@ import CustomTypesClient, { CustomTypesClientConfig } from '@prismicio/custom-ty
 
 
 ### IN PROGRESS
-* **(Config)** use PrismicClient (exemple)[https://community.prismic.io/t/an-invalid-prismic-repository-name-was-given/10523/10]
-* **(Prismic)** use new Page type
+* **(VProjectListing)** update queryParams when update filters
+* **(VButton)** add hover
 
 ### TO CHECK
 * **(Sitemap && routes)** avoid to generate route for ['/preview', '/en/preview', ''/en/slice-simulator', '/slice-simulator']
@@ -40,7 +40,9 @@ import CustomTypesClient, { CustomTypesClientConfig } from '@prismicio/custom-ty
 
 ### ABANDONED
 * **(Setup)** Add storybook
+* **(Config)** use PrismicClient (exemple)[https://community.prismic.io/t/an-invalid-prismic-repository-name-was-given/10523/10]
 
 ### LATER 
+* **(Prismic)** use new Page type
 * **(Nav && Config)**: Configure nested route
 * **(Config)**: I18n

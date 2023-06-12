@@ -33,5 +33,11 @@ export default Vue.extend({
 
 .content {
     text-transform: uppercase;
+    width: fluid(
+        (
+            xs: 320px,
+            xl: 1200px,
+        )
+    );
 }
 </style>

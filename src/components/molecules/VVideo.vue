@@ -1,9 +1,9 @@
 <template>
     <div v-if="url" :class="rootClasses">
-        <video v-bind="props" ref="media" :class="$style.video" @click="onClick">
+        <video v-bind="props" ref="media" :class="$style.video" @click.prevent="onClick" @canplay="onVideoReady">
             <source :src="url" type="video/mp4" />
         </video>
-        <v-button v-show="videoState !== 'played'" filled :class="$style.cta">
+        <v-button v-show="videoState !== 'played'" filled :class="$style.cta" @click.prevent="onClick">
             <template #icon>
                 <icon-play />
             </template>
@@ -16,7 +16,7 @@ import type { PropType } from 'vue'
 import IconPlay from '~/assets/images/icons/play.svg?sprite'
 import { PrismicMedia } from '~/types/prismic/app-prismic'
 
-export interface VVideoProp {
+export interface VVideoProps {
     prismicMedia: PrismicMedia
     autoplay?: boolean
     cover?: boolean
@@ -24,7 +24,7 @@ export interface VVideoProp {
     needInteraction?: boolean
 }
 
-type VideoState = 'pending' | 'ready' | 'played' | 'paused' | 'ended'
+export type VideoState = 'pending' | 'ready' | 'played' | 'paused' | 'ended'
 
 export default Vue.extend({
     name: 'VVideo',
@@ -70,8 +70,10 @@ export default Vue.extend({
     },
     methods: {
         onClick() {
+            console.log('onClick')
             if (this.videoState === 'played') this.pause()
             else this.play()
+            this.$emit('video-state', this.videoState)
         },
         play() {
             ;(this.$refs.media as HTMLVideoElement).play()
@@ -80,6 +82,9 @@ export default Vue.extend({
         pause() {
             ;(this.$refs.media as HTMLVideoElement).pause()
             this.videoState = 'paused'
+        },
+        onVideoReady() {
+            this.videoState = 'ready'
         },
     },
 })
@@ -93,7 +98,7 @@ export default Vue.extend({
 
     &--cover {
         width: 100%;
-        height: 100%;
+        height: auto;
     }
 }
 

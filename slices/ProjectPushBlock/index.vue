@@ -38,5 +38,7 @@ export default Vue.extend({
 <style lang="scss" module>
 .root {
     @include margin-block;
+
+    --v-card-date-display: none;
 }
 </style>

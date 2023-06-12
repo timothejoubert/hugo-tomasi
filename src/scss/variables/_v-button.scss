@@ -15,7 +15,7 @@ $v-button: (
         font-size: rem(16)
     ),
     l: (
-        font-size: rem(26)
+        font-size: rem(17)
     ),
     xl: (
         font-size: rem(52)
@@ -55,26 +55,17 @@ $v-button-inner: (
     m: (
         min-width: rem(40),
         height: rem(40),
-        padding: 0 rem(26),
+        padding: 0 rem(14),
     ),
     l: (
-        min-width: 68px,
-        height: 50px,
-        padding: 0 31px,
+        min-width: rem(64),
+        height: rem(42),
+        padding: 0 rem(18),
     ),
     xl: (
         min-width: 220px,
-        height: 92px,
-        padding: 14px 50px,
-    ),
-);
-
-$v-button-inner-icon-last: (
-    s: (
-        padding: 0 8px 0 12px,
-    ),
-    m: (
-        padding: 0 26px 0 28px,
+        height: rem(84),
+        padding: rem(14) rem(38),
     ),
 );
 
@@ -84,7 +75,7 @@ $v-button-icon: (
         margin: 0 8px,
     ),
     m: (
-        margin: 0 14px,
+        margin: 0 rem(6) 0 rem(12),
     ),
 );
 

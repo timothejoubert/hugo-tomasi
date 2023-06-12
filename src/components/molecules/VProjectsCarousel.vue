@@ -99,6 +99,8 @@ export default (Vue as VueConstructor<Component>).extend({
 </script>
 <style lang="scss" module>
 .carousel {
+    --v-card-date-display: none;
+
     display: flex;
     min-width: 100%;
     -webkit-overflow-scrolling: touch;

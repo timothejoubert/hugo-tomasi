@@ -6,6 +6,14 @@ import { PrismicMedia } from '~/types/prismic/app-prismic'
 
 const FALLBACK_ALT = 'Illustration de justine saez'
 
+export interface VImageProps {
+    prismicImage: PrismicMedia
+    nativeImg: boolean
+    ratio: boolean | number
+    url: string
+    placeholder: Boolean
+}
+
 export default Vue.extend({
     name: 'VImage',
     props: {

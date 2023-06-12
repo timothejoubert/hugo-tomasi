@@ -48,7 +48,6 @@ export default Vue.extend({
 
     @include v-button-default-css-vars($v-button-inner, 'inner');
 
-    display: flex;
     align-items: center;
     justify-content: center;
     border: none;
