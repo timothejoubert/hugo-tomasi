@@ -65,9 +65,9 @@ export default (Vue as VueConstructor<Component>).extend({
         },
         addItem(index: number) {
             // TODO: when add item => display them as absolute pos with left position depending on their index
-            // for Prevent glitch during the add
 
             const items = this.$refs.item as Vue[]
+
             // duplicate the props item use for display VImage
             const elementProps = items[index].$props.prismicImage
             this.indexPushed++
@@ -99,11 +99,6 @@ export default (Vue as VueConstructor<Component>).extend({
                 this.observers.push(observer)
             })
         },
-        // cloneElement(element: HTMLElement) {
-        //     const elementProps = items[this.indexPushed].$props.prismicImage
-        //     element.remove()
-        //     this.cloneItems.push(elementProps)
-        // },
     },
 })
 </script>

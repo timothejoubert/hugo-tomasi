@@ -3,16 +3,15 @@ import Vue from 'vue'
 import type { PropType, VNode, VNodeData } from 'vue'
 import type { PrismicDocument } from '@prismicio/types'
 import { LinkField } from '@prismicio/types/src/value/link'
+import VueI18n from 'vue-i18n'
 import { hasUid, isPrismicDocument } from '~/types/prismic/prismic-guard'
 import { isProjectDocument } from '~/utils/prismic/custom-type-entity'
 import DocumentUid from '~/constants/document-uid'
-import { getRelationLinkDocument, isRelationField } from '~/utils/prismic/relation-field'
+import { getRelationLinkDocument, isInternalRelationLinkFulled, isRelationType } from '~/utils/prismic/relation-field'
 
 type CustomVNodeData = VNodeData & Required<Pick<VNodeData, 'props' | 'attrs'>>
 
 type LinkReference = PrismicDocument | LinkField
-
-const DEFAULT_LABEL = 'En voir plus'
 
 export default Vue.extend({
     name: 'VLink',
@@ -39,7 +38,7 @@ export default Vue.extend({
 
         const document = isPrismicDocument(reference)
             ? (reference as PrismicDocument)
-            : isRelationField(reference)
+            : isInternalRelationLinkFulled(reference)
             ? getRelationLinkDocument(reference as LinkField)
             : undefined
 
@@ -51,6 +50,8 @@ export default Vue.extend({
             url = `/${DocumentUid.PROJECT_LISTING}/${document.uid}`
         } else if (isDocument && document?.uid) {
             url = '/' + document.uid
+        } else if (isRelationType(reference as LinkField, 'Web') && !!(reference as { url?: string })?.url) {
+            url = (reference as { url: string }).url
         } else if (href) {
             url = href
         }
@@ -61,11 +62,9 @@ export default Vue.extend({
         const isInternal = (isRelative || url?.charAt(0) === '#') && !context.data.attrs?.target
         const isExternal = !isInternal && !!url
         const isDownload = !isInternal && !isExternal
-        let label: string | undefined | boolean = context.props.label
+        let label: string | undefined | boolean | VueI18n.TranslateResult = context.props.label
 
-        if (!label) {
-            label = DEFAULT_LABEL
-        }
+        if (!label) label = context.parent.$t('button.default_label')
 
         if (isInternal) {
             data.props.to = url
@@ -78,8 +77,12 @@ export default Vue.extend({
             }
         }
 
-        if (!data.attrs!.href && !data.props!.to) {
-            return context.slots()?.default || (label ? createElement('span', String(label)) : createElement(''))
+        if (!url) {
+            return context.slots()?.default
+                ? createElement('div', { class: context.data.class }, context.slots()?.default)
+                : label
+                ? createElement('span', String(label))
+                : createElement('')
         }
 
         return createElement(

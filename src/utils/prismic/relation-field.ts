@@ -2,13 +2,16 @@ import type { LinkField } from '@prismicio/types/src/value/link'
 import { FilledContentRelationshipField } from '@prismicio/types/src/value/contentRelationship'
 
 // CHECK FUNCTION
+export function isRelationType(relation: LinkField, type: 'any' | 'Document' | 'Media' | 'Web'): boolean {
+    return relation.link_type === type
+}
 
 export function isRelationField(link: Partial<LinkField>): boolean {
     return !!link && 'link_type' in link
 }
 
-export function isRelationType(relation: LinkField, type: 'any' | 'Document' | 'Media' | 'Web'): boolean {
-    return relation.link_type === type
+export function isLinkFieldFulled(link: Partial<LinkField>): boolean {
+    return !!link && 'url' in link && !!link?.url
 }
 
 export const isRelationMediaFulled = (media: LinkField): boolean => {

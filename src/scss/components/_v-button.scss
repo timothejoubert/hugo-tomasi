@@ -1,5 +1,4 @@
 .v-button__icon {
-
     @media (hover: hover) {
         .v-button--enable-animation:hover & {
             animation: slideOut .2s, slideIn .4s .2s ease(out-quart);

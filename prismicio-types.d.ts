@@ -269,7 +269,14 @@ interface PageDocumentData {
  * Slice for *Page → Slice Zone*
  *
  */
-type PageDocumentDataSlicesSlice = IntroductionBlockSlice | ProjectPushBlockSlice | ProjectListingBlockSlice
+type PageDocumentDataSlicesSlice =
+    | IntroductionBlockSlice
+    | ProjectPushBlockSlice
+    | ProjectListingBlockSlice
+    | PartnersBlockSlice
+    | ExcerptBlockSlice
+    | GalleryBlockSlice
+    | PromoteBlockSlice
 /**
  * Page document from Prismic
  *
@@ -819,6 +826,115 @@ type ProjectPushBlockSliceVariation = ProjectPushBlockSliceDefault
  *
  */
 export type ProjectPushBlockSlice = prismic.SharedSlice<'project_push_block', ProjectPushBlockSliceVariation>
+/**
+ * Primary content in PromoteBlock → Primary
+ *
+ */
+interface PromoteBlockSliceDefaultPrimary {
+    /**
+     * Title field in *PromoteBlock → Primary*
+     *
+     * - **Field Type**: Text
+     * - **Placeholder**: *None*
+     * - **API ID Path**: promote_block.primary.title
+     * - **Documentation**: https://prismic.io/docs/core-concepts/key-text
+     *
+     */
+    title: prismic.KeyTextField
+}
+/**
+ * Item in PromoteBlock → Items
+ *
+ */
+export interface PromoteBlockSliceDefaultItem {
+    /**
+     * Title field in *PromoteBlock → Items*
+     *
+     * - **Field Type**: Text
+     * - **Placeholder**: *None*
+     * - **API ID Path**: promote_block.items[].title
+     * - **Documentation**: https://prismic.io/docs/core-concepts/key-text
+     *
+     */
+    title: prismic.KeyTextField
+    /**
+     * Content field in *PromoteBlock → Items*
+     *
+     * - **Field Type**: Text
+     * - **Placeholder**: *None*
+     * - **API ID Path**: promote_block.items[].content
+     * - **Documentation**: https://prismic.io/docs/core-concepts/key-text
+     *
+     */
+    content: prismic.KeyTextField
+    /**
+     * Place field in *PromoteBlock → Items*
+     *
+     * - **Field Type**: Text
+     * - **Placeholder**: *None*
+     * - **API ID Path**: promote_block.items[].place
+     * - **Documentation**: https://prismic.io/docs/core-concepts/key-text
+     *
+     */
+    place: prismic.KeyTextField
+    /**
+     * Year field in *PromoteBlock → Items*
+     *
+     * - **Field Type**: Text
+     * - **Placeholder**: *None*
+     * - **API ID Path**: promote_block.items[].year
+     * - **Documentation**: https://prismic.io/docs/core-concepts/key-text
+     *
+     */
+    year: prismic.KeyTextField
+    /**
+     * Link field in *PromoteBlock → Items*
+     *
+     * - **Field Type**: Link
+     * - **Placeholder**: *None*
+     * - **API ID Path**: promote_block.items[].link
+     * - **Documentation**: https://prismic.io/docs/core-concepts/link-content-relationship
+     *
+     */
+    link: prismic.LinkField
+    /**
+     * Link Label field in *PromoteBlock → Items*
+     *
+     * - **Field Type**: Text
+     * - **Placeholder**: *None*
+     * - **API ID Path**: promote_block.items[].link_label
+     * - **Documentation**: https://prismic.io/docs/core-concepts/key-text
+     *
+     */
+    link_label: prismic.KeyTextField
+}
+/**
+ * Default variation for PromoteBlock Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: `Default`
+ * - **Documentation**: https://prismic.io/docs/core-concepts/reusing-slices
+ *
+ */
+export type PromoteBlockSliceDefault = prismic.SharedSliceVariation<
+    'default',
+    Simplify<PromoteBlockSliceDefaultPrimary>,
+    Simplify<PromoteBlockSliceDefaultItem>
+>
+/**
+ * Slice variation for *PromoteBlock*
+ *
+ */
+type PromoteBlockSliceVariation = PromoteBlockSliceDefault
+/**
+ * PromoteBlock Shared Slice
+ *
+ * - **API ID**: `promote_block`
+ * - **Description**: `PromoteBlock`
+ * - **Documentation**: https://prismic.io/docs/core-concepts/reusing-slices
+ *
+ */
+export type PromoteBlockSlice = prismic.SharedSlice<'promote_block', PromoteBlockSliceVariation>
 declare module '@prismicio/client' {
     interface CreateClient {
         (repositoryNameOrEndpoint: string, options?: prismicClient.ClientConfig): prismicClient.Client<AllDocumentTypes>
@@ -868,6 +984,11 @@ declare module '@prismicio/client' {
             ProjectPushBlockSliceDefault,
             ProjectPushBlockSliceVariation,
             ProjectPushBlockSlice,
+            PromoteBlockSliceDefaultPrimary,
+            PromoteBlockSliceDefaultItem,
+            PromoteBlockSliceDefault,
+            PromoteBlockSliceVariation,
+            PromoteBlockSlice,
         }
     }
 }

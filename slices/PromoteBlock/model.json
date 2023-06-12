@@ -1,0 +1,25 @@
+{
+  "id": "promote_block",
+  "type": "SharedSlice",
+  "name": "PromoteBlock",
+  "description": "PromoteBlock",
+  "variations": [
+    {
+      "id": "default",
+      "name": "Default",
+      "docURL": "...",
+      "version": "initial",
+      "description": "Default",
+      "imageUrl": "",
+      "primary": { "title": { "type": "Text", "config": { "label": "Title", "placeholder": "" } } },
+      "items": {
+        "title": { "type": "Text", "config": { "label": "Title", "placeholder": "" } },
+        "content": { "type": "Text", "config": { "label": "Content", "placeholder": "" } },
+        "place": { "type": "Text", "config": { "label": "Place", "placeholder": "" } },
+        "year": { "type": "Text", "config": { "label": "Year", "placeholder": "" } },
+        "link": { "type": "Link", "config": { "label": "Link", "placeholder": "", "select": null } },
+        "link_label": { "type": "Text", "config": { "label": "Link Label", "placeholder": "" } }
+      }
+    }
+  ]
+}
