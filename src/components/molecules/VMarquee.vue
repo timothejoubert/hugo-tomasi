@@ -1,17 +1,11 @@
 <template>
-    <div
-        ref="line"
-        :class="$style.root"
-        :style="{ translate: posLeft + 'px 0' }"
-        @mouseenter="speed = 0"
-        @mouseleave="speed = 1"
-    >
+    <div v-if="items.length" ref="line" :class="$style.root">
         <v-image
-            v-for="(item, i) in itemsRendered"
+            v-for="index in minimumLength"
             ref="item"
-            :key="i + item.url"
-            :prismic-image="item"
-            :class="[$style.item, i > items.length - 1 && $style['item--cloned']]"
+            :key="index + '-' + items[(index - 1) % items.length].url"
+            :prismic-image="items[(index - 1) % items.length]"
+            :class="$style.item"
         />
     </div>
 </template>
@@ -20,18 +14,18 @@
 import Vue from 'vue'
 import type { VueConstructor, PropType } from 'vue'
 import { FilledLinkToMediaField } from '@prismicio/types/src/value/linkToMedia'
-import { convertRemToPixels } from '~/utils/utils'
 
 interface Component extends Vue {
-    resizeObserver: ResizeObserver
+    resizeObserver: ResizeObserver | null
+    itemsObservers: IntersectionObserver[]
 }
 
-const CLONE_OFFSET = 100
 const SPEED = 1
 
 export default (Vue as VueConstructor<Component>).extend({
     name: 'VMarquee',
     props: {
+        play: Boolean,
         items: {
             type: Array as PropType<FilledLinkToMediaField[]>,
             default: () => [],
@@ -40,102 +34,146 @@ export default (Vue as VueConstructor<Component>).extend({
     },
     data() {
         return {
-            observers: [] as IntersectionObserver[],
-            cloneItems: [] as FilledLinkToMediaField[],
+            minimumLength: this.items.length,
             posLeft: 0,
-            indexPushed: 0,
-            speed: 1,
+            requestId: null as null | number,
         }
     },
-    computed: {
-        itemsRendered(): FilledLinkToMediaField[] {
-            console.log('update itemsRendered', [...this.items, ...this.cloneItems].length)
-            return [...this.items, ...this.cloneItems]
-        },
-    },
     watch: {
-        async cloneItems() {
+        play(value: boolean) {
+            if (value) this.startAnimation()
+            else this.pauseAnimation()
+        },
+        async minimumLength() {
+            this.disposeObservers()
             await this.$nextTick()
-            const instances = this.$refs.item as Vue[]
-            const lastItem = instances.at(-1)?.$el as HTMLElement | undefined
 
-            if (lastItem) {
-                this.initObserver(lastItem)
-                const previousItemBound = instances.at(-2)?.$el.getBoundingClientRect() || { left: 0, width: 0 }
-                lastItem.style.left =
-                    previousItemBound.left + previousItemBound.width + parseInt(getComputedStyle(this.$el).gap) + 'px'
-            }
+            this.updateItemsPosition()
+            this.initObservers()
         },
     },
     created() {
-        this.observers = []
+        this.itemsObservers = []
     },
     mounted() {
+        if (!(this.$refs.item as Vue[])?.length) return
+
         this.initResizeObserver()
-        this.initClone()
+        this.initWrapperStyle()
 
-        const items = (this.$refs.item as Vue[])
-            .filter((itemInstance) => itemInstance?.$el)
-            .map((image) => image.$el as HTMLElement)
-
-        items?.forEach((item: HTMLElement) => {
-            this.initObserver(item)
-        })
-
-        // this.startTranslate()
+        this.updateMinimumLength()
+        if (this.play) this.startAnimation()
+    },
+    beforeDestroy() {
+        this.disposeResizeObserver()
     },
     methods: {
+        updateMinimumLength() {
+            const wrapperWidth = window.innerWidth // (this.$el as HTMLElement).offsetWidth
+            const itemsWidth = (this.$refs.item as Vue[]).map((item) => item.$el.getBoundingClientRect().width)
+            let result = 0
+            let index = 0
+
+            do {
+                result += itemsWidth[index % (this.items.length - 1)]
+                index++
+            } while (result < wrapperWidth)
+
+            this.minimumLength = Math.max(index, this.items.length)
+        },
         initResizeObserver() {
-            this.resizeObserver = new ResizeObserver(this.initClone)
+            this.resizeObserver = new ResizeObserver(this.updateMinimumLength)
             this.resizeObserver.observe(this.$el)
         },
-        initClone() {
-            const root = this.$el as HTMLElement
-            const items = this.$refs.item as Vue[]
-            const lastItem = items.at(-1)?.$el
-            const lastItemBound = lastItem?.getBoundingClientRect()
-
-            if (lastItemBound && lastItemBound.left - CLONE_OFFSET < root.offsetWidth) this.addItem()
+        disposeResizeObserver() {
+            this.resizeObserver?.disconnect()
+            this.resizeObserver = null
         },
-        addItem() {
-            // TODO: when add item => display them as absolute pos with left position depending on their index
-
-            const items = this.$refs.item as Vue[]
-
-            const elementProps = items[this.indexPushed].$props.prismicImage
-            this.indexPushed++
-            this.cloneItems.push(elementProps)
+        initWrapperStyle() {
+            const maxHeightElement = Math.max(
+                ...(this.$refs.item as Vue[]).map((instance) => instance.$el.getBoundingClientRect().height)
+            )
+            ;(this.$el as HTMLElement).style.height = maxHeightElement + 'px'
         },
-        removeItem() {
-            this.disposeObserver(0)
-            this.cloneItems.splice(0, 1)
-        },
-        startTranslate() {
-            window.setInterval(() => {
-                this.posLeft += SPEED * this.direction * this.speed
-            }, 24)
-        },
-        initObserver(item: HTMLElement) {
-            const observer = new IntersectionObserver(([entry]) => {
-                const itemRect = entry.target.getBoundingClientRect()
-                const rightItemFullyEnter =
-                    itemRect.left < window.innerWidth && itemRect.width + itemRect.left > window.innerWidth
-                const leftItemStartLeave = itemRect.left < itemRect.width * -1
+        initObservers() {
+            const items = (this.$refs.item as Vue[]).map((item) => item.$el) as HTMLElement[]
 
-                const add = this.direction === -1 ? rightItemFullyEnter : leftItemStartLeave
-                const remove = this.direction === -1 ? leftItemStartLeave : leftItemStartLeave
+            items.forEach((item, i) => {
+                const observer = new IntersectionObserver(([entry]) => {
+                    const itemRect = entry.target.getBoundingClientRect()
+                    const isEnterByRight =
+                        itemRect.left - itemRect.width < window.innerWidth &&
+                        itemRect.left + itemRect.width > window.innerWidth
+                    const isLeaveByLeft = itemRect.left < itemRect.width * -1
 
-                if (add) this.addItem()
-                if (remove) this.removeItem()
+                    if ((isEnterByRight && this.direction === 1) || (isLeaveByLeft && this.direction === -1)) {
+                        this.updateItemPosition(i)
+                    }
+                })
+                observer.observe(item)
+                this.itemsObservers.push(observer)
             })
-            observer.observe(item)
-            this.observers.push(observer)
         },
-        disposeObserver(index: number) {
-            if (!this.observers?.length || !this.observers[index]) return
+        disposeObservers() {
+            this.itemsObservers.forEach((observer) => observer.disconnect())
+            this.itemsObservers = []
+        },
+        updateItemsPosition() {
+            const items = (this.$refs.item as Vue[]).map((item) => item.$el) as HTMLElement[]
 
-            this.observers[index].disconnect()
-            this.observers.splice(index, 1)
+            items.forEach((item, i) => {
+                if (i === 0) {
+                    item.style.left = '0'
+                } else {
+                    const previousItemBound = items[i - 1].getBoundingClientRect()
+                    item.style.left =
+                        previousItemBound.left +
+                        previousItemBound.width +
+                        parseInt(getComputedStyle(this.$el).gap) +
+                        'px'
+                }
+            })
+        },
+        updateItemPosition(index: number) {
+            const items = (this.$refs.item as Vue[]).map((item) => item.$el) as HTMLElement[]
+            const rightMostPosition = Math.max(
+                ...items.map(
+                    (item: HTMLElement) => item.getBoundingClientRect().left + item.getBoundingClientRect().width
+                )
+            )
+            const smallerLeftPosition = Math.min(...items.map((item: HTMLElement) => item.getBoundingClientRect().left))
+
+            if (this.direction === -1) {
+                items[index].style.left =
+                    rightMostPosition + parseInt(getComputedStyle(this.$el).gap) + Math.abs(this.posLeft) + 'px'
+            } else {
+                items[index].style.left =
+                    (parseInt(getComputedStyle(this.$el).gap) +
+                        -smallerLeftPosition +
+                        Math.abs(this.posLeft) +
+                        items[index].getBoundingClientRect().width) *
+                        -1 +
+                    'px'
+            }
+        },
+        updatePosition() {
+            this.requestId = null
+            this.posLeft += SPEED * this.direction
+            ;(this.$el as HTMLElement).style.transform = `translate3d(${this.posLeft}px, 0, 0)`
+            // ;(this.$el as HTMLElement)?.animate([{ transform: `translate3d(${this.posLeft}px, 0, 0)` }], {
+            //     duration: 3000,
+            // })
+
+            this.startAnimation()
+        },
+        startAnimation() {
+            if (!this.requestId) this.requestId = window.requestAnimationFrame(this.updatePosition)
+        },
+        pauseAnimation() {
+            if (!this.requestId) return
+
+            window.cancelAnimationFrame(this.requestId)
+            this.requestId = null
         },
     },
 })
@@ -145,19 +183,17 @@ export default (Vue as VueConstructor<Component>).extend({
     position: relative;
     display: flex;
     gap: rem(20);
-    //width: calc(100% - #{rem(200)});
 }
 
 .item {
     --v-image-border-radius: #{rem(26)};
 
+    position: absolute;
     width: rem(200);
     flex-shrink: 0;
     aspect-ratio: 100 / 75;
     background-color: lightgray;
 
-    &--cloned {
-        position: absolute;
-    }
+    //&--cloned {}
 }
 </style>
