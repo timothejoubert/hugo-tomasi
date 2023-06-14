@@ -17,7 +17,7 @@
                 </template>
             </v-button>
         </div>
-        <v-filter-bar v-model="selectedTags" :class="$style.filter" :is-open="isOpen" />
+        <v-filter-bar v-model="selectedTags" :is-open="isOpen" />
         <div :class="$style.body">
             <transition-group tag="ul" :name="$style['projects-transition']" :class="$style.projects">
                 <li v-for="project in projects" :key="project.uid" :class="$style.project">
@@ -34,7 +34,6 @@
 import mixins from 'vue-typed-mixins'
 import { ProjectDocument } from '~/types/prismic/prismic-types.generated'
 import PageDataProvider from '~/mixins/PageDataProvider'
-import VFilterBar from '~/components/molecules/VFilterBar.vue'
 
 export const QUERY_TAG = 'tag-filter'
 
@@ -48,9 +47,14 @@ export default mixins(PageDataProvider).extend({
     },
     created() {
         const query = this.$route.query[QUERY_TAG] as string
-        if (query) this.selectedTags.push(query)
+        if (query) this.selectedTags.push(...query.split('&'))
     },
-    components: { VFilterBar },
+    watch: {
+        selectedTags(value: string[]) {
+            const parsedQuery = !value?.length ? undefined : value.length === 1 ? value[0] : value.join('&').toString()
+            this.$router.push({ query: { 'tag-filter': parsedQuery } })
+        },
+    },
     computed: {
         projects(): ProjectDocument[] {
             const projects = this.$store.state.projects

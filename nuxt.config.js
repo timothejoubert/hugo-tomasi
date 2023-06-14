@@ -15,10 +15,6 @@ export default {
 
     srcDir: 'src',
 
-    image: {
-        prismic: {},
-    },
-
     // Global page headers: https://go.nuxtjs.dev/config-head
     head: {
         title: process.env.APP_TITLE,
@@ -69,7 +65,7 @@ export default {
         // https://i18n.nuxtjs.org/
         'nuxt-i18n',
         // https://sitemap.nuxtjs.org/guide/setup
-        '@nuxtjs/sitemap',
+        // '@nuxtjs/sitemap',
     ],
 
     // https://sitemap.nuxtjs.org/guide/setup
@@ -110,14 +106,13 @@ export default {
             spriteFilename: 'image/sprite.[hash:8].svg',
         },
     },
+
     // https://nuxtjs.org/deployments/netlify/
     // Redirect to custom Error layout in SPA mode
     generate: {
         fallback: true,
-        exclude: [
-            /^\/slice-simulator/, // path starts with /admin
-            /^\/preview/, // path starts with /preview
-        ],
+        // exclude: ['/preview', '/slice-simulator', '/en/preview', '/en/slice-simulator'],
+        // /^\/preview/, // start with "/path"
         devtools: true,
     },
 
@@ -143,6 +138,7 @@ export default {
     },
     // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
     plugins: ['~/plugins/prismic-components.ts'],
+
     prismic: {
         preview: process.env.PREVIEW_PATH,
         components: true,
@@ -151,6 +147,11 @@ export default {
         linkResolver,
         htmlSerializer,
     },
+
+    image: {
+        prismic: {},
+    },
+
     // Build Configuration: https://go.nuxtjs.dev/config-build
     build: {
         loaders: {

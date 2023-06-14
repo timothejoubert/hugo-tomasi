@@ -14,7 +14,7 @@
                     :checked="value?.includes(tag)"
                     :class="$style.input"
                 />
-                <label :for="parseFilterId(tag)">{{ tag }}</label>
+                <label :for="parseFilterId(tag)" :class="$style.label">{{ tag }}</label>
             </div>
         </div>
     </div>
@@ -87,7 +87,6 @@ export default Vue.extend({
 
 .tag {
     position: relative;
-    cursor: pointer;
     margin-block: rem(4) rem(14);
     opacity: 0.5;
     transition: opacity 0.3s ease(out-quad);
@@ -126,16 +125,7 @@ export default Vue.extend({
     display: none;
 }
 
-//.tags-transition:global(#{'-leave-active'}),
-//.tags-transition:global(#{'-enter-active'}) {
-//    transition: transform, opacity;
-//    transition-duration: 0.3s;
-//    transition-timing-function: ease(out-quad);
-//}
-//
-//.tags-transition:global(#{'-leave-to'}),
-//.tags-transition:global(#{'-enter'}) {
-//    opacity: 0;
-//    transform: translateY(100%);
-//}
+.label {
+    cursor: pointer;
+}
 </style>

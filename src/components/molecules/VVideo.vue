@@ -70,7 +70,6 @@ export default Vue.extend({
     },
     methods: {
         onClick() {
-            console.log('onClick')
             if (this.videoState === 'played') this.pause()
             else this.play()
             this.$emit('video-state', this.videoState)

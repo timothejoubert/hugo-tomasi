@@ -1,4 +1,4 @@
-import {Context} from "@nuxt/types";
+import { Context } from '@nuxt/types'
 
 export interface HttpCacheControlParams {
     'max-age'?: number | false
@@ -18,20 +18,22 @@ export interface HttpCacheControlParams {
     'stale-while-revalidate'?: number | false
 }
 
-const cacheControl = (options: HttpCacheControlParams | undefined = undefined) => ({ res }: Context) => {
-    if (!process.server) return;
+const cacheControl =
+    (options: HttpCacheControlParams | undefined = undefined) =>
+    ({ res }: Context) => {
+        if (!process.server) return
 
-    const cacheOptions = {
-        'max-age': 60,
-        'stale-when-revalidate': 5,
-        ...options
+        const cacheOptions = {
+            'max-age': 60,
+            'stale-when-revalidate': 5,
+            ...options,
+        }
+
+        const cacheControlValue = Object.entries(cacheOptions)
+            .map(([key, value]) => `${key}=${value}`)
+            .join(',')
+
+        res.setHeader('Cache-Control', cacheControlValue)
     }
 
-    const cacheControlValue = Object.entries(cacheOptions)
-        .map(([key, value]) => `${key}=${value}`)
-        .join(',');
-
-    res.setHeader('Cache-Control', cacheControlValue);
-};
-
-export default cacheControl;
+export default cacheControl

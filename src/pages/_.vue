@@ -25,11 +25,11 @@ import mixins from 'vue-typed-mixins'
 import { SliceZone } from '@prismicio/vue/src/components/SliceZone'
 import { components } from '~~/slices'
 import Page from '~/mixins/Page'
-import cacheControl from '~/middleware/cache-control'
+// import cacheControl from '~/middleware/cache-control'
 
 export default mixins(Page).extend({
     name: 'DefaultPage',
-    middleware: cacheControl(),
+    // middleware: cacheControl(),
     components: { SliceZone },
     data() {
         return { components }

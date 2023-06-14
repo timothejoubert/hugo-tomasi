@@ -14,8 +14,6 @@ import { getNumberedDate } from '~/utils/prismic/date'
 
 const actions: ActionTree<RootState, RootState> = {
     async nuxtServerInit({ commit, dispatch }: ActionContext<RootState, RootState>, context: Context) {
-        if (!('$prismic' in this)) console.log('prismic module not found')
-
         if (context.route.fullPath.includes('/en')) await context.app.i18n.setLocale('en')
         else await context.app.i18n.setLocale('fr')
 
@@ -25,12 +23,11 @@ const actions: ActionTree<RootState, RootState> = {
                 commit(MutationType.SET_SETTINGS, settings)
             })
             .catch((fetchError: Error) => {
-                console.log('failed to fetch mainMenu or setting', fetchError)
+                throw new Error(`failed to fetch mainMenu or setting: ${fetchError}`)
             })
 
         await dispatch('getProjects', context)
             .then((projects: Array<ProjectDocument>) => {
-                // TODO: order project by date
                 const projectOrdered = projects.sort(
                     (accumulator: ProjectDocument, current: ProjectDocument) =>
                         getNumberedDate(current.data.date) - getNumberedDate(accumulator.data.date)
@@ -38,7 +35,7 @@ const actions: ActionTree<RootState, RootState> = {
                 commit(MutationType.SET_PROJECTS, projectOrdered)
             })
             .catch((fetchError: Error) => {
-                console.log('failed to fetch mainMenu or setting', fetchError)
+                throw new Error(`failed to fetch projects: ${fetchError}`)
             })
     },
     getCommonContent(
@@ -62,7 +59,6 @@ const actions: ActionTree<RootState, RootState> = {
             .query(context.$prismic.predicates.at('document.type', CustomType.PROJECT as CustomTypeName), localeOptions)
             .then((response) => response.results)
 
-        console.log(projects)
         return Promise.resolve(projects)
     },
     updatePageData({ commit }: ActionContext<RootState, RootState>, data: PrismicDocument) {

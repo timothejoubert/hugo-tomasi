@@ -14,6 +14,8 @@ import CustomTypesClient, { CustomTypesClientConfig } from '@prismicio/custom-ty
 * **(VProjectListing)** update queryParams when update filters
 * **(Locale)** check if all link are localised (project link in projectListing aren't)
 * **(VButton)** add hover
+* **(Build)** update share img && favicon
+* **(Build)** Generate.exclude not working
 
 ### TO CHECK
 * **(Sitemap && routes)** avoid to generate route for ['/preview', '/en/preview', ''/en/slice-simulator', '/slice-simulator']
