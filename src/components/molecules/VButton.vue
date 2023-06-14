@@ -56,6 +56,7 @@ export default Vue.extend({
         },
         theme: { type: String as PropType<Theme>, default: 'dark' },
         animation: { type: Boolean, default: true },
+        playAnimation: Boolean,
     },
     computed: {
         classNames(): (string | boolean | undefined)[] {
@@ -72,6 +73,7 @@ export default Vue.extend({
                 this.hasLabel && this.$style['root--has-label'],
                 this.iconLast && this.$style['root--icon-last'],
                 this.animation && 'v-button--enable-animation',
+                this.playAnimation && this.$style['root--animate'],
             ]
         },
         internalTag(): string {
@@ -168,8 +170,10 @@ export default Vue.extend({
             color: var(--theme-button-outlined-hover-color);
         }
 
+        &--filled#{&}--animate:not(#{&}--disabled),
         &--filled:not(#{&}--disabled):hover {
             background-color: var(--theme-button-filled-hover-background);
+            color: var(--theme-button-filled-hover-foreground);
         }
     }
 

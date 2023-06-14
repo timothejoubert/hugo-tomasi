@@ -117,6 +117,9 @@ type HomePageDocumentDataSlicesSlice =
     | ProjectPushBlockSlice
     | ProjectListingBlockSlice
     | PartnersBlockSlice
+    | GalleryBlockSlice
+    | ExcerptBlockSlice
+    | SkillsBlockSlice
 /**
  * Home page document from Prismic
  *
@@ -277,6 +280,7 @@ type PageDocumentDataSlicesSlice =
     | ExcerptBlockSlice
     | GalleryBlockSlice
     | PromoteBlockSlice
+    | SkillsBlockSlice
 /**
  * Page document from Prismic
  *
@@ -935,6 +939,95 @@ type PromoteBlockSliceVariation = PromoteBlockSliceDefault
  *
  */
 export type PromoteBlockSlice = prismic.SharedSlice<'promote_block', PromoteBlockSliceVariation>
+/**
+ * Primary content in SkillsBlock → Primary
+ *
+ */
+interface SkillsBlockSliceDefaultPrimary {
+    /**
+     * Title field in *SkillsBlock → Primary*
+     *
+     * - **Field Type**: Text
+     * - **Placeholder**: *None*
+     * - **API ID Path**: skills_block.primary.title
+     * - **Documentation**: https://prismic.io/docs/core-concepts/key-text
+     *
+     */
+    title: prismic.KeyTextField
+}
+/**
+ * Item in SkillsBlock → Items
+ *
+ */
+export interface SkillsBlockSliceDefaultItem {
+    /**
+     * Title field in *SkillsBlock → Items*
+     *
+     * - **Field Type**: Text
+     * - **Placeholder**: *None*
+     * - **API ID Path**: skills_block.items[].title
+     * - **Documentation**: https://prismic.io/docs/core-concepts/key-text
+     *
+     */
+    title: prismic.KeyTextField
+    /**
+     * Content field in *SkillsBlock → Items*
+     *
+     * - **Field Type**: Rich Text
+     * - **Placeholder**: *None*
+     * - **API ID Path**: skills_block.items[].content
+     * - **Documentation**: https://prismic.io/docs/core-concepts/rich-text-title
+     *
+     */
+    content: prismic.RichTextField
+    /**
+     * Side title field in *SkillsBlock → Items*
+     *
+     * - **Field Type**: Text
+     * - **Placeholder**: *None*
+     * - **API ID Path**: skills_block.items[].side_title
+     * - **Documentation**: https://prismic.io/docs/core-concepts/key-text
+     *
+     */
+    side_title: prismic.KeyTextField
+    /**
+     * Side content field in *SkillsBlock → Items*
+     *
+     * - **Field Type**: Rich Text
+     * - **Placeholder**: *None*
+     * - **API ID Path**: skills_block.items[].side_content
+     * - **Documentation**: https://prismic.io/docs/core-concepts/rich-text-title
+     *
+     */
+    side_content: prismic.RichTextField
+}
+/**
+ * Default variation for SkillsBlock Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: `Default`
+ * - **Documentation**: https://prismic.io/docs/core-concepts/reusing-slices
+ *
+ */
+export type SkillsBlockSliceDefault = prismic.SharedSliceVariation<
+    'default',
+    Simplify<SkillsBlockSliceDefaultPrimary>,
+    Simplify<SkillsBlockSliceDefaultItem>
+>
+/**
+ * Slice variation for *SkillsBlock*
+ *
+ */
+type SkillsBlockSliceVariation = SkillsBlockSliceDefault
+/**
+ * SkillsBlock Shared Slice
+ *
+ * - **API ID**: `skills_block`
+ * - **Description**: `SkillsBlock`
+ * - **Documentation**: https://prismic.io/docs/core-concepts/reusing-slices
+ *
+ */
+export type SkillsBlockSlice = prismic.SharedSlice<'skills_block', SkillsBlockSliceVariation>
 declare module '@prismicio/client' {
     interface CreateClient {
         (repositoryNameOrEndpoint: string, options?: prismicClient.ClientConfig): prismicClient.Client<AllDocumentTypes>
@@ -989,6 +1082,11 @@ declare module '@prismicio/client' {
             PromoteBlockSliceDefault,
             PromoteBlockSliceVariation,
             PromoteBlockSlice,
+            SkillsBlockSliceDefaultPrimary,
+            SkillsBlockSliceDefaultItem,
+            SkillsBlockSliceDefault,
+            SkillsBlockSliceVariation,
+            SkillsBlockSlice,
         }
     }
 }

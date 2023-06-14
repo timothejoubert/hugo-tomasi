@@ -1,0 +1,64 @@
+[
+	{
+		"__TYPE__": "SharedSliceContent",
+		"variation": "default",
+		"primary": {
+			"title": {
+				"__TYPE__": "FieldContent",
+				"value": "pond",
+				"type": "Text"
+			}
+		},
+		"items": [
+			{
+				"__TYPE__": "GroupItemContent",
+				"value": [
+					[
+						"title",
+						{
+							"__TYPE__": "FieldContent",
+							"value": "visitor",
+							"type": "Text"
+						}
+					],
+					[
+						"content",
+						{
+							"__TYPE__": "StructuredTextContent",
+							"value": [
+								{
+									"type": "paragraph",
+									"content": {
+										"text": "Quis anim pariatur minim in tempor in sit culpa commodo consectetur nulla in esse."
+									}
+								}
+							]
+						}
+					],
+					[
+						"side_title",
+						{
+							"__TYPE__": "FieldContent",
+							"value": "thought",
+							"type": "Text"
+						}
+					],
+					[
+						"side_content",
+						{
+							"__TYPE__": "StructuredTextContent",
+							"value": [
+								{
+									"type": "paragraph",
+									"content": {
+										"text": "Mollit veniam sint eiusmod aliqua non. Aliquip excepteur amet labore excepteur deserunt nisi amet. Consequat do mollit qui nulla anim mollit ullamco magna Lorem amet."
+									}
+								}
+							]
+						}
+					]
+				]
+			}
+		]
+	}
+]

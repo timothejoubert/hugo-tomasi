@@ -9,7 +9,7 @@ $v-button: (
         font-size: rem(11)
     ),
     s: (
-        font-size: rem(12)
+        font-size: rem(14)
     ),
     m: (
         font-size: rem(16)
@@ -48,9 +48,9 @@ $v-button-inner: (
         padding: 0 rem(10),
     ),
     s: (
-        min-width: 32px,
-        height: 32px,
-        padding: 0 12px,
+        min-width: rem(32),
+        height: rem(36),
+        padding: 0 rem(12),
     ),
     m: (
         min-width: rem(40),
@@ -72,7 +72,7 @@ $v-button-inner: (
 // icon
 $v-button-icon: (
     s: (
-        margin: 0 8px,
+        margin: 0 rem(4),
     ),
     m: (
         margin: 0 rem(6) 0 rem(12),

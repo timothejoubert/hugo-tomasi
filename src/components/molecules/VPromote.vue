@@ -67,12 +67,17 @@ export default Vue.extend({
 }
 
 .content {
+    overflow: hidden;
     flex-grow: 1;
     font-weight: 300;
+    opacity: 0.8;
+    text-overflow: ellipsis;
 }
 
 .year,
 .place {
+    text-wrap: nowrap;
+
     &:not(:last-child)::after {
         position: relative;
         margin-left: rem(16);

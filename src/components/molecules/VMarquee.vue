@@ -79,7 +79,7 @@ export default (Vue as VueConstructor<Component>).extend({
                 index++
             } while (result < wrapperWidth)
 
-            this.minimumLength = Math.max(index, this.items.length)
+            this.minimumLength = Math.max(index + 1, this.items.length)
         },
         initResizeObserver() {
             this.resizeObserver = new ResizeObserver(this.updateMinimumLength)
@@ -160,10 +160,6 @@ export default (Vue as VueConstructor<Component>).extend({
             this.requestId = null
             this.posLeft += SPEED * this.direction
             ;(this.$el as HTMLElement).style.transform = `translate3d(${this.posLeft}px, 0, 0)`
-            // ;(this.$el as HTMLElement)?.animate([{ transform: `translate3d(${this.posLeft}px, 0, 0)` }], {
-            //     duration: 3000,
-            // })
-
             this.startAnimation()
         },
         startAnimation() {

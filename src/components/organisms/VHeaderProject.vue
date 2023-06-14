@@ -14,9 +14,9 @@
                     :key="tag + '-' + i"
                     :to="getProjectListingUrlByTag(tag)"
                     :label="tag"
+                    outlined
                     filled
-                    size="l"
-                    theme="light"
+                    size="m"
                 />
             </div>
         </div>
@@ -62,6 +62,7 @@ export default mixins(PageDataProvider).extend({
 .root {
     position: relative;
     overflow: auto;
+    padding-bottom: rem(102);
     margin-top: $v-top-bar-height * -1;
     background-color: color(black);
     color: color(white);
@@ -80,7 +81,7 @@ export default mixins(PageDataProvider).extend({
 }
 
 .description {
-    flex-basis: clamp(rem(330), 40%, rem(500));
+    flex-basis: clamp(#{rem(330), 40%, rem(500)});
     margin-top: rem(5);
     opacity: 0.7;
 }
@@ -111,7 +112,7 @@ export default mixins(PageDataProvider).extend({
     width: clamp(rem(300), 50%, rem(600));
     padding-top: rem(22);
     border-top: 1px solid rgba(color(white), 0.6);
-    margin-block: rem(45) rem(102);
+    margin-top: rem(45);
     opacity: 0.7;
 }
 </style>

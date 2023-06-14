@@ -1,7 +1,23 @@
 <template>
     <div>
         <div :class="$style.navigation" class="container">
-            <div v-if="title" class="text-h5" :class="$style.title">{{ title }}</div>
+            <div>
+                <div v-if="title" class="text-h5" :class="$style.title">{{ title }}</div>
+                <v-button
+                    v-if="displayCta"
+                    :href="projectListingUrl"
+                    outlined
+                    size="s"
+                    filled
+                    theme="light"
+                    :class="$style.cta"
+                    :label="$t('see_all_project')"
+                >
+                    <template #icon>
+                        <icon-right />
+                    </template>
+                </v-button>
+            </div>
             <div :class="$style.scroll" :style="{ '--progress': progress }"></div>
         </div>
         <div ref="carousel" :class="$style.carousel" class="container-fullscreen">
@@ -9,11 +25,6 @@
                 <v-project-card :project="project.data" />
             </v-link>
         </div>
-        <v-button v-if="displayCta" :href="projectListingUrl" filled :class="$style.cta" :label="$t('see_all_project')">
-            <template #icon>
-                <icon-right />
-            </template>
-        </v-button>
     </div>
 </template>
 
@@ -125,7 +136,7 @@ export default (Vue as VueConstructor<Component>).extend({
     display: flex;
     align-items: flex-end;
     justify-content: space-between;
-    margin-bottom: rem(40);
+    margin-bottom: rem(20);
 }
 
 .scroll {
@@ -148,7 +159,6 @@ export default (Vue as VueConstructor<Component>).extend({
 }
 
 .cta {
-    margin-top: rem(40);
-    margin-left: $container-padding-inline;
+    margin-top: rem(10);
 }
 </style>

@@ -1,0 +1,39 @@
+{
+  "id": "skills_block",
+  "type": "SharedSlice",
+  "name": "SkillsBlock",
+  "description": "SkillsBlock",
+  "variations": [
+    {
+      "id": "default",
+      "name": "Default",
+      "docURL": "...",
+      "version": "initial",
+      "description": "Default",
+      "imageUrl": "",
+      "primary": { "title": { "type": "Text", "config": { "label": "Title", "placeholder": "" } } },
+      "items": {
+        "title": { "type": "Text", "config": { "label": "Title", "placeholder": "" } },
+        "content": {
+          "type": "StructuredText",
+          "config": {
+            "label": "Content",
+            "placeholder": "",
+            "allowTargetBlank": true,
+            "single": "paragraph,preformatted,heading1,heading2,heading3,heading4,heading5,heading6,strong,em,hyperlink,image,embed,list-item,o-list-item,rtl"
+          }
+        },
+        "side_title": { "type": "Text", "config": { "label": "Side title", "placeholder": "" } },
+        "side_content": {
+          "type": "StructuredText",
+          "config": {
+            "label": "Side content",
+            "placeholder": "",
+            "allowTargetBlank": true,
+            "single": "paragraph,preformatted,heading1,heading2,heading3,heading4,heading5,heading6,strong,em,hyperlink,image,embed,list-item,o-list-item,rtl"
+          }
+        }
+      }
+    }
+  ]
+}

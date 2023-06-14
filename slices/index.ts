@@ -11,4 +11,5 @@ export const components = {
     project_push_block: () =>
         import(/* webpackChunkName: "prismic__slices__project_push_block" */ './ProjectPushBlock/index.vue'),
     promote_block: () => import(/* webpackChunkName: "prismic__slices__promote_block" */ './PromoteBlock/index.vue'),
+    skills_block: () => import(/* webpackChunkName: "prismic__slices__skills_block" */ './SkillsBlock/index.vue'),
 }

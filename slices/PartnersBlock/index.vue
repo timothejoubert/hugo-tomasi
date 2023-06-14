@@ -47,7 +47,7 @@ export default (Vue as VueConstructor<Component>).extend({
     },
     methods: {
         initIntersectionObserver() {
-            const options = { rootMargin: `-300px 0px -300px 0px` }
+            const options = { rootMargin: `100px 0px 100px 0px` }
 
             this.intersectionObserver = new IntersectionObserver(([entry]: IntersectionObserverEntry[]) => {
                 this.play = entry.isIntersecting

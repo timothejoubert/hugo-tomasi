@@ -12,6 +12,7 @@ import CustomTypesClient, { CustomTypesClientConfig } from '@prismicio/custom-ty
 
 ### IN PROGRESS
 * **(VProjectListing)** update queryParams when update filters
+* **(Locale)** check if all link are localised (project link in projectListing aren't)
 * **(VButton)** add hover
 
 ### TO CHECK

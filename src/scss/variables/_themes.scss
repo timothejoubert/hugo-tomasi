@@ -2,12 +2,14 @@ $themes: (
     light: (
         foreground-color: color(black),
         background-color: color(white),
-        button-filled-hover-background: rgba(color(light), 0.9),
+        button-filled-hover-foreground: color(white),
+        button-filled-hover-background: color(black),
     ),
     dark: (
         foreground-color: color(white),
         background-color: color(black),
-        button-filled-hover-background: rgba(color(black), 0.9),
+        button-filled-hover-foreground: color(black),
+        button-filled-hover-background: color(white),
     )
 );
 
