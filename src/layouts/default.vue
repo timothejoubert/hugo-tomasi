@@ -5,8 +5,6 @@
         <Nuxt />
 
         <v-footer />
-        <!-- eslint-disable-next-line vue/no-v-html -->
-        <script type="application/ld+json" v-html="websiteInfos"></script>
     </div>
 </template>
 
@@ -31,15 +29,6 @@ export default mixins(Resize).extend({
         },
         isSplashScreenDone(): boolean {
             return this.$store.state.splashScreenDone
-        },
-        websiteInfos(): Record<string, unknown> {
-            return {
-                '@context': 'https://schema.org',
-                '@type': 'WebSite',
-                name: this.$config.appName,
-                alternateName: this.$config.appName.replace(/\s/g, ''),
-                url: this.$config.appUrl,
-            }
         },
     },
 })

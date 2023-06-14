@@ -12,6 +12,8 @@
             :title="$t('project_page.see_more').toString()"
             :class="$style['project-page-carousel']"
         />
+        <!-- eslint-disable-next-line vue/no-v-html -->
+        <script v-if="jsonLd" type="application/ld+json" v-html="jsonLd"></script>
     </div>
     <div v-else>
         <p>pageData not find</p>

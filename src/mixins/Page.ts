@@ -14,6 +14,9 @@ import { isDefaultPageDocument, isProjectDocument } from '~/utils/prismic/custom
 import { getDocumentData } from '~/utils/prismic/types-utilities'
 import { isFilledLinkToMediaField } from '~/utils/prismic/field-media'
 import { getFormattedLocale } from '~/components/molecules/VLangSwitch.vue'
+import { SettingsDocument } from '~/types/prismic/prismic-types.generated'
+import { PageDocumentData, ProjectDocument, ProjectDocumentData } from '~~/prismicio-types'
+import { getProjectYear } from '~/utils/prismic/date'
 
 export default Vue.extend({
     // middleware: 'slugParser',
@@ -127,6 +130,81 @@ export default Vue.extend({
         },
         slices(): SliceZone | [] {
             return !!this.page && this.page.data?.slices
+        },
+        jsonLd(): Record<string, unknown> | undefined {
+            const siteName = (this.$store.state.settings as SettingsDocument)?.data?.site_name || this.$config.appName
+            const baseUrl = this.$config.appUrl + (this.$i18n.locale === 'en' ? 'en/' : '')
+            const websitePersonEntity = {
+                name: siteName,
+                alternateName: siteName.replace(/\s/g, ''),
+                url: baseUrl,
+                jobTitle: 'Motion designer',
+            }
+
+            if (this.isHome) {
+                return {
+                    '@context': 'https://schema.org',
+                    '@type': 'WebSite',
+                    ...websitePersonEntity,
+                    author: {
+                        '@type': 'Person',
+                        givenName: 'Timothé',
+                        familyName: 'Joubert',
+                        birthDate: '1998-08-24',
+                        url: 'https://timothejoubert.com',
+                    },
+                }
+            } else if (this.isProjectPage) {
+                const project = this.pageData as ProjectDocumentData
+                const optionals: Record<string, unknown> = {}
+
+                if (project.title) optionals.name = project.title
+                if (project.thumbnail?.url) optionals.image = project.thumbnail.url
+                if (project.description || project.long_description)
+                    optionals.description =
+                        this.$prismic.asText(project.description) || this.$prismic.asText(project.long_description)
+                if (project.date) optionals.copyrightYear = getProjectYear(project.date)
+
+                return {
+                    '@context': 'https://schema.org',
+                    '@type': 'VisualArtwork',
+                    artform: 'Video',
+                    artMedium: 'Digital',
+                    creator: {
+                        '@type': 'Person',
+                        ...websitePersonEntity,
+                    },
+                    ...optionals,
+                }
+            } else if (this.isProjectListing) {
+                const page = this.pageData as PageDocumentData
+                const projects = this.$store.state.projects
+                const projectItemList = projects?.map((project: ProjectDocument, index: number) => {
+                    return {
+                        '@type': 'ItemPage',
+                        numberOfItems: projects.length,
+                        itemListOrder: index + 1,
+                        name: project.data.title,
+                        image: project.data.thumbnail?.url,
+                        url: `${baseUrl}${DocumentUid.PROJECT_LISTING}/${project.uid}`,
+                    }
+                })
+                return {
+                    '@context': 'http://schema.org/',
+                    '@type': 'CollectionPage',
+                    name: page.title || 'Page de listing des projets',
+                    description:
+                        this.$prismic.asText(page.description) ||
+                        this.$prismic.asText(page.meta_description) ||
+                        "Cette page contient l'ensemble de mes projets réalisés dans le domaine de l'audiovisuelle",
+                    mainEntity: {
+                        '@type': 'ItemList',
+                        itemListElement: projectItemList,
+                    },
+                }
+            } else {
+                return undefined
+            }
         },
     },
     created() {
