@@ -1,11 +1,11 @@
 <template>
-    <div>
+    <div v-if="projects.length">
         <div :class="$style.navigation" class="container">
             <div>
                 <div v-if="title" class="text-h5" :class="$style.title">{{ title }}</div>
                 <v-button
                     v-if="displayCta"
-                    :href="projectListingUrl"
+                    :href="'/' + $documentUid('PROJECT_LISTING')"
                     outlined
                     size="s"
                     filled
@@ -18,7 +18,7 @@
                     </template>
                 </v-button>
             </div>
-            <div :class="$style.scroll" :style="{ '--progress': progress }"></div>
+            <div v-show="isCarouselEnable" :class="$style.scroll" :style="{ '--progress': progress }"></div>
         </div>
         <div ref="carousel" :class="$style.carousel" class="container-fullscreen">
             <v-link v-for="project in projects" :key="project.uid" :reference="project" :class="$style.link">
@@ -30,18 +30,12 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import type { VueConstructor } from 'vue'
 import { ProjectDocument } from '~/types/prismic/prismic-types.generated'
-import documentUid from '~/constants/document-uid'
 import IconRight from '~/assets/images/icons/arrow-right.svg?sprite'
 
 const SCROLL_SPEED = 1.5
 
-interface Component extends Vue {
-    projectListingUrl: string
-}
-
-export default (Vue as VueConstructor<Component>).extend({
+export default Vue.extend({
     name: 'VProjectCarousel',
     components: { IconRight },
     props: {
@@ -50,6 +44,7 @@ export default (Vue as VueConstructor<Component>).extend({
     },
     data() {
         return {
+            isCarouselEnable: false,
             isDown: false,
             startX: 0,
             scrollLeft: 0,
@@ -60,7 +55,9 @@ export default (Vue as VueConstructor<Component>).extend({
     },
     computed: {
         projects(): ProjectDocument[] {
-            return this.$store.state.projects
+            return this.$store.state.projects.filter(
+                (project: ProjectDocument) => project.uid !== this.$store.state.currentPageData?.uid
+            )
         },
     },
     watch: {
@@ -68,21 +65,50 @@ export default (Vue as VueConstructor<Component>).extend({
             this.slider.scrollLeft = value
             this.updateProgress()
         },
-    },
-    created() {
-        this.projectListingUrl = '/' + documentUid.PROJECT_LISTING
+        isCarouselEnable(value: boolean) {
+            if (!this.$refs?.carousel) return
+
+            if (value) this.initListener()
+            else this.removeListener()
+        },
     },
     mounted() {
-        this.slider = this.$refs.carousel as HTMLElement
-        this.slider.addEventListener('mousedown', this.onMouseDown)
-        this.slider.addEventListener('mouseleave', this.onMouseLeave)
-        this.slider.addEventListener('mouseup', this.onMouseUp)
-        this.slider.addEventListener('mousemove', this.onMouseMove)
-        this.slider.addEventListener('scroll', () => {
-            this.updateProgress()
-        })
+        if (!this.$refs?.carousel) return
+
+        this.updateCarouselEnable()
+        window.addEventListener('resize', this.updateCarouselEnable)
+    },
+    beforeDestroy() {
+        this.removeListener()
+        window.removeEventListener('resize', this.updateCarouselEnable)
     },
     methods: {
+        updateCarouselEnable() {
+            const lastSlide = Array.from((this.$refs?.carousel as HTMLElement)?.children)?.at(-1)
+            if (!lastSlide) return
+
+            const endPosition = lastSlide.getBoundingClientRect().left + lastSlide.getBoundingClientRect().width
+            this.isCarouselEnable = endPosition > (this.$el as HTMLElement).offsetWidth
+        },
+        initListener() {
+            this.slider = this.$refs.carousel as HTMLElement
+            this.slider.addEventListener('mousedown', this.onMouseDown)
+            this.slider.addEventListener('mouseleave', this.onMouseLeave)
+            this.slider.addEventListener('mouseup', this.onMouseUp)
+            this.slider.addEventListener('mousemove', this.onMouseMove)
+            this.slider.addEventListener('scroll', this.onScroll)
+        },
+        removeListener() {
+            this.slider = this.$refs.carousel as HTMLElement
+            this.slider.removeEventListener('mousedown', this.onMouseDown)
+            this.slider.removeEventListener('mouseleave', this.onMouseLeave)
+            this.slider.removeEventListener('mouseup', this.onMouseUp)
+            this.slider.removeEventListener('mousemove', this.onMouseMove)
+            this.slider.removeEventListener('scroll', this.onScroll)
+        },
+        onScroll() {
+            this.updateProgress()
+        },
         updateProgress() {
             this.progress = Math.abs(this.slider.scrollLeft / (window.innerWidth - this.slider.scrollWidth))
         },
@@ -126,10 +152,14 @@ export default (Vue as VueConstructor<Component>).extend({
 .link {
     --v-card-description-display: none;
 
-    width: 45%;
+    width: 65%;
     flex: 0 0 auto;
     margin-right: rem(20);
     -webkit-user-drag: none;
+
+    @include media('>=md') {
+        width: 45%;
+    }
 }
 
 .navigation {

@@ -91,13 +91,13 @@ export default Vue.extend({
         },
         linkProps(): Record<string, any> {
             const props: Record<string, any> = {}
-
+            const localePath = this.$i18n.locale === 'en' ? '/en' : ''
             if (this.to) {
-                props.to = this.to
+                props.to = localePath + this.to
             } else if (typeof this.href === 'string' && isRelativePath(this.href)) {
-                props.to = this.href
+                props.to = localePath + this.href
             } else if (this.href) {
-                props.href = (this.$i18n.locale === 'en' ? '/en' : '') + this.href
+                props.href = localePath + this.href
                 if (!isAnchor(this.href)) props.target = '_blank'
             }
 

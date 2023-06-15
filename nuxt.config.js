@@ -137,7 +137,7 @@ export default {
         previewPath: process.env.PREVIEW_PATH,
     },
     // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-    plugins: ['~/plugins/prismic-components.ts'],
+    plugins: ['~/plugins/prismic-components.ts', '~/plugins/document-uid.ts'],
 
     prismic: {
         preview: process.env.PREVIEW_PATH,

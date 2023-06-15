@@ -3,7 +3,7 @@
         <div class="text-body-xs" :class="$style.copyright">
             © {{ siteName }} | {{ currentYear }}
             <div :class="$style.creator">
-                <span> Créée par </span>
+                <span>{{ $t('created_by') }}</span>
                 <a href="https://timothejoubert.com" target="_blank">Timothé J.</a>
             </div>
         </div>

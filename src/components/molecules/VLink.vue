@@ -56,6 +56,8 @@ export default Vue.extend({
             url = href
         }
 
+        if (context.parent.$i18n.locale === 'en') url = '/en' + url
+
         const data: CustomVNodeData = Object.assign({ props: {}, attrs: {} }, context.data)
 
         const isRelative = isProject || isDocument

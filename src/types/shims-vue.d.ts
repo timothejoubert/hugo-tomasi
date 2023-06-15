@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import {DefaultProps} from "@nuxt/types/app/vue";
+import { DefaultProps } from '@nuxt/types/app/vue'
 
 declare module '*.vue' {
     export default Vue
@@ -13,6 +13,7 @@ declare module '*.vue' {
 declare module 'vue/types/vue' {
     interface Vue {
         $style: { [key: string]: string }
+        $documentUid(value: string): string
         $asHtml(richText: any | undefined, linkResolver: any, htmlSerializer: any): string | undefined
         $asText(richText?: any, joinString?: string): string
         $asLink(link: any, linkResolver: any): string | undefined

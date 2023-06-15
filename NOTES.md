@@ -11,8 +11,7 @@ import CustomTypesClient, { CustomTypesClientConfig } from '@prismicio/custom-ty
 
 
 ### IN PROGRESS
-* **(VProjectListing)** update queryParams when update filters
-* **(Locale)** check if all link are localised (project link in projectListing aren't)
+* **(Config)** check if i can make Internalization route path (update documentUid vars by currentLocale ?)
 * **(VButton)** add hover
 * **(Build)** update share img && favicon
 * **(Build)** Generate.exclude not working
@@ -21,9 +20,11 @@ import CustomTypesClient, { CustomTypesClientConfig } from '@prismicio/custom-ty
 * **(Sitemap && routes)** avoid to generate route for ['/preview', '/en/preview', ''/en/slice-simulator', '/slice-simulator']
 
 ### TODOS
-* **(Build)** disable google crawl during dev
 
 ### DONE
+* **(Locale)** check if all link are localised (project link in projectListing aren't)
+* **(Build)** disable google crawl during dev
+* **(VProjectListing)** update queryParams when update filters
 * **(Setup)** prismic linked to skeleton repository
 * **(VImage)** add padding bottom depending on ratio to avoid layout shifting when image isn't load yet
 * **(VHeaderProject)** add link to tag into projectListing with queryParams url
