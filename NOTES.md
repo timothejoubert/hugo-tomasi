@@ -11,12 +11,11 @@ import CustomTypesClient, { CustomTypesClientConfig } from '@prismicio/custom-ty
 
 
 ### IN PROGRESS
-VMediaViewer
-VSplashScreen
-Responsive
+* **(Component)** VMediaViewer && VSplashScreen
+* **(Integration)** Responsive
 * **(Config)** check if i can make Internalization route path (update documentUid vars by currentLocale ?)
 * **(VButton)** add cool hover
-* **(Build)** update share img && favicon
+* **(Animation)** Parallaxe & reveal 
 * **(Build)** Generate.exclude not working
 
 ### TO CHECK
@@ -25,6 +24,7 @@ Responsive
 ### TODOS
 
 ### DONE
+* **(Build)** update share img && favicon
 * **(Locale)** check if all link are localised (project link in projectListing aren't)
 * **(Build)** disable google crawl during dev
 * **(VProjectListing)** update queryParams when update filters
