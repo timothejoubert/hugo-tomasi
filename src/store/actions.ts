@@ -8,7 +8,7 @@ import { RootState } from '~/types/store'
 import MutationType from '~/constants/mutation-type'
 import { CustomTypeName } from '~/types/prismic/app-prismic'
 import CustomType from '~/constants/custom-type'
-import { MainMenuDocument, ProjectDocument, SettingsDocument } from '~/types/prismic/prismic-types.generated'
+import { MainMenuDocument, ProjectDocument, SettingsDocument } from '~~/prismicio-types'
 import { getNumberedDate } from '~/utils/prismic/date'
 // import { Context, NuxtError } from '@nuxt/types'
 

@@ -1,9 +1,9 @@
-import type { MetaInfo } from 'vue-meta'
 import Vue from 'vue'
+import type { MetaInfo } from 'vue-meta'
 import { Context, NuxtError } from '@nuxt/types'
 import { SliceZone } from '@prismicio/types/src/value/sliceZone'
 import { FilledLinkToMediaField, LinkToMediaField } from '@prismicio/types/src/value/linkToMedia'
-import { FacebookMetaOptions, PageMetaPropertyName, TwitterMetaOptions } from '~/types/meta'
+import { FacebookMetaOptions, TwitterMetaOptions } from '~/types/meta'
 import { createFacebookMeta } from '~/utils/meta/facebook'
 import { createTwitterMeta } from '~/utils/meta/twitter'
 import { DocumentWithUidData } from '~/types/prismic/app-prismic'
@@ -14,8 +14,7 @@ import { isDefaultPageDocument, isProjectDocument } from '~/utils/prismic/custom
 import { getDocumentData } from '~/utils/prismic/types-utilities'
 import { isFilledLinkToMediaField } from '~/utils/prismic/field-media'
 import { getFormattedLocale } from '~/components/molecules/VLangSwitch.vue'
-import { SettingsDocument } from '~/types/prismic/prismic-types.generated'
-import { PageDocumentData, ProjectDocument, ProjectDocumentData } from '~~/prismicio-types'
+import { SettingsDocument, PageDocumentData, ProjectDocument, ProjectDocumentData } from '~~/prismicio-types'
 import { getProjectYear } from '~/utils/prismic/date'
 
 export default Vue.extend({

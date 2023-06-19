@@ -1,4 +1,4 @@
-import { ProjectDocument } from '~/types/prismic/prismic-types.generated'
+import { ProjectDocument } from '~~/prismicio-types'
 import { ProjectDocumentData } from '~/types/prismic/app-prismic'
 
 export function getAllTagProject(projects: ProjectDocument[] | undefined): string[] {

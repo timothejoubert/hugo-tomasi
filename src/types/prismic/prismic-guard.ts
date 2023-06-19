@@ -1,20 +1,6 @@
-import * as prismicT from '@prismicio/types'
 import { FilledContentRelationshipField } from '@prismicio/types/src/value/contentRelationship'
 import { PrismicDocument } from '@prismicio/types/src/value/document'
-import { PageDocument } from '~/types/prismic/prismic-types.generated'
 import DocumentUid from '~/constants/document-uid'
-
-export function isGroupFulled<T>(group: prismicT.GroupField): group is prismicT.GroupField<T | any, 'filled'> {
-    return !!group?.length
-}
-
-export const isMediaFilled = (media: prismicT.ImageField): media is prismicT.ImageField<never, 'filled'> => {
-    return !!media
-}
-
-export const isPageDocument = (document: PrismicDocument): document is PageDocument => {
-    return document.type === 'page'
-}
 
 type PrismicDocumentKey = {
     id?: string
@@ -55,7 +41,6 @@ export const isValidUidConst = (value: string): value is DocumentUid => {
     return Object.values<string>(DocumentUid).includes(value)
 }
 
-//
 // export const isOnlyPages = (documents: Document[]): documents is PageDocument[] => {
 //     return documents.every(document => isPageDocument(document))
 // }

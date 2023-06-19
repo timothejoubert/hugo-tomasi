@@ -10,8 +10,7 @@
 import Vue from 'vue'
 import type { PropType } from 'vue'
 import { FilledContentRelationshipField } from '@prismicio/types/src/value/contentRelationship'
-import { ProjectPushBlockSlice } from '~~/prismicio-types'
-import { ProjectDocument } from '~/types/prismic/prismic-types.generated'
+import { ProjectPushBlockSlice, ProjectDocument } from '~~/prismicio-types'
 import { isInternalRelationLinkWithUidFulled } from '~/utils/prismic/relation-field'
 
 export default Vue.extend({

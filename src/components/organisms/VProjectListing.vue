@@ -32,7 +32,7 @@
 
 <script lang="ts">
 import mixins from 'vue-typed-mixins'
-import { ProjectDocument } from '~/types/prismic/prismic-types.generated'
+import { ProjectDocument } from '~~/prismicio-types'
 import PageDataProvider from '~/mixins/PageDataProvider'
 
 export const QUERY_TAG = 'tag-filter'

@@ -1,19 +1,18 @@
 ### Prismic type in generated ts
 
 ```` javascript
-// @ts-ignore
 import type * as prismic from '@prismicio/types'
-// eslint-disable-next-line import/named,import/no-named-as-default
-import CustomTypesClient, { CustomTypesClientConfig } from '@prismicio/custom-types-client/dist/index'
+import { ApiOptions } from '@prismicio/client/types/Api'
+import { Document } from '@prismicio/client/types/documents'
 
-(repositoryNameOrEndpoint?: string, options?: CustomTypesClientConfig): typeof CustomTypesClient;
+(repositoryNameOrEndpoint: string, options?: ApiOptions): Promise<Document<AllDocumentTypes>>
 ````
 
 
 ### IN PROGRESS
 * **(Component)** VMediaViewer && VSplashScreen
 * **(Integration)** Responsive
-* **(Config)** check if i can make Internalization route path (update documentUid vars by currentLocale ?)
+* **(Config)** check if I can make Internalization route path (update documentUid vars by currentLocale ?)
 * **(VButton)** add cool hover
 * **(Animation)** Parallaxe & reveal 
 * **(Build)** Generate.exclude not working

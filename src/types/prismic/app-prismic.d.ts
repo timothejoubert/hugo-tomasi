@@ -9,7 +9,7 @@ import {
     HomePageDocument,
     PageDocument,
     ProjectDocument,
-} from '~/types/prismic/prismic-types.generated'
+} from '~~/prismicio-types'
 
 // GLOBAL
 export type CustomTypeName = extractDocumentType<AllDocumentTypes>

@@ -30,7 +30,7 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import { ProjectDocument } from '~/types/prismic/prismic-types.generated'
+import { ProjectDocument } from '~~/prismicio-types'
 import IconRight from '~/assets/images/icons/arrow-right.svg?sprite'
 
 const SCROLL_SPEED = 1.5
