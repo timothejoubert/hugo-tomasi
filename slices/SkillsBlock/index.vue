@@ -46,6 +46,10 @@ export default Vue.extend({
 }
 
 .skill {
-    margin-bottom: rem(20);
+    margin-bottom: rem(42);
+
+    @include media('>=md') {
+        margin-bottom: rem(20);
+    }
 }
 </style>

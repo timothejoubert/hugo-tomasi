@@ -64,14 +64,18 @@ export default Vue.extend({
 
 .head {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     cursor: pointer;
+    gap: rem(10) rem(30);
+
+    @include media('>=md') {
+        flex-wrap: nowrap;
+    }
 }
 
 .button {
     ---v-button-inner-min-width: #{rem(72)};
-
-    margin-right: rem(30);
 }
 
 .icon {
@@ -110,7 +114,14 @@ export default Vue.extend({
 }
 
 .skill__title {
+    width: 100%;
+    max-width: rem(550);
     text-transform: uppercase;
+
+    @include media('>=md') {
+        width: initial;
+        max-width: initial;
+    }
 }
 
 .body {
@@ -126,17 +137,28 @@ export default Vue.extend({
 .body__inner {
     display: flex;
     overflow: hidden;
+    flex-direction: column;
     justify-content: space-between;
+
+    @include media('>=sm') {
+        flex-direction: row;
+    }
 }
 
 .side,
 .skill__content {
     flex-basis: 40%;
-    padding-block: rem(30);
+    padding-block: rem(22) rem(12);
+
+    @include media('>=sm') {
+        padding-block: rem(30);
+    }
 }
 
 .skill__content {
-    margin-left: rem(104);
+    @include media('>=md') {
+        margin-left: rem(104);
+    }
 }
 
 .side__title {

@@ -53,7 +53,8 @@
 }
 
 @mixin text-over-title-s {
-    font-size: rem(18);
+    @include font-size-fluid((xs: 14, xl: 18));
+
     font-weight: 550;
     line-height: 1;
     text-transform: uppercase;
