@@ -1,5 +1,5 @@
 <template>
-    <div :class="[$style.root, (isSplashScreenDone || !displaySplashScreen) && $style['root--ready']]">
+    <div :class="rootClasses">
         <v-splash-screen-wrapper v-if="displaySplashScreen" />
         <v-top-bar />
         <Nuxt />
@@ -24,6 +24,13 @@ export default mixins(Resize).extend({
         )
     },
     computed: {
+        rootClasses(): (string | false | undefined)[] {
+            return [
+                this.$style.root,
+                this.displaySplashScreen && this.$style['root--splash-active'],
+                (this.isSplashScreenDone || !this.displaySplashScreen) && this.$style['root--ready'],
+            ]
+        },
         displaySplashScreen(): boolean {
             return toBoolean(GeneralsConst.DISPLAY_SPLASH_SCREEN_ONCE)
         },
@@ -38,5 +45,10 @@ export default mixins(Resize).extend({
 .root {
     position: relative;
     background-color: color(white);
+
+    &--splash-active:not(#{&}--ready) {
+        overflow: hidden;
+        max-height: 100vh;
+    }
 }
 </style>

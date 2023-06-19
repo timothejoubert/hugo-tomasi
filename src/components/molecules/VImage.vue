@@ -3,15 +3,29 @@ import Vue from 'vue'
 import type { PropType, VNode } from 'vue'
 import { isMediaFulled } from '~/utils/prismic/field-media'
 import { PrismicMedia } from '~/types/prismic/app-prismic'
+import breakpoint from '~/scss/export/_breakpoints.scss'
 
-const FALLBACK_ALT = 'Illustration de justine saez'
+const FALLBACK_ALT = 'Illustration de Hugo Tomasi'
 
 export interface VImageProps {
-    prismicImage: PrismicMedia
-    nativeImg: boolean
-    ratio: boolean | number
-    url: string
-    placeholder: Boolean
+    prismicImage?: PrismicMedia
+    nativeImg?: boolean
+    ratio?: boolean | number
+    url?: string
+    placeholder?: boolean
+    sizes?: string
+}
+
+function generateBreakpoint(width: number = 70): string {
+    return Object.keys(breakpoint)
+        .map((key) => `${key.split('-')[1]}:${width.toString()}vw`)
+        .join(' ')
+}
+
+function getSizes(value: string | undefined): string {
+    if (!value) return generateBreakpoint()
+    else if (value === 'fullScreen') return generateBreakpoint(100)
+    return value
 }
 
 export default Vue.extend({
@@ -24,6 +38,7 @@ export default Vue.extend({
         ratio: { type: [Boolean, Number], default: true },
         url: String,
         placeholder: { type: Boolean, default: true },
+        sizes: String as PropType<string | 'fullScreen'>,
     },
     data() {
         return {
@@ -48,7 +63,7 @@ export default Vue.extend({
             format: 'webp',
             provider: 'prismic',
             quality: '80',
-            sizes: this.$attrs?.sizes || 'xs:60vw md:60vw lg:60vw vl:60vw xl:60vw xxl:60vw hd:60vw',
+            sizes: getSizes(this.$attrs?.sizes || this.sizes),
             src: nativeImg && url ? url : prismicImage?.url || '/images/fallback-img.jpg',
             copyright: prismicImage?.copyright,
             alt: prismicImage?.alt || FALLBACK_ALT,

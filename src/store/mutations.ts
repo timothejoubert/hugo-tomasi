@@ -3,7 +3,7 @@ import { PrismicDocument } from '@prismicio/types/src/value/document'
 import * as prismicT from '@prismicio/types'
 import MutationType from '~/constants/mutation-type'
 import { RootState } from '~/types/store'
-import {MainMenuDocument, ProjectDocument, SettingsDocument} from '~/types/prismic/prismic-types.generated'
+import { MainMenuDocument, ProjectDocument, SettingsDocument } from '~~/prismicio-types'
 
 export default {
     // Prismic

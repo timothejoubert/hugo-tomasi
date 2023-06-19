@@ -1,7 +1,7 @@
 import { NuxtError } from '@nuxt/types'
 import { PrismicDocument } from '@prismicio/types/src/value/document'
 import * as prismicT from '@prismicio/types'
-import {MainMenuDocument, ProjectDocument, SettingsDocument} from '~/types/prismic/prismic-types.generated'
+import { MainMenuDocument, ProjectDocument, SettingsDocument } from '~~/prismicio-types'
 
 interface RootState {
     // Prismic data
@@ -21,6 +21,4 @@ interface RootState {
     errorPage: NuxtError | null
     prefersReducedMotion: boolean
     scrollIsDisabled: boolean
-
-
 }

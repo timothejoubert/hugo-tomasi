@@ -71,20 +71,14 @@ export default Vue.extend({
     },
     head(): MetaInfo {
         const meta = [
-            {
-                hid: 'description',
-                name: 'description',
-                content: this.pageDescription,
-            } as PageMetaPropertyName,
+            { hid: 'description', name: 'description', content: this.pageDescription },
+            { hid: 'version', name: 'version', content: this.$config.version || '' },
             ...createFacebookMeta(this.getFacebookMetaOptions()),
             ...createTwitterMeta(this.getTwitterMetaOptions()),
-            { hid: 'version', name: 'version', content: this.$config.version || '' },
         ]
 
         return {
-            htmlAttrs: {
-                lang: 'fr',
-            },
+            htmlAttrs: { lang: this.$i18n?.locale || this.$config.defaultLocale },
             title: this.metaTitle,
             meta,
         }
@@ -101,6 +95,9 @@ export default Vue.extend({
             const pageTitle = this.pageData?.meta_title || this.pageData?.title
             return pageTitle ? `${pageTitle} | ${this.appTitle}` : this.appTitle
         },
+        pageDescription(): string | undefined {
+            return this.pageData?.meta_description || this.$store.state.settings?.data?.description
+        },
         metaImage(): string {
             const media: LinkToMediaField = this.pageData?.meta_image
 
@@ -112,9 +109,6 @@ export default Vue.extend({
         },
         pageUrl(): string {
             return this.appTitle + this.$route.fullPath.substring(1)
-        },
-        pageDescription(): string | undefined {
-            return this.pageData?.meta_description || this.$store.state.settings?.data?.description
         },
         isHome(): boolean {
             return !!this.page && isHomePageDocument(this.page)

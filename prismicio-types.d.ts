@@ -20,6 +20,17 @@ interface HomePageDocumentData {
      */
     title: prismic.KeyTextField
     /**
+     * Tagline field in *Home page*
+     *
+     * - **Field Type**: Text
+     * - **Placeholder**: *None*
+     * - **API ID Path**: home_page.tagline
+     * - **Tab**: Main
+     * - **Documentation**: https://prismic.io/docs/core-concepts/key-text
+     *
+     */
+    tagline: prismic.KeyTextField
+    /**
      * Header media field in *Home page*
      *
      * - **Field Type**: Link to Media
@@ -457,16 +468,16 @@ interface SettingsDocumentData {
      */
     site_name: prismic.KeyTextField
     /**
-     * Tagline field in *Settings*
+     * Description field in *Settings*
      *
-     * - **Field Type**: Rich Text
-     * - **Placeholder**: Tagline présente la page About
-     * - **API ID Path**: settings.tagline
+     * - **Field Type**: Text
+     * - **Placeholder**: *None*
+     * - **API ID Path**: settings.description
      * - **Tab**: Main
-     * - **Documentation**: https://prismic.io/docs/core-concepts/rich-text-title
+     * - **Documentation**: https://prismic.io/docs/core-concepts/key-text
      *
      */
-    tagline: prismic.RichTextField
+    description: prismic.KeyTextField
     /**
      * Socials field in *Settings*
      *
@@ -613,10 +624,49 @@ export type GalleryBlockSliceDefault = prismic.SharedSliceVariation<
     Simplify<GalleryBlockSliceDefaultItem>
 >
 /**
+ * Primary content in GalleryBlock → Primary
+ *
+ */
+interface GalleryBlockSliceFullScreenPrimary {
+    /**
+     * Content field in *GalleryBlock → Primary*
+     *
+     * - **Field Type**: Rich Text
+     * - **Placeholder**: *None*
+     * - **API ID Path**: gallery_block.primary.content
+     * - **Documentation**: https://prismic.io/docs/core-concepts/rich-text-title
+     *
+     */
+    content: prismic.RichTextField
+    /**
+     * Media field in *GalleryBlock → Primary*
+     *
+     * - **Field Type**: Link to Media
+     * - **Placeholder**: *None*
+     * - **API ID Path**: gallery_block.primary.media
+     * - **Documentation**: https://prismic.io/docs/core-concepts/link-content-relationship
+     *
+     */
+    media: prismic.LinkToMediaField
+}
+/**
+ * Full screen variation for GalleryBlock Slice
+ *
+ * - **API ID**: `fullScreen`
+ * - **Description**: `Default`
+ * - **Documentation**: https://prismic.io/docs/core-concepts/reusing-slices
+ *
+ */
+export type GalleryBlockSliceFullScreen = prismic.SharedSliceVariation<
+    'fullScreen',
+    Simplify<GalleryBlockSliceFullScreenPrimary>,
+    never
+>
+/**
  * Slice variation for *GalleryBlock*
  *
  */
-type GalleryBlockSliceVariation = GalleryBlockSliceDefault
+type GalleryBlockSliceVariation = GalleryBlockSliceDefault | GalleryBlockSliceFullScreen
 /**
  * GalleryBlock Shared Slice
  *
@@ -628,6 +678,7 @@ type GalleryBlockSliceVariation = GalleryBlockSliceDefault
 export type GalleryBlockSlice = prismic.SharedSlice<'gallery_block', GalleryBlockSliceVariation>
 /**
  * Primary content in IntroductionBlock → Primary
+ *
  *
  */
 interface IntroductionBlockSliceDefaultPrimary {
@@ -1057,6 +1108,8 @@ declare module '@prismicio/client' {
             ExcerptBlockSlice,
             GalleryBlockSliceDefaultItem,
             GalleryBlockSliceDefault,
+            GalleryBlockSliceFullScreenPrimary,
+            GalleryBlockSliceFullScreen,
             GalleryBlockSliceVariation,
             GalleryBlockSlice,
             IntroductionBlockSliceDefaultPrimary,

@@ -185,11 +185,9 @@ export default (Vue as VueConstructor<Component>).extend({
     --v-image-border-radius: #{rem(26)};
 
     position: absolute;
-    width: rem(200);
+    width: max(#{rem(250)}, 20vw);
     flex-shrink: 0;
     aspect-ratio: 100 / 75;
     background-color: lightgray;
-
-    //&--cloned {}
 }
 </style>

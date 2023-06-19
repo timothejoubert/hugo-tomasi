@@ -1,9 +1,7 @@
 <template>
     <header :class="$style.root" class="container-fullscreen">
-        <template v-if="settings">
-            <div v-if="settings.site_name" class="text-h1">{{ settings.site_name }}</div>
-            <v-text v-if="settings.tagline" :content="settings.tagline" :class="$style.tagline" class="text-h5" />
-        </template>
+        <div v-if="pageData.title" class="text-h1">{{ pageData.title }}</div>
+        <v-text v-if="pageData.tagline" :content="pageData.tagline" :class="$style.tagline" class="text-h5" />
 
         <div v-if="pageData.header_media && pageData.header_media.url" :class="$style['background']">
             <video
@@ -21,7 +19,11 @@
         </div>
 
         <div :class="$style.body">
-            <div v-if="pageData.over_title" :class="$style['over-title']" class="text-over-title-s">
+            <div
+                v-if="pageData.over_title"
+                :class="$style['over-title']"
+                class="text-over-title-s v-header-home-over-title"
+            >
                 {{ pageData.over_title }}
             </div>
             <div :class="$style.bottom">
@@ -45,17 +47,12 @@
 <script lang="ts">
 import Vue from 'vue'
 import type { PropType } from 'vue'
-import { HomeDocumentData, SettingsData } from '~/types/prismic/app-prismic'
+import { HomeDocumentData } from '~/types/prismic/app-prismic'
 
 export default Vue.extend({
     name: 'VHeaderHome',
     props: {
         pageData: Object as PropType<HomeDocumentData>,
-    },
-    computed: {
-        settings(): SettingsData | undefined {
-            return this.$store.state.settings?.data
-        },
     },
 })
 </script>

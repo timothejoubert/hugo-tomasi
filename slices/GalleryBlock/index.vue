@@ -1,14 +1,25 @@
 <template>
-    <section :class="rootClasses" class="container">
-        <div v-for="(item, i) in items" :key="i" :class="$style.item">
+    <section :class="rootClasses">
+        <template v-if="isFullScreen">
             <v-media
-                :video="{ cover: true, controls: showControls }"
-                :document="item.media"
+                :image="{ sizes: 'fullScreen' }"
+                :video="{ cover: true, controls: false }"
+                :document="slice.primary.media"
                 :class="$style.media"
-                @video-state="onVideoStateUpdate"
             />
-            <div v-if="item.content" :class="$style.content" class="text-body-s">{{ item.content }}</div>
-        </div>
+            <v-text :content="slice.primary.content" :class="$style.content" />
+        </template>
+        <template v-else-if="items.length">
+            <div v-for="(item, i) in items" :key="i" :class="$style.item">
+                <v-media
+                    :video="{ cover: true, controls: showControls }"
+                    :document="item.media"
+                    :class="$style.media"
+                    @video-state="onVideoStateUpdate"
+                />
+                <div v-if="item.content" :class="$style.content" class="text-body-s">{{ item.content }}</div>
+            </div>
+        </template>
     </section>
 </template>
 
@@ -34,10 +45,17 @@ export default Vue.extend({
     },
     computed: {
         rootClasses(): (undefined | false | string)[] {
-            return [this.$style.root, this.isSolo && this.$style['root--solo']]
+            return [
+                this.$style.root,
+                this.isFullScreen ? this.$style['root--fullscreen'] : this.$style['root--container'],
+                this.isSolo && this.$style['root--solo'],
+            ]
         },
         items(): GalleryBlockSliceDefaultItem[] {
-            return this.slice.items.filter((item) => isRelationMediaFulled(item.media))
+            return this.isFullScreen ? [] : this.slice.items.filter((item) => isRelationMediaFulled(item.media))
+        },
+        isFullScreen(): boolean {
+            return this.slice.variation === 'fullScreen'
         },
         isSolo(): boolean {
             return this.items.length === 1
@@ -56,13 +74,18 @@ export default Vue.extend({
     @include margin-block;
 
     position: relative;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: rem(30);
 
-    @include media('>=md') {
-        flex-wrap: nowrap;
+    &--container {
+        @include container;
+
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: rem(30);
+
+        @include media('>=md') {
+            flex-wrap: nowrap;
+        }
     }
 }
 
@@ -79,14 +102,35 @@ export default Vue.extend({
 }
 
 .media {
-    --v-image-border-radius: #{rem(14)};
     --v-image-overflow: hidden;
 
-    aspect-ratio: 596 / 347;
+    .root--container & {
+        --v-image-border-radius: #{rem(14)};
+
+        aspect-ratio: 596 / 347;
+    }
+
+    .root--fullscreen & {
+        width: 100%;
+        min-height: rem(350);
+        aspect-ratio: 860 / 320;
+    }
 }
 
 .content {
     margin-top: rem(12);
     opacity: 0.8;
+
+    .root--fullscreen & {
+        @include property-fluid(
+            width,
+            (
+                xs: 280,
+                xl: 420,
+            )
+        );
+        margin-top: rem(28);
+        margin-left: $container-padding-inline;
+    }
 }
 </style>

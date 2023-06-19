@@ -1,6 +1,6 @@
 <template>
     <section :class="$style.root" class="container">
-        <div v-if="slice.primary.title" :class="$style.title" class="text-over-title-m">{{ slice.primary.title }}</div>
+        <div v-if="slice.primary.title" :class="$style.title" class="text-body-s">{{ slice.primary.title }}</div>
         <v-skill v-for="(skill, i) in skillList" :key="i" v-bind="skill" :class="$style.skill" />
     </section>
 </template>

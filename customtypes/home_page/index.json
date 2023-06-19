@@ -8,6 +8,7 @@
     "Main": {
       "uid": { "type": "UID", "config": { "label": "Slug", "placeholder": "Le nom de ta page dans l'url" } },
       "title": { "type": "Text", "config": { "label": "Title", "placeholder": "Titre de la page" } },
+      "tagline": { "type": "Text", "config": { "label": "Tagline", "placeholder": "" } },
       "header_media": { "type": "Link", "config": { "label": "Header media", "placeholder": "", "select": "media" } },
       "over_title": { "type": "Text", "config": { "label": "Over title", "placeholder": "" } },
       "description": {

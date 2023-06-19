@@ -1,9 +1,7 @@
 .container {
-    margin-inline: auto;
-    width: calc(100% - $container-padding-inline *2);
-
+    @include container;
 }
 
 .container-fullscreen {
-    padding-inline: $container-padding-inline;
+    @include container-fullscreen;
 }

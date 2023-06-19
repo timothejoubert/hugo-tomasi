@@ -1,6 +1,6 @@
 import type { GetterTree } from 'vuex'
 import { RootState } from '~/types/store'
-import {ProjectDocument} from "~/types/prismic/prismic-types.generated";
+import { ProjectDocument } from '~~/prismicio-types'
 
 export const getters: GetterTree<RootState, RootState> = {
     // alreadyVisited: (state: RootState) => state.alreadyVisited,

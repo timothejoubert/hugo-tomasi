@@ -39,6 +39,6 @@ export default mixins(Page).extend({
 
 <style lang="scss" module>
 .project-page-carousel {
-    margin-bottom: rem(200);
+    @include margin-block;
 }
 </style>

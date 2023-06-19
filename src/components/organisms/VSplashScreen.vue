@@ -1,9 +1,23 @@
 <template>
-    <div :class="rootClass">
+    <div :class="rootClass" :style="{ '--loading-percent': counterOutput / 100 }" class="container-fullscreen">
         <div :class="$style.content">
-            <div class="text-h1">{{ siteName }}</div>
-            <span class="text-h3">{{ counterOutput }}%</span>
+            <div :class="$style.logos">
+                <div :class="[$style.logo, $style['logo--mask']]"></div>
+                <svg :class="$style['clip-path']">
+                    <clipPath id="svgPath" class="clip-path" clipPathUnits="objectBoundingBox">
+                        <path fill="#FFFFFF" d="M1,0 H0 V1 H1 V0" />
+                    </clipPath>
+                    <!--                    <clipPath id="svgPath" clipPathUnits="objectBoundingBox">-->
+                    <!--                        <path d="M51.648 76.0075L54.0337 72.6775L54.0337 8.19416L51.9678 4.99057L41.2225 0.123901L37.4102 0.721341L1.15545 33.5713L2.14577e-06 36.1775L0 43.4775L1.15545 46.0836L37.4102 78.9336L40.9027 79.6575L51.648 76.0075ZM50.5169 8.19416L39.7716 3.32749L31.5168 10.807V68.848L39.7716 76.3275L50.5169 72.6775L50.5169 8.19416Z"/>-->
+                    <!--                        <path d="M62.5447 74.4403L60.4874 71.2406L60.4874 6.96565L62.8659 3.63816L73.5 -4.68641e-05L77.0091 0.729736L84.7965 7.83651L85.9426 10.4342L85.9426 68.9848L84.7965 71.5825L77.0091 78.6893L73.1788 79.2913L62.5447 74.4403ZM74.6384 76.0916L64.0043 71.2407L64.0043 6.96565L74.6384 3.32744L82.4258 10.4342L82.4258 68.9848L74.6384 76.0916Z"/>-->
+                    <!--                    </clipPath>-->
+                </svg>
+                <!--                <icon-logo :class="[$style.logo, $style['logo&#45;&#45;bg']]" />-->
+            </div>
         </div>
+        <div ref="over-title" :class="$style['over-title']" class="text-over-title-s">Loading...</div>
+        <div :class="$style['percent-bar']"></div>
+        <div class="text-h5" :class="$style.counter">{{ counterOutput }}%</div>
     </div>
 </template>
 
@@ -12,12 +26,14 @@ import Vue from 'vue'
 import type { PropType } from 'vue'
 import { SplashScreenState } from '~/components/organisms/VSplashScreenWrapper.vue'
 import loading from '~/scss/export/_v-splash-screen.scss'
+import IconLogo from '~/assets/images/logo.svg?sprite'
 
 const START_VALUE = 0
 const LAST_VALUE = 100
 
 export default Vue.extend({
     name: 'VSplashScreen',
+    components: { IconLogo },
     props: {
         value: String as PropType<SplashScreenState>,
     },
@@ -48,6 +64,13 @@ export default Vue.extend({
             }
         },
     },
+    mounted() {
+        const headerOverTitle = document.querySelector('.v-header-home-over-title')
+        if (headerOverTitle) {
+            ;(this.$refs['over-title'] as HTMLElement).style.marginTop =
+                headerOverTitle.getBoundingClientRect().top + 'px'
+        }
+    },
     methods: {
         startCounter() {
             let startTimestamp: null | number = null
@@ -75,7 +98,7 @@ export default Vue.extend({
         },
         onLeaveDone() {
             window.setTimeout(() => {
-                this.$emit('input', 'done')
+                // this.$emit('input', 'done')
             }, parseInt(loading['leave-duration']))
         },
     },
@@ -88,55 +111,115 @@ export default Vue.extend({
     z-index: 1001;
     top: 0;
     left: 0;
-    display: flex;
     width: 100%;
     height: 100%;
-    align-items: center;
-    justify-content: center;
     color: color(white);
 
-    &::after {
+    &::before {
         position: absolute;
         background-color: color(black);
-        border-radius: rem(24);
         content: '';
-        inset: rem(10);
-        transform: scale(1);
-    }
-
-    &--before-leave::after {
-        animation: enter unquote("#{map-get($loading, 'enter-duration')}ms") ease(in-back) forwards;
-    }
-
-    &--leave::after {
-        animation: leave unquote("#{map-get($loading, 'leave-duration')}ms") ease(in-back) forwards;
-    }
-}
-
-@keyframes enter {
-    from {
-        transform: scale(1);
-    }
-    to {
-        transform: scale(0.9);
-    }
-}
-
-@keyframes leave {
-    from {
-        transform: scale(0.9);
-    }
-    to {
-        transform: scale(1.1);
+        inset: 0;
     }
 }
 
 .content {
-    position: relative;
-    z-index: 1;
+    position: absolute;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    inset: 0;
+}
+
+.logos {
+    position: relative;
+    display: flex;
+    width: 86px;
+    align-items: center;
+    justify-content: center;
+    aspect-ratio: 86 / 80;
+}
+
+@mixin loading-animation($scope: 'local') {
+    animation: loading-animation 1.4s infinite ease(in-out-circ);
+    background-color: var(--theme-skeleton-background);
+    background-image: linear-gradient(
+        to right,
+        transparent 0%,
+        var(--theme-skeleton-gradient) 10%,
+        var(--theme-skeleton-gradient) 20%,
+        transparent 30%
+    );
+    background-position: 120% 0;
+    background-size: 120% 100%;
+
+    @media (prefers-reduced-motion: reduce) {
+        animation: none;
+        background: none;
+    }
+}
+
+.logo {
+    --theme-skeleton-background: blue;
+    --theme-skeleton-gradient: red;
+
+    position: relative;
+
+    &--mask {
+        @include loading-animation;
+
+        width: 100%;
+        height: 100%;
+        clip-path: url(#svgPath);
+    }
+
+    &--bg {
+        position: absolute;
+        top: 0;
+        left: 0;
+        //opacity: max(var(--loading-percent, 0), 0.2);
+        opacity: 0;
+    }
+}
+
+@keyframes loading-animation {
+    100% {
+        background-position: -480% 0;
+    }
+}
+
+.clip-path {
+    position: absolute;
+}
+
+.over-title {
+    position: relative;
+    margin-bottom: rem(16);
+}
+
+.percent-bar {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    height: 1px;
+    background-color: rgba(color(white), 0.3);
+
+    &::after {
+        position: absolute;
+        background-color: color(white);
+        content: '';
+        inset: 0;
+        opacity: 0.6;
+        scale: var(--loading-percent, 0) 1;
+        transform-origin: left;
+        transition: scale 0.2s;
+    }
+}
+
+.counter {
+    position: relative;
+    margin-top: rem(12);
+    opacity: 0.8;
 }
 </style>

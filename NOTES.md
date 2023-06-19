@@ -11,8 +11,11 @@ import CustomTypesClient, { CustomTypesClientConfig } from '@prismicio/custom-ty
 
 
 ### IN PROGRESS
+VMediaViewer
+VSplashScreen
+Responsive
 * **(Config)** check if i can make Internalization route path (update documentUid vars by currentLocale ?)
-* **(VButton)** add hover
+* **(VButton)** add cool hover
 * **(Build)** update share img && favicon
 * **(Build)** Generate.exclude not working
 
