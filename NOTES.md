@@ -10,6 +10,7 @@ import { Document } from '@prismicio/client/types/documents'
 
 
 ### IN PROGRESS
+* **(VDirective)** Animation d'apparition 
 * **(Component)** VMediaViewer && VSplashScreen
 * **(Integration)** Responsive
 * **(Config)** check if I can make Internalization route path (update documentUid vars by currentLocale ?)
