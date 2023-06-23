@@ -4,8 +4,8 @@ export default (): RootState => ({
     // Prismic data
     settings: null,
     mainMenu: null,
-    currentPageData: null,
     projects: null,
+    currentPageData: null,
 
     // SplashScreen
     splashScreenDone: false,

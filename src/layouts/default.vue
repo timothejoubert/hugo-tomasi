@@ -1,9 +1,8 @@
 <template>
     <div :class="rootClasses">
-        <v-splash-screen-wrapper v-if="displaySplashScreen" />
+        <v-splash-screen-wrapper v-if="displaySplashScreen && !isAlreadyRegister" />
         <v-top-bar />
         <Nuxt />
-
         <v-footer />
     </div>
 </template>
@@ -12,10 +11,9 @@
 import mixins from 'vue-typed-mixins'
 import Resize from '~/mixins/Resize'
 import MutationType from '~/constants/mutation-type'
-import toBoolean from '~/utils/to-boolean'
-import GeneralsConst from '~/constants/app'
+import SplashScreen from '~/mixins/SplashScreen'
 
-export default mixins(Resize).extend({
+export default mixins(Resize, SplashScreen).extend({
     name: 'default',
     mounted() {
         this.$store.commit(
@@ -25,17 +23,7 @@ export default mixins(Resize).extend({
     },
     computed: {
         rootClasses(): (string | false | undefined)[] {
-            return [
-                this.$style.root,
-                this.displaySplashScreen && this.$style['root--splash-active'],
-                (this.isSplashScreenDone || !this.displaySplashScreen) && this.$style['root--ready'],
-            ]
-        },
-        displaySplashScreen(): boolean {
-            return toBoolean(GeneralsConst.DISPLAY_SPLASH_SCREEN_ONCE)
-        },
-        isSplashScreenDone(): boolean {
-            return this.$store.state.splashScreenDone
+            return [this.$style.root, ...this.splashScreenClasses]
         },
     },
 })
@@ -46,7 +34,7 @@ export default mixins(Resize).extend({
     position: relative;
     background-color: color(white);
 
-    &--splash-active:not(#{&}--ready) {
+    &--splash-screen-active:not(#{&}--splash-screen--done) {
         overflow: hidden;
         max-height: 100vh;
     }

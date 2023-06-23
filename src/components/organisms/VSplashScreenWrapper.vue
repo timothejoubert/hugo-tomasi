@@ -6,8 +6,6 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import toBoolean from '~/utils/to-boolean'
-import GeneralsConst from '~/constants/app'
 import MutationType from '~/constants/mutation-type'
 
 export type SplashScreenState = 'pending' | 'beforeEnter' | 'beforeLeaved' | 'leave' | 'done'
@@ -25,30 +23,11 @@ export default Vue.extend({
         },
     },
     mounted() {
-        this.setSplashScreenState()
-        this.setVisited()
-    },
-    beforeDestroy() {
-        this.disposeVisited()
+        this.splashScreenState = 'beforeEnter'
     },
     methods: {
-        setSplashScreenState() {
-            const displayed = toBoolean(GeneralsConst.DISPLAY_SPLASH_SCREEN_ONCE) || !this.hasAlreadyVisited()
-
-            if (displayed) this.splashScreenState = 'beforeEnter'
-            else this.onSplashScreenDone()
-        },
         onSplashScreenDone() {
             this.$store.commit(MutationType.SPLASH_SCREEN_DONE, true)
-        },
-        hasAlreadyVisited(): boolean {
-            return !!localStorage.getItem('visited')
-        },
-        setVisited() {
-            window.localStorage.setItem('visited', 'true')
-        },
-        disposeVisited() {
-            window.localStorage.removeItem('visited')
         },
     },
 })

@@ -10,20 +10,22 @@ import { Document } from '@prismicio/client/types/documents'
 
 
 ### IN PROGRESS
-* **(VDirective)** Animation d'apparition 
-* **(Component)** VMediaViewer && VSplashScreen
+* **(Component)** VMediaViewer
+* **(Component)** About page
 * **(Integration)** Responsive
-* **(Config)** check if I can make Internalization route path (update documentUid vars by currentLocale ?)
-* **(VButton)** add cool hover
-* **(Animation)** Parallaxe & reveal 
-* **(Build)** Generate.exclude not working
 
 ### TO CHECK
+* **(Build)** Generate.exclude not working
 * **(Sitemap && routes)** avoid to generate route for ['/preview', '/en/preview', ''/en/slice-simulator', '/slice-simulator']
 
 ### TODOS
+* **(VDirective)** appear animation & Parallaxe
+* **(VButton)** add cool hover
+
 
 ### DONE
+* **(Component)** VSplashScreen
+* **(VSplashScreen)** Load only one time | also when locale switched => set in session storage
 * **(Build)** update share img && favicon
 * **(Locale)** check if all link are localised (project link in projectListing aren't)
 * **(Build)** disable google crawl during dev
@@ -50,6 +52,7 @@ import { Document } from '@prismicio/client/types/documents'
 * **(Config)** use PrismicClient (exemple)[https://community.prismic.io/t/an-invalid-prismic-repository-name-was-given/10523/10]
 
 ### LATER 
+* **(Config)** check if I can make Internalization route path (update documentUid vars by currentLocale ?)
 * **(Prismic)** use new Page type
-* **(Nav && Config)**: Configure nested route
+* **(Nav)**: Configure nested route
 * **(Config)**: I18n
