@@ -236,6 +236,17 @@ interface PageDocumentData {
      */
     type: prismic.SelectField<'Default' | 'About'>
     /**
+     * Media field in *Page*
+     *
+     * - **Field Type**: Link to Media
+     * - **Placeholder**: *None*
+     * - **API ID Path**: page.media
+     * - **Tab**: Main
+     * - **Documentation**: https://prismic.io/docs/core-concepts/link-content-relationship
+     *
+     */
+    media: prismic.LinkToMediaField
+    /**
      * Slice Zone field in *Page*
      *
      * - **Field Type**: Slice Zone
@@ -480,6 +491,17 @@ interface SettingsDocumentData {
      */
     description: prismic.KeyTextField
     /**
+     * Email field in *Settings*
+     *
+     * - **Field Type**: Text
+     * - **Placeholder**: *None*
+     * - **API ID Path**: settings.email
+     * - **Tab**: Main
+     * - **Documentation**: https://prismic.io/docs/core-concepts/key-text
+     *
+     */
+    email: prismic.KeyTextField
+    /**
      * Socials field in *Settings*
      *
      * - **Field Type**: Group
@@ -679,7 +701,6 @@ type GalleryBlockSliceVariation = GalleryBlockSliceDefault | GalleryBlockSliceFu
 export type GalleryBlockSlice = prismic.SharedSlice<'gallery_block', GalleryBlockSliceVariation>
 /**
  * Primary content in IntroductionBlock → Primary
- *
  *
  */
 interface IntroductionBlockSliceDefaultPrimary {

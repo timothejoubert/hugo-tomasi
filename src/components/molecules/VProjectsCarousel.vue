@@ -20,13 +20,12 @@
             </div>
             <div v-show="isCarouselEnable" :class="$style.scroll" :style="{ '--progress': progress }"></div>
         </div>
-        <div ref="carousel" :class="$style.carousel" class="container-fullscreen">
-            <v-link
-                v-for="project in projects"
-                :key="project.uid"
-                :reference="project"
-                :class="[$style.link, isDown && $style['link--is-dragging']]"
-            >
+        <div
+            ref="carousel"
+            :class="[$style.carousel, isDown && $style['link--is-dragging']]"
+            class="container-fullscreen"
+        >
+            <v-link v-for="project in projects" :key="project.uid" :reference="project" :class="$style.link">
                 <v-project-card :project="project.data" />
             </v-link>
         </div>
@@ -146,6 +145,7 @@ export default Vue.extend({
     cursor: grab;
     -webkit-overflow-scrolling: touch;
     overflow-x: scroll;
+    scrollbar-width: none; /* Firefox 64 */
     touch-action: pan-y;
 
     &::-webkit-scrollbar {
@@ -160,9 +160,13 @@ export default Vue.extend({
     flex: 0 0 auto;
     margin-right: rem(20);
     cursor: inherit;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
 
-    &--is-dragging {
-        pointer-events: none;
+    .carousel--is-dragging & {
+        //pointer-events: none;
     }
 
     @include media('>=md') {

@@ -10,21 +10,22 @@ import { Document } from '@prismicio/client/types/documents'
 
 
 ### IN PROGRESS
-* **(Component)** About page
+* **(Component)** VMediaViewer (just play in fullScreen with controls for showreel ?)
 
 ### TO CHECK
 * **(Build)** Generate.exclude not working
 * **(Sitemap && routes)** avoid to generate route for ['/preview', '/en/preview', ''/en/slice-simulator', '/slice-simulator']
 
 ### TODOS
-* **(Component)** VMediaViewer
-* **(Integration)** Responsive
 * **(Bug)** VMarquee => glitch
+* **(Bug)** Carousel drag ghost on firefox
+* **(Integration)** Responsive
 * **(VDirective)** appear animation & Parallaxe
-* **(VButton)** add cool hover
 
 
 ### DONE
+* **(VButton)** add cool hover
+* **(Component)** About page
 * **(VMarquee)** define lines
 * **(Bug)** VCarousel => avoid link on mouseUp
 * **(Component)** VSplashScreen

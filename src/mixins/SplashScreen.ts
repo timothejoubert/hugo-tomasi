@@ -13,24 +13,25 @@ export default Vue.extend({
     computed: {
         splashScreenClasses(): (string | false | undefined)[] {
             return [
-                this.displaySplashScreen && this.$style['root--splash-screen-active'],
-                (this.isSplashScreenDone || !this.displaySplashScreen || this.isAlreadyRegister) &&
-                    this.$style['root--splash-screen-done'],
+                this.isSplashScreenDisplayed &&
+                    !this.isSplashScreenDone &&
+                    this.$style['root--splash-screen-displayed'],
             ]
-        },
-        displaySplashScreen(): boolean {
-            return toBoolean(GeneralsConst.DISPLAY_SPLASH_SCREEN) && !this.isAlreadyRegister
-        },
-        isSplashScreenDone(): boolean {
-            return this.$store.state.splashScreenDone
         },
         displayOnce(): boolean {
             return toBoolean(GeneralsConst.DISPLAY_SPLASH_SCREEN_ONCE)
         },
+        isSplashScreenDisplayed(): boolean {
+            const isDisplayedOnlyOnFirstTime = !this.displayOnce || (this.displayOnce && !this.isAlreadyRegister)
+            return toBoolean(GeneralsConst.DISPLAY_SPLASH_SCREEN) && isDisplayedOnlyOnFirstTime
+        },
+        isSplashScreenDone(): boolean {
+            return this.$store.state.splashScreenDone
+        },
     },
     watch: {
         isSplashScreenDone(isDone: boolean) {
-            if (this.displaySplashScreen && isDone && this.displayOnce)
+            if (this.isSplashScreenDisplayed && isDone && this.displayOnce)
                 sessionStorage.setItem(SESSION_STORAGE_KEY, 'true')
         },
     },

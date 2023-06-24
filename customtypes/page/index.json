@@ -18,6 +18,7 @@
         }
       },
       "type": { "type": "Select", "config": { "label": "Type", "placeholder": "", "options": ["Default", "About"] } },
+      "media": { "type": "Link", "config": { "label": "Media", "placeholder": "", "select": "media" } },
       "slices": {
         "type": "Slices",
         "fieldset": "Slice Zone",

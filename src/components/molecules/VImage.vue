@@ -128,6 +128,10 @@ export default Vue.extend({
     aspect-ratio: var(--v-image-aspect-ratio, initial);
     object-fit: var(--v-image-object-fit, initial);
     object-position: var(--v-image-object-position, initial);
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
 }
 
 .root--ratio img {

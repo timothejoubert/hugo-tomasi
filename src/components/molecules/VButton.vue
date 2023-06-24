@@ -121,7 +121,7 @@ export default Vue.extend({
 
     display: inline-block;
     border: none;
-    color: color(black);
+    color: var(--theme-foreground-color, color(black));
     text-decoration: none;
     transition: background-color 0.3s, border-color 0.3s, color 0.3s;
 

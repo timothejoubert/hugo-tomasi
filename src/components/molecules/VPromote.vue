@@ -6,7 +6,7 @@
         <div v-if="content" :class="$style.content">{{ content }}</div>
         <div v-if="place" :class="$style.place">{{ place }}</div>
         <div v-if="year" :class="$style.year">{{ year }}</div>
-        <v-button v-if="linkFulled" :class="$style.cta" :label="linkLabel || $t('button.default_label')">
+        <v-button v-if="linkFulled" theme="light" :class="$style.cta" :label="linkLabel || $t('button.default_label')">
             <template #icon>
                 <icon-arrow-up-right />
             </template>

@@ -1,6 +1,6 @@
 <template>
     <div :class="rootClasses">
-        <v-splash-screen-wrapper v-if="displaySplashScreen && !isAlreadyRegister" />
+        <v-splash-screen-wrapper v-if="isSplashScreenDisplayed" />
         <v-top-bar />
         <Nuxt />
         <v-footer />
@@ -34,7 +34,7 @@ export default mixins(Resize, SplashScreen).extend({
     position: relative;
     background-color: color(white);
 
-    &--splash-screen-active:not(#{&}--splash-screen--done) {
+    &--splash-screen-displayed {
         overflow: hidden;
         max-height: 100vh;
     }
