@@ -120,6 +120,7 @@ export default Vue.extend({
     @include theme-variants;
 
     display: inline-block;
+    overflow: hidden;
     border: none;
     color: var(--theme-foreground-color, color(black));
     text-decoration: none;
@@ -193,6 +194,7 @@ export default Vue.extend({
     align-items: center;
     justify-content: center;
     text-align: left;
+    transition: all 0.3s;
 
     .root:not(.root--outlined):not(.root--filled) & {
         padding: 0;

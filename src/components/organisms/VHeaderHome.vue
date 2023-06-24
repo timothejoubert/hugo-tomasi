@@ -3,8 +3,9 @@
         <div v-if="pageData.title" class="text-h1">{{ pageData.title }}</div>
         <v-text v-if="pageData.tagline" :content="pageData.tagline" :class="$style.tagline" class="text-h5" />
 
-        <div v-if="pageData.header_media && pageData.header_media.url" :class="$style['background']">
+        <div v-if="videoUrl" :class="$style['background']">
             <video
+                ref="video"
                 preload="auto"
                 autoplay
                 playsinline
@@ -14,17 +15,36 @@
                 data-wf-ignore="true"
                 :class="$style.media"
             >
-                <source :src="pageData.header_media.url" type="video/mp4" />
+                <source :src="videoUrl" type="video/mp4" />
             </video>
         </div>
 
         <div :class="$style.body">
-            <div
-                v-if="pageData.over_title"
-                :class="$style['over-title']"
-                class="text-over-title-s v-header-home-over-title"
-            >
-                {{ pageData.over_title }}
+            <div :class="$style['body__head']" class="v-header-home-head-bottom">
+                <span v-if="pageData.over_title" :class="$style['over-title']" class="text-over-title-s">
+                    {{ pageData.over_title }}
+                </span>
+                <div :class="$style['video-cta']" @click="setVideoFullscreen">
+                    <v-split-word
+                        class="text-body-xs"
+                        :class="$style['video-cta__label']"
+                        :play-animation="isCtaHovered"
+                        :word="$t('showreal.cta_label').toString()"
+                        @mouseenter.native="isCtaHovered = true"
+                        @mouseleave.native="isCtaHovered = false"
+                    />
+                    <v-button
+                        v-if="videoUrl"
+                        filled
+                        theme="light"
+                        @mouseenter.native="isCtaHovered = true"
+                        @mouseleave.native="isCtaHovered = false"
+                    >
+                        <template #icon>
+                            <icon-fullscreen />
+                        </template>
+                    </v-button>
+                </div>
             </div>
             <div :class="$style.bottom">
                 <v-text
@@ -48,11 +68,53 @@
 import Vue from 'vue'
 import type { PropType } from 'vue'
 import { HomeDocumentData } from '~/types/prismic/app-prismic'
+import IconFullscreen from '~/assets/images/icons/fullscreen.svg?sprite'
 
 export default Vue.extend({
     name: 'VHeaderHome',
+    components: { IconFullscreen },
     props: {
         pageData: Object as PropType<HomeDocumentData>,
+    },
+    data() {
+        return {
+            isCtaHovered: false,
+            isVideoFullscreen: false,
+        }
+    },
+    computed: {
+        videoUrl(): string | undefined {
+            return (this.pageData?.header_media as { url?: string })?.url
+        },
+    },
+    methods: {
+        async setVideoFullscreen() {
+            const video = this.$refs?.video as HTMLVideoElement | undefined
+            if (!video || (video && !document.fullscreenEnabled)) return
+
+            await video.requestFullscreen()
+            this.isVideoFullscreen = true
+            video.currentTime = 0
+            video.muted = false
+            video.volume = 0.5
+
+            // listener load callback immediately when fullscreen is launch
+            window.setTimeout(() => {
+                video.addEventListener('fullscreenchange', this.onFullscreenChange)
+            }, 200)
+        },
+        onFullscreenChange() {
+            if (this.isVideoFullscreen) this.onLeaveFullscreen()
+        },
+        onLeaveFullscreen() {
+            const video = this.$refs?.video as HTMLVideoElement | undefined
+            if (!video) return
+
+            video.muted = true
+            this.isVideoFullscreen = false
+
+            video.removeEventListener('fullscreenchange', this.onFullscreenChange)
+        },
     },
 })
 </script>
@@ -99,8 +161,10 @@ export default Vue.extend({
     margin-bottom: rem(36);
 }
 
-.over-title {
+.body__head {
     position: relative;
+    display: flex;
+    justify-content: space-between;
     padding-bottom: rem(16);
     margin-bottom: rem(16);
 
@@ -112,6 +176,33 @@ export default Vue.extend({
         height: 1px;
         background-color: rgba(color(white), 0.3);
         content: '';
+    }
+}
+
+.video-cta {
+    display: none;
+
+    @include media('>=lg') {
+        position: absolute;
+        right: 0;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        gap: rem(10);
+        translate: 0 -50%;
+    }
+}
+
+.video-cta__label {
+    --split-word-duration: 300ms;
+
+    position: absolute;
+    opacity: 0;
+    transition: opacity 0.3s;
+    translate: calc((100% + 10px) * -1) 0;
+
+    .video-cta:hover & {
+        opacity: 1;
     }
 }
 

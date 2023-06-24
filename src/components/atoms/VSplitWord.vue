@@ -65,7 +65,7 @@ export default Vue.extend({
     }
 
     .root--animate & {
-        animation: slide-up 350ms calc(var(--letter-index) * 20ms) ease(out-quad);
+        animation: slide-up var(--split-word-duration, 350ms) calc(var(--letter-index) * 20ms) ease(out-quad);
     }
 
     .root--animate &::after {
@@ -74,7 +74,7 @@ export default Vue.extend({
 
     @media (hover: hover) {
         .root:not(.root--animate):hover & {
-            animation: slide-up 350ms calc(var(--letter-index) * 20ms) ease(out-quad);
+            animation: slide-up var(--split-word-duration, 350ms) calc(var(--letter-index) * 20ms) ease(out-quad);
         }
 
         .root:not(.root--animate):hover &::after {

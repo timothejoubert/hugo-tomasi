@@ -51,7 +51,7 @@ export default mixins(PageDataProvider).extend({
 .root {
     position: relative;
     display: flex;
-    min-height: 100dvh;
+    min-height: 100vh;
     align-items: center;
     margin-top: $v-top-bar-height * -1;
     background-color: color(black);
@@ -96,9 +96,5 @@ export default mixins(PageDataProvider).extend({
 .link {
     display: flex;
     align-items: center;
-}
-
-.social {
-    //font-size: rem(12);
 }
 </style>

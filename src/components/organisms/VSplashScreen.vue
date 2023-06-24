@@ -72,7 +72,7 @@ export default (Vue as VueConstructor<Component>).extend({
         this.itemsMounted = false
     },
     mounted() {
-        const headerOverTitle = document.querySelector('.v-header-home-over-title')
+        const headerOverTitle = document.querySelector('.v-header-home-head-bottom')
         if (headerOverTitle) {
             ;(this.$refs['over-title'] as HTMLElement).style.marginTop =
                 headerOverTitle.getBoundingClientRect().top + 'px'
