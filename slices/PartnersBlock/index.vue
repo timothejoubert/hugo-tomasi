@@ -1,7 +1,13 @@
 <template>
     <section :class="$style.root">
-        <v-marquee :items="medias" :play="play" :direction="1" :class="$style.marquee" />
-        <v-marquee :items="medias" :play="play" :direction="-1" :class="$style.marquee" />
+        <v-marquee
+            v-for="(medias, i) in mediaListLine"
+            :key="i"
+            :items="medias"
+            :play="play"
+            :direction="i % 2 ? -1 : 1"
+            :class="$style.marquee"
+        />
     </section>
 </template>
 
@@ -30,12 +36,18 @@ export default (Vue as VueConstructor<Component>).extend({
         }
     },
     computed: {
-        medias(): FilledLinkToMediaField[] {
+        mediaListLine(): FilledLinkToMediaField[][] {
+            const lines = this.slice.primary.lines
             const medias = this.slice.items
                 .filter((item) => isRelationMediaFulled(item.media))
                 .map((item) => item.media as FilledLinkToMediaField)
-            medias.length = 3
-            return medias
+
+            if (!lines || lines === 1) {
+                return [medias]
+            } else {
+                const mediaLengthByLine = Math.ceil(medias.length / lines)
+                return this.chunks<FilledLinkToMediaField>(medias, mediaLengthByLine)
+            }
         },
     },
     mounted() {
@@ -46,6 +58,13 @@ export default (Vue as VueConstructor<Component>).extend({
         this.intersectionObserver = null
     },
     methods: {
+        chunks<T>(array: T[], size: number): T[][] {
+            const results = []
+            while (array.length) {
+                results.push(array.splice(0, size))
+            }
+            return results
+        },
         initIntersectionObserver() {
             const options = { rootMargin: `100px 0px 100px 0px` }
 

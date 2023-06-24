@@ -10,22 +10,23 @@ import { Document } from '@prismicio/client/types/documents'
 
 
 ### IN PROGRESS
-* **(Component)** VMediaViewer
 * **(Component)** About page
-* **(Integration)** Responsive
-* **(Bug)** VMarquee => glitch
-* **(Bug)** VCarousel => avoid link on mouseUp
 
 ### TO CHECK
 * **(Build)** Generate.exclude not working
 * **(Sitemap && routes)** avoid to generate route for ['/preview', '/en/preview', ''/en/slice-simulator', '/slice-simulator']
 
 ### TODOS
+* **(Component)** VMediaViewer
+* **(Integration)** Responsive
+* **(Bug)** VMarquee => glitch
 * **(VDirective)** appear animation & Parallaxe
 * **(VButton)** add cool hover
 
 
 ### DONE
+* **(VMarquee)** define lines
+* **(Bug)** VCarousel => avoid link on mouseUp
 * **(Component)** VSplashScreen
 * **(VSplashScreen)** Load only one time | also when locale switched => set in session storage
 * **(Build)** update share img && favicon

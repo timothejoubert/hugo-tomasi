@@ -1,7 +1,7 @@
 <template>
     <div :class="$style.root">
         <div v-if="pageData.title">{{ pageData.title }}</div>
-        <v-style-preview />
+        <!--        <v-style-preview />-->
     </div>
 </template>
 
