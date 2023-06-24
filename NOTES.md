@@ -13,6 +13,8 @@ import { Document } from '@prismicio/client/types/documents'
 * **(Component)** VMediaViewer
 * **(Component)** About page
 * **(Integration)** Responsive
+* **(Bug)** VMarquee => glitch
+* **(Bug)** VCarousel => avoid link on mouseUp
 
 ### TO CHECK
 * **(Build)** Generate.exclude not working
