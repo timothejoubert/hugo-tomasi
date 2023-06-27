@@ -10,9 +10,9 @@ import { Document } from '@prismicio/client/types/documents'
 
 
 ### IN PROGRESS
-* **(VDirective)** appear animation & Parallaxe
-* **(About)** copy email
-* **(ProjectsCarousel)** filter current project after enter in page 
+* **(Transition)** Page transition
+* **(VDirective)** appear animation & parallaxe
+* **(ProjectsCarousel)** filter current project after transition done
 
 ### TO CHECK
 * **(Build)** Generate.exclude not working
@@ -25,6 +25,7 @@ import { Document } from '@prismicio/client/types/documents'
 * **(VMedia)** allow embed media
 
 ### DONE
+* **(About)** copy email
 * **(Component)** VMediaViewer (just play in fullScreen with controls for showreel ?)
 * **(VButton)** add cool hover
 * **(Component)** About page

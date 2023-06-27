@@ -20,6 +20,27 @@ import { getProjectYear } from '~/utils/prismic/date'
 export default Vue.extend({
     // middleware: 'slugParser',
     nuxtI18n: false,
+    transition: {
+        mode: 'out-in',
+        css: false,
+        beforeLeave(element: HTMLElement) {
+            const currentPageUid = element.getAttribute('data-page')
+            const fromHome = currentPageUid === DocumentUid.HOME
+
+            const nextPage = window.$nuxt.$route
+            const toProject =
+                nextPage.path.includes(`/${DocumentUid.PROJECT_LISTING}/`) && !!nextPage?.params?.pathMatch
+
+            if (fromHome && toProject) {
+                const clickedCard = document.querySelector(`[href="${nextPage.path}"]`)
+                console.log(clickedCard, `a[href="${nextPage.path}"]`)
+            }
+        },
+        leave(_element: HTMLElement, done: Function) {
+            // console.log(element)
+            window.setTimeout(done, 2000)
+        },
+    },
     async asyncData(context: Context) {
         const { $prismic, params, store, route, error } = context
         let page

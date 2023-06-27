@@ -1,5 +1,5 @@
 <template>
-    <div v-if="pageData">
+    <div v-if="pageData" :data-page="page.uid">
         <lazy-v-home-page v-if="isHome" :page-data="pageData" />
         <lazy-v-project-listing v-else-if="isProjectListing" :page-data="pageData" />
         <lazy-v-project-page v-else-if="isProjectPage" :page-data="pageData" />

@@ -2,7 +2,6 @@ import type { PrismicDocument } from '@prismicio/types'
 import { hasUid } from '~/types/prismic/prismic-guard'
 import DocumentUid from '~/constants/document-uid'
 
-
 export function isDocumentByUid(document: PrismicDocument, name: string): boolean {
     return hasUid(document) && document.uid === name
 }
@@ -20,5 +19,15 @@ export const hasParentPage = (document: PrismicDocument): boolean => {
 }
 
 const isDocument = (document?: unknown & Partial<PrismicDocument>): document is PrismicDocument => {
-    return !!document && 'data' in document &&  'id' in document && 'uid' in document && 'url' in document && 'type' in document && 'href' in document && 'slugs' in document && 'linked_documents' in document
+    return (
+        !!document &&
+        'data' in document &&
+        'id' in document &&
+        'uid' in document &&
+        'url' in document &&
+        'type' in document &&
+        'href' in document &&
+        'slugs' in document &&
+        'linked_documents' in document
+    )
 }
