@@ -8,6 +8,7 @@
                     selectedTags.length && $style['toggle--active'],
                     isOpen && $style['toggle--open'],
                 ]"
+                theme="light"
                 :animation="false"
                 @click="isOpen = !isOpen"
             >
