@@ -10,7 +10,21 @@
                 class="text-h3"
                 :class="$style.description"
             />
-            <div v-if="email" class="text-over-title-s" :class="$style.email">{{ email }}</div>
+            <div :class="$style.email">
+                <transition :name="$style['email-copied']">
+                    <div v-if="emailCopied" class="text-body-xs" :class="$style['email__copied-success']">
+                        {{ $t('email.copied__success') }} 🔥🔥
+                    </div>
+                </transition>
+                <v-split-word
+                    tag="button"
+                    class="text-over-title-s"
+                    :class="$style.email__cta"
+                    @click.native="onMailClicked"
+                >
+                    {{ email }}
+                </v-split-word>
+            </div>
             <v-social-list v-slot="{ socials }" :class="$style.socials">
                 <v-button
                     v-for="(social, i) in socials"
@@ -39,9 +53,26 @@ import IconArrowUpRight from '~/assets/images/icons/arrow-up-right.svg?sprite'
 export default mixins(PageDataProvider).extend({
     name: 'VDefaultPage',
     components: { IconArrowUpRight },
+    data() {
+        return {
+            emailCopied: false,
+        }
+    },
     computed: {
         email(): string | undefined {
             return this.$store.state.settings?.data?.email
+        },
+    },
+    methods: {
+        onMailClicked() {
+            this.email &&
+                navigator.clipboard.writeText(this.email).then(this.onClipBoardSuccess, (error) => {
+                    console.warn('Failed to copy in clipboard', error)
+                })
+        },
+        onClipBoardSuccess() {
+            this.emailCopied = true
+            window.setTimeout(() => (this.emailCopied = false), 2000)
         },
     },
 })
@@ -85,7 +116,21 @@ export default mixins(PageDataProvider).extend({
 }
 
 .email {
+    position: relative;
+}
+
+.email__cta {
     margin-bottom: rem(20);
+}
+
+.email__copied-success {
+    position: absolute;
+    padding: rem(8) rem(16);
+    background: linear-gradient(color(light), rgba(color(light), 0.85));
+    //background-color: color(light);
+    border-radius: rem(6);
+    color: color(black);
+    translate: 0 calc((100% + #{rem(20)}) * -1);
 }
 
 .socials {
@@ -96,5 +141,18 @@ export default mixins(PageDataProvider).extend({
 .link {
     display: flex;
     align-items: center;
+}
+
+.email-copied:global(#{'-enter-active'}),
+.email-copied:global(#{'-leave-active'}) {
+    transition: translate, opacity;
+    transition-duration: 0.4s;
+    transition-timing-function: ease(out-quad);
+}
+
+.email-copied:global(#{'-enter'}),
+.email-copied:global(#{'-leave-to'}) {
+    opacity: 0;
+    translate: 0 -80%;
 }
 </style>

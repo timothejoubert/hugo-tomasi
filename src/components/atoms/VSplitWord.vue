@@ -1,5 +1,5 @@
 <template>
-    <div v-if="word" :class="[$style.root, playAnimation && $style['root--animate']]">
+    <component :is="tag" :class="[$style.root, playAnimation && $style['root--animate']]">
         <template v-for="(letter, i) in letters">
             <div
                 :key="i"
@@ -10,20 +10,25 @@
                 {{ letter.content }}
             </div>
         </template>
-    </div>
+    </component>
 </template>
 <script lang="ts">
 import Vue from 'vue'
 
 export default Vue.extend({
     props: {
+        tag: { type: String, default: 'div' },
         word: String,
         isAnimated: { type: Boolean, default: true },
         playAnimation: Boolean,
     },
     computed: {
+        slotContent(): string | undefined {
+            return this.$slots.default?.[0]?.text
+        },
         letters(): { content: string; isAfterSpace: boolean }[] | undefined {
-            const letters = this.word?.split('')
+            const letters = this.word?.split('') || this.slotContent?.split('')
+
             if (!letters?.length) return undefined
 
             return letters

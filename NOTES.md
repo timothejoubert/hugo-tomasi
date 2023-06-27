@@ -10,20 +10,22 @@ import { Document } from '@prismicio/client/types/documents'
 
 
 ### IN PROGRESS
-* **(Component)** VMediaViewer (just play in fullScreen with controls for showreel ?)
+* **(VDirective)** appear animation & Parallaxe
+* **(About)** copy email
+* **(ProjectsCarousel)** filter current project after enter in page 
 
 ### TO CHECK
 * **(Build)** Generate.exclude not working
 * **(Sitemap && routes)** avoid to generate route for ['/preview', '/en/preview', ''/en/slice-simulator', '/slice-simulator']
 
 ### TODOS
-* **(Bug)** VMarquee => glitch
-* **(Bug)** Carousel drag ghost on firefox
 * **(Integration)** Responsive
-* **(VDirective)** appear animation & Parallaxe
-
+* **(VMarquee)** glitch
+* **(Carousel)** drag ghost on firefox
+* **(VMedia)** allow embed media
 
 ### DONE
+* **(Component)** VMediaViewer (just play in fullScreen with controls for showreel ?)
 * **(VButton)** add cool hover
 * **(Component)** About page
 * **(VMarquee)** define lines
