@@ -38,7 +38,8 @@ export default Vue.extend({
         },
         leave(_element: HTMLElement, done: Function) {
             // console.log(element)
-            window.setTimeout(done, 2000)
+            done()
+            // window.setTimeout(done, 2000)
         },
     },
     async asyncData(context: Context) {
