@@ -1,5 +1,5 @@
 <template>
-    <div :class="[$style.root, isOpen && $style['root--open']]">
+    <div v-in-view.once :class="[$style.root, isOpen && $style['root--open']]">
         <div
             :class="$style.head"
             @click="isOpen = !isOpen"

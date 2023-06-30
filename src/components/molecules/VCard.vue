@@ -15,14 +15,20 @@
         </div>
         <div :class="$style.body">
             <div :class="$style.body__left">
-                <v-split-word v-if="title" :class="titleClass" :play-animation="isEnter" :word="title" />
-                <div v-if="tags.length" :class="$style.tags">
+                <v-split-word v-if="title" v-in-view.once :class="titleClass" :play-animation="isEnter" :word="title" />
+                <div v-if="tags.length" v-in-view.once :class="$style.tags">
                     <span v-for="tag in tags" :key="'tag-' + tag.label" class="text-body-s" :class="$style.tag">{{
                         tag.label
                     }}</span>
                 </div>
             </div>
-            <v-text v-if="description" :content="description" :class="$style.description" class="text-body-s" />
+            <v-text
+                v-if="description"
+                v-in-view.once
+                :content="description"
+                :class="$style.description"
+                class="text-body-s"
+            />
         </div>
     </div>
 </template>
