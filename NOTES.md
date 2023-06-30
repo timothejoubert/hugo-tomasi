@@ -10,18 +10,18 @@ import { Document } from '@prismicio/client/types/documents'
 
 
 ### IN PROGRESS
-* **(Transition)** Page transition
 * **(VDirective)** appear animation & parallaxe
-* **(ProjectsCarousel)** filter current project after transition done
+* **(Integration)** Responsive
+* **(VMarquee)** glitch
+* **(Carousel)** drag ghost on firefox && avoid click listener on mouseUp after drag 
 
 ### TO CHECK
 * **(Build)** Generate.exclude not working
-* **(Sitemap && routes)** avoid to generate route for ['/preview', '/en/preview', ''/en/slice-simulator', '/slice-simulator']
+* **(Sitemap && routes)** avoid to generate route for ['/preview', '/en/preview', '/en/slice-simulator', '/slice-simulator']
 
 ### TODOS
-* **(Integration)** Responsive
-* **(VMarquee)** glitch
-* **(Carousel)** drag ghost on firefox
+* **(ProjectsCarousel)** filter current project after transition done
+* **(Transition)** Page transition
 * **(VMedia)** allow embed media
 
 ### DONE

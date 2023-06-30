@@ -22,7 +22,7 @@
         </div>
         <div
             ref="carousel"
-            :class="[$style.carousel, isDown && $style['link--is-dragging']]"
+            :class="[$style.carousel, mouseMove && $style['carousel--is-dragging']]"
             class="container-fullscreen"
         >
             <v-link v-for="project in projects" :key="project.uid" :reference="project" :class="$style.link">
@@ -37,7 +37,7 @@ import Vue from 'vue'
 import { ProjectDocument } from '~~/prismicio-types'
 import IconRight from '~/assets/images/icons/arrow-right.svg?sprite'
 
-const SCROLL_SPEED = 1.5
+const SCROLL_SPEED = 1
 
 export default Vue.extend({
     name: 'VProjectCarousel',
@@ -55,6 +55,7 @@ export default Vue.extend({
             slider: {} as HTMLElement,
             progress: 0,
             positionX: 0,
+            mouseMove: false,
         }
     },
     computed: {
@@ -123,12 +124,15 @@ export default Vue.extend({
         },
         onMouseLeave() {
             this.isDown = false
+            this.mouseMove = false
         },
         onMouseUp() {
             this.isDown = false
+            this.mouseMove = false
         },
         onMouseMove(event: MouseEvent) {
             if (!this.isDown) return
+            this.mouseMove = true
             const x = event.pageX - this.slider.offsetLeft
             const walk = (x - this.startX) * SCROLL_SPEED
             this.positionX = this.scrollLeft - walk
@@ -166,7 +170,7 @@ export default Vue.extend({
     user-select: none;
 
     .carousel--is-dragging & {
-        //pointer-events: none;
+        pointer-events: none;
     }
 
     @include media('>=md') {
