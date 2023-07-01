@@ -16,8 +16,6 @@
 
 @mixin obj-to-props($props) {
     @each $key, $value in $props {
-        @debug #{$key':' $value};
-
         #{$key}: $value;
     }
 }
@@ -36,9 +34,9 @@
     transition-timing-function: ease(out-quad);
 }
 
-@mixin v-transition($name, $transitionOptions: (), $properties: (), $scope) {
+@mixin v-transition($name, $transitionOptions: (), $properties: (), $scope: 'scoped') {
 
-    @if ($scope == 'global') {
+    @if ($scope == 'global' or $scope == 'scoped') {
         $scope: '';
     } @else {
         $scope: ':global ';
