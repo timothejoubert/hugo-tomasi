@@ -88,11 +88,10 @@ export default Vue.extend({
             return !documentUid || documentUid === DocumentUid.HOME
         },
         parseLinkUrl(uid: string | undefined) {
-            const isEn = this.$i18n.locale === 'en'
+            const localePath = this.$getLocalePath()
 
-            if (!uid || (this.isHomePath(uid) && !isEn)) return '/'
-            else if (isEn && this.isHomePath(uid)) return '/en'
-            else return (isEn ? '/en/' : '/') + uid
+            if (this.isHomePath(uid)) return localePath
+            else return localePath + '/' + uid
         },
     },
 })

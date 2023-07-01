@@ -45,18 +45,17 @@ export default Vue.extend({
         const isProject = document && isProjectDocument(document)
         const isDocument = document && hasUid(document)
 
-        let url = ''
-        if (isProject && document?.uid) {
-            url = `/${DocumentUid.PROJECT_LISTING}/${document.uid}`
-        } else if (isDocument && document?.uid) {
-            url = '/' + document.uid
-        } else if (isRelationType(reference as LinkField, 'Web') && !!(reference as { url?: string })?.url) {
-            url = (reference as { url: string }).url
-        } else if (href) {
-            url = href
-        }
+        let url = context.parent.$getLocalePath()
 
-        if (context.parent.$i18n.locale === 'en') url = '/en' + url
+        if (isProject && document?.uid) {
+            url += `/${DocumentUid.PROJECT_LISTING}/${document.uid}`
+        } else if (isDocument && document?.uid) {
+            url += '/' + document.uid
+        } else if (isRelationType(reference as LinkField, 'Web') && !!(reference as { url?: string })?.url) {
+            url += (reference as { url: string }).url
+        } else if (href) {
+            url += href
+        }
 
         const data: CustomVNodeData = Object.assign({ props: {}, attrs: {} }, context.data)
 

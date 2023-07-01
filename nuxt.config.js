@@ -135,9 +135,15 @@ export default {
         appUrl: process.env.APP_URL,
         defaultLocale,
         previewPath: process.env.PREVIEW_PATH,
+        isMultiLang: locales.length > 1,
     },
     // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-    plugins: ['~/plugins/prismic-components.ts', '~/plugins/document-uid.ts', '~/plugins/directives.ts'],
+    plugins: [
+        '~/plugins/prismic-components.ts',
+        '~/plugins/document-uid.ts',
+        '~/plugins/directives.ts',
+        '~/plugins/locale.ts',
+    ],
 
     prismic: {
         preview: process.env.PREVIEW_PATH,

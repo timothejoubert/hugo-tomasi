@@ -91,7 +91,8 @@ export default Vue.extend({
         },
         linkProps(): Record<string, any> {
             const props: Record<string, any> = {}
-            const localePath = this.$i18n.locale === 'en' ? '/en' : ''
+            const localePath = this.$getLocalePath()
+
             if (this.to) {
                 props.to = localePath + this.to
             } else if (typeof this.href === 'string' && isRelativePath(this.href)) {
