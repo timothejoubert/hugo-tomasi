@@ -31,6 +31,9 @@ export default mixins(Page).extend({
     name: 'DefaultPage',
     // middleware: cacheControl(),
     components: { SliceZone },
+    mounted() {
+        console.log('page mounted')
+    },
     data() {
         return { components }
     },

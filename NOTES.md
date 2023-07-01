@@ -10,7 +10,6 @@ import { Document } from '@prismicio/client/types/documents'
 
 
 ### IN PROGRESS
-* **(VDirective)** appear animation & parallaxe
 * **(Integration)** Responsive
 * **(VMarquee)** glitch
 * **(Carousel)** drag ghost on firefox && avoid click listener on mouseUp after drag 
@@ -25,6 +24,7 @@ import { Document } from '@prismicio/client/types/documents'
 * **(VMedia)** allow embed media
 
 ### DONE
+* **(VDirective)** appear animation & parallaxe
 * **(About)** copy email
 * **(Component)** VMediaViewer (just play in fullScreen with controls for showreel ?)
 * **(VButton)** add cool hover

@@ -18,7 +18,6 @@ import { SettingsDocument, PageDocumentData, ProjectDocument, ProjectDocumentDat
 import { getProjectYear } from '~/utils/prismic/date'
 
 export default Vue.extend({
-    // middleware: 'slugParser',
     nuxtI18n: false,
     transition: {
         mode: 'out-in',

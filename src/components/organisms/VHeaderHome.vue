@@ -1,8 +1,16 @@
 <template>
     <header :class="$style.root" class="container-fullscreen">
-        <div v-if="pageData.title" class="text-h1">{{ pageData.title }}</div>
-        <v-text v-if="pageData.tagline" :content="pageData.tagline" :class="$style.tagline" class="text-h5" />
-
+        <transition name="slide-in">
+            <div v-if="pageData.title && isSplashScreenDone" class="text-h1">{{ pageData.title }}</div>
+        </transition>
+        <transition name="slide-in-d-3">
+            <v-text
+                v-if="pageData.tagline && isSplashScreenDone"
+                :content="pageData.tagline"
+                :class="$style.tagline"
+                class="text-h5"
+            />
+        </transition>
         <div v-if="videoUrl" :class="$style['background']">
             <video
                 ref="video"
@@ -85,6 +93,9 @@ export default Vue.extend({
     computed: {
         videoUrl(): string | undefined {
             return (this.pageData?.header_media as { url?: string })?.url
+        },
+        isSplashScreenDone(): boolean {
+            return this.$store.state.splashScreenDone
         },
     },
     methods: {
