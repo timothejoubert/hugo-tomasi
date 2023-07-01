@@ -18,6 +18,7 @@ import { FilledLinkToMediaField } from '@prismicio/types/src/value/linkToMedia'
 interface Component extends Vue {
     resizeObserver: ResizeObserver | null
     itemsObservers: IntersectionObserver[]
+    itemGap: number
 }
 
 const SPEED = 1
@@ -34,8 +35,8 @@ export default (Vue as VueConstructor<Component>).extend({
     },
     data() {
         return {
-            minimumLength: this.items.length,
-            posLeft: 0,
+            minimumLength: 1,
+            translateX: 0,
             requestId: null as null | number,
         }
     },
@@ -46,6 +47,8 @@ export default (Vue as VueConstructor<Component>).extend({
         },
         async minimumLength() {
             this.disposeObservers()
+
+            await this.$nextTick()
             await this.$nextTick()
 
             this.updateItemsPosition()
@@ -60,6 +63,7 @@ export default (Vue as VueConstructor<Component>).extend({
 
         this.initResizeObserver()
         this.initWrapperStyle()
+        this.updateGapValue()
 
         this.updateMinimumLength()
         if (this.play) this.startAnimation()
@@ -68,6 +72,9 @@ export default (Vue as VueConstructor<Component>).extend({
         this.disposeResizeObserver()
     },
     methods: {
+        updateGapValue() {
+            this.itemGap = parseInt(getComputedStyle(this.$el).gap)
+        },
         updateMinimumLength() {
             const wrapperWidth = window.innerWidth // (this.$el as HTMLElement).offsetWidth
             const itemsWidth = (this.$refs.item as Vue[]).map((item) => item.$el.getBoundingClientRect().width)
@@ -82,8 +89,12 @@ export default (Vue as VueConstructor<Component>).extend({
             this.minimumLength = Math.max(index + 1, this.items.length)
         },
         initResizeObserver() {
-            this.resizeObserver = new ResizeObserver(this.updateMinimumLength)
+            this.resizeObserver = new ResizeObserver(this.onResizeChange)
             this.resizeObserver.observe(this.$el)
+        },
+        onResizeChange() {
+            this.updateGapValue()
+            this.updateMinimumLength()
         },
         disposeResizeObserver() {
             this.resizeObserver?.disconnect()
@@ -126,31 +137,26 @@ export default (Vue as VueConstructor<Component>).extend({
                     item.style.left = '0'
                 } else {
                     const previousItemBound = items[i - 1].getBoundingClientRect()
-                    item.style.left =
-                        previousItemBound.left +
-                        previousItemBound.width +
-                        parseInt(getComputedStyle(this.$el).gap) +
-                        'px'
+                    item.style.left = previousItemBound.left + previousItemBound.width + this.itemGap + 'px'
                 }
             })
         },
         updateItemPosition(index: number) {
             const items = (this.$refs.item as Vue[]).map((item) => item.$el) as HTMLElement[]
-            const rightMostPosition = Math.max(
+            const maxRightPosition = Math.max(
                 ...items.map(
                     (item: HTMLElement) => item.getBoundingClientRect().left + item.getBoundingClientRect().width
                 )
             )
-            const smallerLeftPosition = Math.min(...items.map((item: HTMLElement) => item.getBoundingClientRect().left))
+            const minLeftPosition = Math.min(...items.map((item: HTMLElement) => item.getBoundingClientRect().left))
 
             if (this.direction === -1) {
-                items[index].style.left =
-                    rightMostPosition + parseInt(getComputedStyle(this.$el).gap) + Math.abs(this.posLeft) + 'px'
+                items[index].style.left = maxRightPosition + this.itemGap + Math.abs(this.translateX) + 'px'
             } else {
                 items[index].style.left =
-                    (parseInt(getComputedStyle(this.$el).gap) +
-                        -smallerLeftPosition +
-                        Math.abs(this.posLeft) +
+                    (this.itemGap +
+                        -minLeftPosition +
+                        Math.abs(this.translateX) +
                         items[index].getBoundingClientRect().width) *
                         -1 +
                     'px'
@@ -158,8 +164,8 @@ export default (Vue as VueConstructor<Component>).extend({
         },
         updatePosition() {
             this.requestId = null
-            this.posLeft += SPEED * this.direction
-            ;(this.$el as HTMLElement).style.transform = `translate3d(${this.posLeft}px, 0, 0)`
+            this.translateX += SPEED * this.direction
+            ;(this.$el as HTMLElement).style.transform = `translate3d(${this.translateX}px, 0, 0)`
             this.startAnimation()
         },
         startAnimation() {
