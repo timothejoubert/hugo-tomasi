@@ -1,7 +1,7 @@
 <template>
     <div :class="$style.root" class="container">
         <div :class="$style.head">
-            <div v-if="pageData.title" class="text-h4">{{ pageData.title }}</div>
+            <h1 v-if="pageData.title" class="text-h4">{{ pageData.title }}</h1>
             <v-button
                 :class="[
                     $style.toggle,

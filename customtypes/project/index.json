@@ -19,6 +19,15 @@
       },
       "date": { "type": "Date", "config": { "label": "Date", "placeholder": "Date du projet" } },
       "thumbnail": { "type": "Image", "config": { "constraint": {}, "thumbnails": [], "label": "Thumbnail" } },
+      "embed_url": {
+        "type": "Link",
+        "config": {
+          "label": "Embed url",
+          "placeholder": "Lien vers une plateforme vidéo (s'affiche uniquement dans la page projet)",
+          "allowTargetBlank": false,
+          "select": null
+        }
+      },
       "tags": {
         "type": "Group",
         "config": {

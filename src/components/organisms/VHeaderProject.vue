@@ -1,7 +1,7 @@
 <template>
     <div v-if="project" :class="$style.root" class="container-fullscreen">
         <div :class="$style.head">
-            <div v-if="project.title" class="text-h2" :class="$style.title">{{ project.title }}</div>
+            <h1 v-if="project.title" class="text-h2" :class="$style.title">{{ project.title }}</h1>
             <v-text
                 v-if="project.description"
                 :content="project.description"

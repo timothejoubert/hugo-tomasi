@@ -28,6 +28,16 @@
 							"value": "golden",
 							"type": "Text"
 						}
+					],
+					[
+						"embed_url",
+						{
+							"__TYPE__": "LinkContent",
+							"value": {
+								"__TYPE__": "ExternalLink",
+								"url": "http://twitter.com"
+							}
+						}
 					]
 				]
 			}
