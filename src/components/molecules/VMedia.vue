@@ -34,7 +34,6 @@ export default Vue.extend({
             } as VVideoProps
         } else if (isImage(document)) {
             data.props = {
-                ...data.props,
                 ...props.image,
                 prismicImage: document,
             } as VImageProps

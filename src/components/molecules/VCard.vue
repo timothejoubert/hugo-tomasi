@@ -6,29 +6,23 @@
     >
         <div :class="$style.media">
             <v-pill v-if="date" :class="$style.date" :label="date" filled theme="light" size="xs" />
-            <v-image v-if="image" :prismic-image="image" :ratio="390 / 600" />
+            <v-image v-if="image" :prismic-image="image" :ratio="390 / 600" v-bind="imageProps" />
             <v-button filled :class="$style.cta">
                 <template #icon>
                     <icon-arrow-up-right />
                 </template>
             </v-button>
         </div>
-        <div :class="$style.body">
+        <div v-in-view.once :class="$style.body">
             <div :class="$style.body__left">
-                <v-split-word v-if="title" v-in-view.once :class="titleClass" :play-animation="isEnter" :word="title" />
-                <div v-if="tags.length" v-in-view.once :class="$style.tags">
+                <v-split-word v-if="title" :class="titleClass" :play-animation="isEnter" :word="title" />
+                <div v-if="tags.length" :class="$style.tags">
                     <span v-for="tag in tags" :key="'tag-' + tag.label" class="text-body-s" :class="$style.tag">{{
                         tag.label
                     }}</span>
                 </div>
             </div>
-            <v-text
-                v-if="description"
-                v-in-view.once
-                :content="description"
-                :class="$style.description"
-                class="text-body-s"
-            />
+            <v-text v-if="description" :content="description" :class="$style.description" class="text-body-s" />
         </div>
     </div>
 </template>
@@ -54,6 +48,7 @@ export default Vue.extend({
             default: () => [],
         },
         date: String,
+        imageProps: Object as PropType<{ [key: string]: unknown }>,
         description: [String, Array] as PropType<String | prismicT.RichTextField>,
         layout: String as PropType<VCardLayout>,
     },

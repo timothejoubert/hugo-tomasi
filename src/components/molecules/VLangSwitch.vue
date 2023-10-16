@@ -1,22 +1,23 @@
 <template>
-    <div v-if="langList.length" :class="$style.root">
-        <div :class="[$style.link, $style['link--current']]" class="text-over-title-s">
-            {{ currentLang.label }}
-            <icon-chevron-down />
-        </div>
-        <div :class="$style.list">
-            <a
-                v-for="(lang, i) in langList"
-                :key="lang.locale + i"
-                :href="getUrl(lang)"
-                :class="$style.link"
-                class="text-over-title-s"
-            >
-                {{ lang.label }}
-            </a>
-        </div>
+    <div :class="$style.root">
+        <template v-if="langList.length">
+            <div :class="[$style.link, $style['link--current']]" class="text-over-title-s">
+                {{ currentLang.label }}
+                <icon-chevron-down />
+            </div>
+            <div :class="$style.list">
+                <a
+                    v-for="(lang, i) in langList"
+                    :key="lang.locale + i"
+                    :href="getUrl(lang)"
+                    :class="$style.link"
+                    class="text-over-title-s"
+                >
+                    {{ lang.label }}
+                </a>
+            </div>
+        </template>
     </div>
-    <div v-else :class="[$style.link, $style['link--fallback']]" class="text-over-title-s">Lang</div>
 </template>
 
 <script lang="ts">
@@ -100,6 +101,7 @@ export default Vue.extend({
     position: relative;
     display: flex;
     flex-direction: column;
+    min-width: rem(60);
 }
 
 .list {

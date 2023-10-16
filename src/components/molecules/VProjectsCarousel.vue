@@ -26,7 +26,10 @@
             class="container-fullscreen"
         >
             <v-link v-for="project in projects" :key="project.uid" :reference="project" :class="$style.link">
-                <v-project-card :project="project.data" />
+                <v-project-card
+                    :project="project.data"
+                    :image-props="{ sizes: 'xs:70vw sm:70vw md:45vw lg:45vw vl:45vw xl:45vw xxl:45vw hd:45vw' }"
+                />
             </v-link>
         </div>
     </div>

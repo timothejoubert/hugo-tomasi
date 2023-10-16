@@ -19,28 +19,26 @@ import { getProjectYear } from '~/utils/prismic/date'
 
 export default Vue.extend({
     nuxtI18n: false,
-    transition: {
-        mode: 'out-in',
-        css: false,
-        beforeLeave(element: HTMLElement) {
-            const currentPageUid = element.getAttribute('data-page')
-            const fromHome = currentPageUid === DocumentUid.HOME
-
-            const nextPage = window.$nuxt.$route
-            const toProject =
-                nextPage.path.includes(`/${DocumentUid.PROJECT_LISTING}/`) && !!nextPage?.params?.pathMatch
-
-            if (fromHome && toProject) {
-                const clickedCard = document.querySelector(`[href="${nextPage.path}"]`)
-                console.log(clickedCard, `a[href="${nextPage.path}"]`)
-            }
-        },
-        leave(_element: HTMLElement, done: Function) {
-            // console.log(element)
-            done()
-            // window.setTimeout(done, 2000)
-        },
-    },
+    // transition: {
+    //     mode: 'out-in',
+    //     css: false,
+    //     beforeLeave(element: HTMLElement) {
+    //         const currentPageUid = element.getAttribute('data-page')
+    //         const fromHome = currentPageUid === DocumentUid.HOME
+    //
+    //         const nextPage = window.$nuxt.$route
+    //         const toProject =
+    //             nextPage.path.includes(`/${DocumentUid.PROJECT_LISTING}/`) && !!nextPage?.params?.pathMatch
+    //
+    //         if (fromHome && toProject) {
+    //             const clickedCard = document.querySelector(`[href="${nextPage.path}"]`)
+    //             console.log(clickedCard, `a[href="${nextPage.path}"]`)
+    //         }
+    //     },
+    //     leave(_element: HTMLElement, done: Function) {
+    //         done()
+    //     },
+    // },
     async asyncData(context: Context) {
         const { $prismic, params, store, route, error } = context
         let page
@@ -60,32 +58,31 @@ export default Vue.extend({
         else if (isProjectListingUrl) uid = DocumentUid.PROJECT_LISTING
         else uid = params.pathMatch
 
+        console.log(route.fullPath, isPreview, route.params.documentId)
         if (isPreview) {
             page = await $prismic.api.getByID(route.params.documentId)
         } else if (isProjectUrl) {
             page = store.getters.getProjectByUid(uid)
         } else {
             // customType with Uid: 'home_page' | 'page'
-            try {
-                const customType = isRootPath ? CustomType.HOME_PAGE : CustomType.PAGE
 
-                page = await $prismic.api.getByUID(
-                    customType,
-                    uid,
-                    route.fullPath.includes('/en') ? { lang: 'en-gb' } : undefined
-                )
-            } catch (fetchError: Error | any) {
-                error({
-                    statusCode: fetchError?.response?.status,
-                    message: fetchError?.message,
-                } as NuxtError)
-            }
+            const customType = isRootPath ? CustomType.HOME_PAGE : CustomType.PAGE
+
+            page = await $prismic.api.getByUID(
+                customType,
+                uid,
+                route.fullPath.includes('/en') ? { lang: 'en-gb' } : undefined
+            )
         }
 
         if (page) {
             await store.dispatch('updatePageData', page)
             return { page }
         } else {
+            error({
+                statusCode: 404,
+                message: 'Page Introuvable',
+            } as NuxtError)
             return { page: { title: "can't fetch title in Page mixin" } }
         }
     },

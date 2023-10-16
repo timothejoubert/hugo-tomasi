@@ -47,8 +47,7 @@ export default mixins(PageDataProvider).extend({
         }
     },
     created() {
-        const query = this.$route.query[QUERY_TAG] as string
-        if (query) this.selectedTags.push(...query.split('&'))
+        if (this.queries?.length) this.updateTags()
     },
     watch: {
         selectedTags(value: string[]) {
@@ -57,6 +56,10 @@ export default mixins(PageDataProvider).extend({
         },
     },
     computed: {
+        queries(): string[] {
+            const query = this.$route.query[QUERY_TAG] as string
+            return query?.split('&')
+        },
         projects(): ProjectDocument[] {
             const projects = this.$store.state.projects
 
@@ -67,6 +70,11 @@ export default mixins(PageDataProvider).extend({
                         (tag) => typeof tag?.label === 'string' && this.selectedTags.includes(tag.label)
                     )
                 )
+        },
+    },
+    methods: {
+        updateTags() {
+            this.selectedTags.push(...this.queries)
         },
     },
 })
@@ -81,6 +89,7 @@ export default mixins(PageDataProvider).extend({
 .head {
     display: flex;
     justify-content: space-between;
+    margin-bottom: rem(12);
 }
 
 .toggle {
@@ -89,6 +98,7 @@ export default mixins(PageDataProvider).extend({
     position: relative;
     display: block;
     margin-left: auto;
+    overflow: initial !important;
 
     &::before {
         position: absolute;

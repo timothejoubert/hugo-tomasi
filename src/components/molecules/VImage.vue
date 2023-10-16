@@ -13,7 +13,7 @@ export interface VImageProps {
     ratio?: boolean | number
     url?: string
     placeholder?: boolean
-    sizes?: string
+    sizes?: string | 'fullScreen'
 }
 
 function generateBreakpoint(width: number = 70): string {
@@ -38,7 +38,7 @@ export default Vue.extend({
         ratio: { type: [Boolean, Number], default: true },
         url: String,
         placeholder: { type: Boolean, default: true },
-        sizes: String as PropType<string | 'fullScreen'>,
+        sizes: String as PropType<VImageProps['sizes']>,
     },
     data() {
         return {

@@ -180,7 +180,7 @@ export default (Vue as VueConstructor<Component>).extend({
 
 @keyframes loading-animation {
     100% {
-        background-position: -480% 0;
+        background-position: -480% 480%;
     }
 }
 

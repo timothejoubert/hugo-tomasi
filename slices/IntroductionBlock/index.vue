@@ -10,6 +10,7 @@
                 <template v-if="item.type === 'text'" preserveWhitespace="false">{{ item.content }}</template>
                 <v-image
                     v-else-if="item.type === 'media'"
+                    sizes="xs:60vw"
                     :prismic-image="item.type === 'text' ? undefined : item.media"
                     :class="$style.image"
                 />
@@ -89,7 +90,7 @@ export default (Vue as VueConstructor<Component>).extend({
                     this.isVisible = entry.isIntersecting
                 },
                 {
-                    rootMargin: '-40% 0% -40% 0%',
+                    rootMargin: '-20% 0% -20% 0%',
                 }
             )
             this.observer.observe(this.$el)

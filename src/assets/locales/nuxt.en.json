@@ -6,5 +6,7 @@
     "button.default_label": "See more",
     "created_by": "Created by",
     "showreal.cta_label": "see showreal",
-    "email.copied__success": "Email copied in clipboard"
+    "email.copied__success": "Email copied in clipboard",
+    "button.back_home": "Back home",
+    "error.title": "Oups... probably a {number}."
 }

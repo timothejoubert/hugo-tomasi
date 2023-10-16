@@ -10,6 +10,9 @@ import { Document } from '@prismicio/client/types/documents'
 
 
 ### IN PROGRESS
+* **(Preview)** not working
+* **(VHeaderHome)** set sticky position 
+* **(VCarousel)** scale down on mouse pressed 
 * **(Integration)** Responsive
 * **(VMarquee)** glitch
 * **(Carousel)** drag ghost on firefox && avoid click listener on mouseUp after drag 

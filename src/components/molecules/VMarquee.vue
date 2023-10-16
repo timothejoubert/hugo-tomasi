@@ -6,6 +6,7 @@
             :key="index + '-' + items[(index - 1) % items.length].url"
             :prismic-image="items[(index - 1) % items.length]"
             :class="$style.item"
+            sizes="xs:70vw sm:70vw md:50vw lg:30vw vl:25vw xl:25vw xxl:25vw hd:25vw"
         />
     </div>
 </template>

@@ -8,9 +8,11 @@ Vue.directive('in-view', {
         const onlyOnce = binding.modifiers?.once
         const observerOptions = binding?.value || { rootMargin: '30px' }
         el.style.transition = 'opacity 1s, translate 0.6s'
+        el.style.opacity = '0'
+        el.style.translate = '0 100%'
 
         el.observer = new IntersectionObserver(([entry]) => {
-            if (entry.isIntersecting) {
+            if (entry.isIntersecting || entry.target.getBoundingClientRect().top < window.innerHeight) {
                 el.style.opacity = '1'
                 el.style.translate = '0 0'
 

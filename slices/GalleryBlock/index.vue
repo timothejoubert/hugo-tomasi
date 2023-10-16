@@ -2,7 +2,7 @@
     <section :class="rootClasses">
         <template v-if="isFullScreen">
             <v-media
-                :image="{ sizes: 'fullScreen' }"
+                :image="{ sizes: imageSize }"
                 :video="{ cover: true, controls: false }"
                 :document="slice.primary.media"
                 :class="$style.media"
@@ -29,6 +29,7 @@ import type { PropType } from 'vue'
 import { GalleryBlockSlice, GalleryBlockSliceDefaultItem } from '~~/prismicio-types'
 import { isRelationMediaFulled } from '~/utils/prismic/relation-field'
 import { VideoState } from '~/components/molecules/VVideo.vue'
+import { VImageProps } from '~/components/molecules/VImage.vue'
 
 export default Vue.extend({
     name: 'GalleryBlock',
@@ -59,6 +60,11 @@ export default Vue.extend({
         },
         isSolo(): boolean {
             return this.items.length === 1
+        },
+        imageSize(): VImageProps['sizes'] {
+            if (this.isFullScreen) return 'fullScreen'
+            else if (this.isSolo) return 'xs:95vw sm:95vw md:60vw lg:60vw vl:60vw xl:60vw hd:60vw'
+            else return 'xs:90vw sm:90vw md:75vw lg:45vw vl:45vw xl:45vw hd:45vw'
         },
     },
     methods: {
@@ -113,7 +119,7 @@ export default Vue.extend({
     .root--fullscreen & {
         width: 100%;
         min-height: rem(350);
-        aspect-ratio: 860 / 320;
+        aspect-ratio: 860 / 420;
     }
 }
 

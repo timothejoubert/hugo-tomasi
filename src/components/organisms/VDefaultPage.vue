@@ -1,7 +1,12 @@
 <template>
     <div :class="$style.root" class="container-fullscreen">
         <div :class="$style.left">
-            <v-image v-if="pageData.media" :prismic-image="pageData.media" :class="$style.media" />
+            <v-image
+                v-if="pageData.media"
+                sizes="xs:90vw sm:90vw md:90vw lg:45vw vl:45vw xl:45vw xxl:45vw hd:45vw"
+                :prismic-image="pageData.media"
+                :class="$style.media"
+            />
         </div>
         <div :class="$style.right">
             <v-text
