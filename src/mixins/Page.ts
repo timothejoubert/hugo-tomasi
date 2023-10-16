@@ -58,7 +58,6 @@ export default Vue.extend({
         else if (isProjectListingUrl) uid = DocumentUid.PROJECT_LISTING
         else uid = params.pathMatch
 
-        console.log(route.fullPath, isPreview, route.params.documentId)
         if (isPreview) {
             page = await $prismic.api.getByID(route.params.documentId)
         } else if (isProjectUrl) {

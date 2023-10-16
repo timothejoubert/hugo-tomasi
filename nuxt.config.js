@@ -110,7 +110,7 @@ export default {
     // https://nuxtjs.org/deployments/netlify/
     // Redirect to custom Error layout in SPA mode
     generate: {
-        // fallback: true,
+        fallback: true,
         // exclude: ['/preview', '/slice-simulator', '/en/preview', '/en/slice-simulator'],
         // /^\/preview/, // start with "/path"
         devtools: true,
@@ -150,7 +150,7 @@ export default {
         components: true,
         endpoint: apiEndpoint,
         modern: true,
-        // linkResolver,
+        linkResolver,
         htmlSerializer,
     },
 
