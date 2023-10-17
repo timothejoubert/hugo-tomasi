@@ -31,8 +31,8 @@ export default Vue.extend({
 }
 
 .title {
-    text-transform: uppercase;
     margin-bottom: rem(32);
+    text-transform: uppercase;
 }
 
 .promote {

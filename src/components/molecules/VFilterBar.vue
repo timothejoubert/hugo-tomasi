@@ -2,9 +2,10 @@
     <div :class="[$style.root, isOpen && $style['root--open']]">
         <div :class="$style.tags">
             <div
-                v-for="tag in projectTags"
+                v-for="(tag, i) in projectTags"
                 :key="tag"
                 :class="[$style.tag, isSelected(tag) && $style['tag--selected']]"
+                :style="selectedIndex > i && { '--tag-line-transform-origin': 'right' }"
                 @click.prevent="onClick(tag)"
             >
                 <input
@@ -25,7 +26,8 @@ import Vue from 'vue'
 import type { PropType } from 'vue'
 import { getAllTagProject } from '~/utils/project/tag'
 
-const ALL = 'All'
+export const ALL_TAG = 'All'
+const ALLOW_MULTIPLE_TAGS = false
 
 export default Vue.extend({
     name: 'VFilterBar',
@@ -37,7 +39,10 @@ export default Vue.extend({
         projectTags(): string[] {
             const tags: string[] = getAllTagProject(this.$store.state.projects)
 
-            return [ALL, ...new Set(tags)]
+            return [ALL_TAG, ...new Set(tags)]
+        },
+        selectedIndex(): number {
+            return this.projectTags.findIndex((tag) => this.value.includes(tag))
         },
     },
     methods: {
@@ -45,23 +50,27 @@ export default Vue.extend({
             return 'v-filter-project-' + tag
         },
         onClick(tag: string) {
-            if (tag === ALL) {
+            if (tag === ALL_TAG) {
                 this.$emit('input', [])
                 return
             }
-            const filterTagList = this.value.slice()
-            const indexOfTag = filterTagList.indexOf(tag)
-
-            if (indexOfTag === -1) {
-                filterTagList.push(tag)
+            if (!ALLOW_MULTIPLE_TAGS) {
+                this.$emit('input', [tag])
             } else {
-                filterTagList.splice(indexOfTag, 1)
-            }
+                const filterTagList = this.value.slice()
+                const indexOfTag = filterTagList.indexOf(tag)
 
-            this.$emit('input', filterTagList)
+                if (indexOfTag === -1) {
+                    filterTagList.push(tag)
+                } else {
+                    filterTagList.splice(indexOfTag, 1)
+                }
+
+                this.$emit('input', filterTagList)
+            }
         },
         isSelected(tag: string): boolean {
-            if (tag === ALL && !this.value.length) return true
+            if (tag === ALL_TAG && !this.value.length) return true
             else return this.value.includes(tag)
         },
     },
@@ -82,7 +91,8 @@ export default Vue.extend({
 .tags {
     display: flex;
     overflow: hidden;
-    gap: rem(16);
+    flex-wrap: wrap;
+    gap: 0 rem(16);
 }
 
 .tag {
@@ -102,8 +112,8 @@ export default Vue.extend({
         content: '';
         opacity: 0.2;
         scale: 0 1;
-        transform-origin: left;
-        transition: scale 0.2s ease(out-quad);
+        transform-origin: var(--tag-line-transform-origin, left);
+        transition: scale 0.3s ease(out-quad), transform-origin 0s 0.3s;
     }
 
     &--selected::after {

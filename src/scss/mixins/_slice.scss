@@ -1,8 +1,11 @@
 
-@mixin margin-block($size: s) {
-    $slice-size-content: map-get($slice, $size);
-    $margin-block-value: map-get($slice-size-content, margin-block);
-    margin-block: $margin-block-value;
+@mixin margin-block() {
+    margin-block: get-map-value($slice, 's', margin-block);
+
+    @include media('>=md') {
+        margin-block: get-map-value($slice, 'm', margin-block);
+    }
+
 }
 
 @mixin slice-properties-with-media-query {

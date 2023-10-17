@@ -1,0 +1,7 @@
+
+@function get-map-value($map, $innerMap, $key) {
+    $inner-map: map-get($map, $innerMap);
+    $value: map-get($inner-map, $key);
+
+    @return $value;
+}

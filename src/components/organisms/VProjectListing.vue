@@ -18,7 +18,7 @@
                 </template>
             </v-button>
         </div>
-        <v-filter-bar v-model="selectedTags" :is-open="isOpen" />
+        <v-filter-bar v-model="selectedTags" :class="$style.filters" :is-open="isOpen" />
         <div :class="$style.body">
             <transition-group tag="ul" :name="$style['projects-transition']" :class="$style.projects">
                 <li v-for="project in projects" :key="project.uid" :class="$style.project">
@@ -47,9 +47,13 @@ export default mixins(PageDataProvider).extend({
         }
     },
     created() {
+        this.isOpen = !!this.queries?.length
         if (this.queries?.length) this.updateTags()
     },
     watch: {
+        isOpen(value) {
+            if (!value) this.selectedTags = []
+        },
         selectedTags(value: string[]) {
             const parsedQuery = !value?.length ? undefined : value.length === 1 ? value[0] : value.join('&').toString()
             this.$router.push({ query: { 'tag-filter': parsedQuery } })
@@ -87,9 +91,27 @@ export default mixins(PageDataProvider).extend({
 }
 
 .head {
+    position: relative;
+    z-index: 11;
     display: flex;
     justify-content: space-between;
     margin-bottom: rem(12);
+}
+
+.filters {
+    position: sticky;
+    z-index: 10;
+    top: $v-top-bar-height;
+    background-color: #fff;
+
+    &::before {
+        position: absolute;
+        height: $v-top-bar-height;
+        background-color: #fff;
+        content: '';
+        inset: 0 0 auto 0;
+        translate: 0 $v-top-bar-height * -1;
+    }
 }
 
 .toggle {
@@ -97,8 +119,8 @@ export default mixins(PageDataProvider).extend({
 
     position: relative;
     display: block;
-    margin-left: auto;
     overflow: initial !important;
+    margin-left: auto;
 
     &::before {
         position: absolute;
@@ -152,13 +174,17 @@ export default mixins(PageDataProvider).extend({
 }
 
 .body {
-    margin-block: rem(20);
+    margin-block: rem(20) rem(60);
 }
 
 .projects {
     display: grid;
     grid-gap: rem(40);
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;
+
+    @include media('>=md') {
+        grid-template-columns: 1fr 1fr;
+    }
 }
 
 .project {

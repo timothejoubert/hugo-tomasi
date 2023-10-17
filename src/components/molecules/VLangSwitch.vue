@@ -100,8 +100,8 @@ export default Vue.extend({
 .root {
     position: relative;
     display: flex;
-    flex-direction: column;
     min-width: rem(60);
+    flex-direction: column;
 }
 
 .list {

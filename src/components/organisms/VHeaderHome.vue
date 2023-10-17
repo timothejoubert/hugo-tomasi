@@ -1,5 +1,6 @@
 <template>
     <header :class="$style.root" class="container-fullscreen">
+        <VVideo embed="https://www.youtube.com/embed/tgbNymZ7vqY" />
         <transition name="slide-in">
             <div v-if="pageData.title && isSplashScreenDone" class="text-h1">{{ pageData.title }}</div>
         </transition>
@@ -134,7 +135,7 @@ export default Vue.extend({
 .root {
     position: relative;
     display: flex;
-    height: 100vh;
+    min-height: 100vh;
     flex-direction: column;
     padding-top: $v-top-bar-height;
     margin-top: $v-top-bar-height * -1;
@@ -170,6 +171,10 @@ export default Vue.extend({
 .body {
     margin-top: auto;
     margin-bottom: rem(36);
+
+    @include media('<md') {
+        padding-top: rem(200);
+    }
 }
 
 .body__head {

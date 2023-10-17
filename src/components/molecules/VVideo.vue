@@ -1,5 +1,6 @@
 <template>
     <div v-if="url" :class="rootClasses">
+        <iframe v-if="embed" width="420" height="315" :src="embedUrl"></iframe>
         <video v-bind="props" ref="media" :class="$style.video" @click.prevent="onClick" @canplay="onVideoReady">
             <source :src="url" type="video/mp4" />
         </video>
@@ -21,6 +22,7 @@ export interface VVideoProps {
     autoplay?: boolean
     cover?: boolean
     controls?: boolean
+    embed?: string
     needInteraction?: boolean
 }
 
@@ -32,6 +34,7 @@ export default Vue.extend({
     props: {
         prismicMedia: Object as PropType<PrismicMedia>,
         autoplay: Boolean,
+        embed: String,
         cover: Boolean,
         controls: { type: Boolean, default: true },
         needInteraction: Boolean,
@@ -44,6 +47,12 @@ export default Vue.extend({
     computed: {
         rootClasses(): (undefined | false | string)[] {
             return [this.$style.root, this.cover && this.$style['root--cover']]
+        },
+        embedUrl(): string {
+            let options = '?'
+            options += 'controls=' + this.controls ? '1' : '0'
+            if (this.autoplay) options += 'autoplay=1&mute=1'
+            return this.embedUrl + options
         },
         url(): string | undefined | null {
             return (this.prismicMedia as { url?: string | null })?.url

@@ -11,8 +11,6 @@ import { Document } from '@prismicio/client/types/documents'
 
 ### IN PROGRESS
 * **(Preview)** not working
-* **(VHeaderHome)** set sticky position 
-* **(VCarousel)** scale down on mouse pressed 
 * **(Integration)** Responsive
 * **(VMarquee)** glitch
 * **(Carousel)** drag ghost on firefox && avoid click listener on mouseUp after drag 
@@ -22,6 +20,7 @@ import { Document } from '@prismicio/client/types/documents'
 * **(Sitemap && routes)** avoid to generate route for ['/preview', '/en/preview', '/en/slice-simulator', '/slice-simulator']
 
 ### TODOS
+* **(VCarousel)** scale down on mouse pressed 
 * **(ProjectsCarousel)** filter current project after transition done
 * **(Transition)** Page transition
 * **(VMedia)** allow embed media

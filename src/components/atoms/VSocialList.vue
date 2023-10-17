@@ -82,7 +82,7 @@ export default Vue.extend({
             if (!socials && !socials?.length) return []
 
             return getSocialsData(socials)
-        }
+        },
     },
 })
 </script>

@@ -1,5 +1,5 @@
 <template>
-    <div v-if="projects.length">
+    <div v-if="projects.length" :class="$style.root">
         <div :class="$style.navigation" class="container">
             <div>
                 <div v-if="title" class="text-h5" :class="$style.title">{{ title }}</div>
@@ -144,6 +144,10 @@ export default Vue.extend({
 })
 </script>
 <style lang="scss" module>
+.root {
+    overflow: hidden;
+}
+
 .carousel {
     --v-card-date-display: none;
 
@@ -153,7 +157,7 @@ export default Vue.extend({
     -webkit-overflow-scrolling: touch;
     overflow-x: scroll;
     scrollbar-width: none; /* Firefox 64 */
-    touch-action: pan-y;
+    touch-action: pan-x;
 
     &::-webkit-scrollbar {
         display: none;
@@ -163,8 +167,8 @@ export default Vue.extend({
 .link {
     --v-card-description-display: none;
 
-    width: 65%;
-    flex: 0 0 auto;
+    width: max(65%, rem(220));
+    flex-shrink: 0;
     margin-right: rem(20);
     cursor: inherit;
     -webkit-user-drag: none;
@@ -183,9 +187,13 @@ export default Vue.extend({
 
 .navigation {
     display: flex;
-    align-items: flex-end;
+    align-items: center;
     justify-content: space-between;
     margin-bottom: rem(20);
+
+    @include media('>=md') {
+        align-items: flex-end;
+    }
 }
 
 .scroll {

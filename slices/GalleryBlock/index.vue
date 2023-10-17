@@ -135,6 +135,7 @@ export default Vue.extend({
                 xl: 420,
             )
         );
+
         margin-top: rem(28);
         margin-left: $container-padding-inline;
     }

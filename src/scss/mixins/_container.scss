@@ -1,9 +1,18 @@
 @mixin container {
     margin-inline: auto;
-    width: calc(100% - $container-padding-inline *2);
+    width: calc(100% - $container-padding-inline-s * 2);
+
+    @include media('>=md') {
+        margin-inline: auto;
+        width: calc(100% - $container-padding-inline * 2);
+    }
 
 }
 
 @mixin container-fullscreen {
-    padding-inline: $container-padding-inline;
+    padding-inline: $container-padding-inline-s;
+
+    @include media('>=md') {
+        padding-inline: $container-padding-inline;
+    }
 }

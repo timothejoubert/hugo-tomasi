@@ -108,36 +108,44 @@ export default (Vue as VueConstructor<Component>).extend({
 }
 
 .wrapper {
-    width: clamp(#{rem(200)}, 70%, #{rem(1000)});
     line-height: 1.1;
     margin-inline: auto;
-    text-align: center;
+
+    @include media('>=lg') {
+        width: clamp(#{rem(200)}, 70%, #{rem(1000)});
+        text-align: center;
+    }
 }
 
 .item {
     &--media {
-        display: none;
+        --v-image-border-radius: #{rem(6)};
+
+        position: relative;
+        top: rem(5);
+        display: inline-flex;
+        width: 0;
+        height: 42px;
+        align-items: center;
+        justify-content: center;
+        margin-inline: rem(4);
+        transition: 0.6s ease(out-quad);
+        transition-property: margin, width;
     }
 
-    @include media('>=md') {
-        &--media {
-            --v-image-border-radius: #{rem(6)};
+    .root--visible &--media {
+        width: rem(96);
+        margin-inline: rem(11);
+    }
 
-            position: relative;
-            top: rem(5);
-            display: inline-flex;
-            width: 0;
-            height: 42px;
-            align-items: center;
-            justify-content: center;
-            margin-inline: rem(4);
-            transition: 0.6s ease(out-quad);
-            transition-property: margin, width;
+    @include media('<lg') {
+        &--media {
+            position: absolute;
+            display: none;
         }
 
-        .root--visible &--media {
-            width: rem(96);
-            margin-inline: rem(11);
+        &--text {
+            margin-right: rem(10);
         }
     }
 }

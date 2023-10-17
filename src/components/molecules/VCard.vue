@@ -104,15 +104,17 @@ export default Vue.extend({
 
 .body {
     display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
     margin-top: rem(11);
+    gap: rem(16);
 }
 
 .body__left {
-    flex-grow: 1;
-
     .root--layout-centered & {
         display: flex;
         flex-direction: column;
+        flex-grow: 1;
         align-items: center;
     }
 }
