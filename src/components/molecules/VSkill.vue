@@ -117,6 +117,7 @@ export default Vue.extend({
     width: 100%;
     max-width: rem(550);
     text-transform: uppercase;
+    user-select: none;
 
     @include media('>=md') {
         width: initial;

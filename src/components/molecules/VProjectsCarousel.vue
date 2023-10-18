@@ -108,6 +108,7 @@ export default Vue.extend({
         },
         removeListener() {
             this.slider = this.$refs.carousel as HTMLElement
+            if (!this.slider) return
             this.slider.removeEventListener('mousedown', this.onMouseDown)
             this.slider.removeEventListener('mouseleave', this.onMouseLeave)
             this.slider.removeEventListener('mouseup', this.onMouseUp)
