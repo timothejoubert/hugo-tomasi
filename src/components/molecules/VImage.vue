@@ -39,6 +39,7 @@ export default Vue.extend({
         url: String,
         placeholder: { type: Boolean, default: true },
         sizes: String as PropType<VImageProps['sizes']>,
+        background: Boolean,
     },
     data() {
         return {
@@ -94,6 +95,7 @@ export default Vue.extend({
                         this.$style.root,
                         this.ratio && this.$style['root--ratio'],
                         this.loaded && this.$style['root--loaded'],
+                        this.background && this.$style['root--background'],
                     ],
                 },
                 [img]
@@ -116,6 +118,15 @@ export default Vue.extend({
     &--ratio {
         position: relative;
         display: var(--v-image-display, block);
+    }
+
+    &--background {
+        width: 100%;
+        height: 100%;
+
+        --v-image-height: 100%;
+        --v-image-width: 100%;
+        --v-image-object-fit: cover;
     }
 }
 

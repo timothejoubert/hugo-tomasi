@@ -21,7 +21,14 @@
             </div>
         </div>
         <div :class="$style['media-wrapper']">
-            <v-image v-if="project.thumbnail" :prismic-image="project.thumbnail" :class="$style.image" />
+            <v-media
+                v-if="hasMedia"
+                :url="project.embed_url.url"
+                :document="project.thumbnail"
+                :image="{ sizes: 'fullScreen' }"
+                :video="{ background: true, placeholder: true }"
+                :class="$style.image"
+            />
         </div>
         <v-text
             v-if="project.long_description"
@@ -45,6 +52,9 @@ export default mixins(PageDataProvider).extend({
     computed: {
         project(): ProjectDocumentData {
             return this.pageData as ProjectDocumentData
+        },
+        hasMedia(): boolean {
+            return !!(this.project.embed_url as { url?: string })?.url || !!this.project.thumbnail?.url
         },
         tags(): string[] {
             return getProjectTags(this.project)
@@ -93,18 +103,21 @@ export default mixins(PageDataProvider).extend({
 }
 
 .media-wrapper {
+    position: relative;
     display: flex;
     overflow: hidden;
     width: 100%;
-    max-height: rem(700);
+    min-height: rem(700);
+    max-height: rem(900);
     align-items: center;
+    justify-content: center;
     border-radius: rem(30);
 }
 
 .image {
     width: 100%;
     height: 100%;
-    object-fit: contain;
+    object-fit: cover;
 }
 
 .description-full {

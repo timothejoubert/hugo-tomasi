@@ -22,7 +22,7 @@ export function isMediaByType(media: PrismicMedia, type: 'image' | 'video'): boo
         const url = (media as FilledImageFieldImage).url
         const mediaFormat = type === 'image' ? imageFormat : videoFormat
 
-        return !!url && mediaFormat.some((format: string) => url.endsWith(`.${format}`))
+        return !!url && mediaFormat.some((format: string) => url.endsWith(`.${format}`, url.lastIndexOf('?')))
     } else {
         return false
     }

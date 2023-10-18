@@ -16,6 +16,7 @@
                 />
             </component>
         </div>
+        <VYoutube url="https://www.youtube.com/embed/-CEdFkz_BgQ?si=UoOAP_fRYOz4T0ne" background />
     </section>
 </template>
 

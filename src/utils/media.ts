@@ -1,17 +1,18 @@
-import breakpoints from '~/scss/export/_breakpoints.scss'
+const embedType = {
+    vimeo: 'player.vimeo.com/video',
+    youtube: 'youtube.com/embed',
+} as const
 
-export function getBreakpointValue(breakpoint: string) {
-    return parseInt(breakpoints['breakpoint-' + breakpoint])
+type EmbedPlatform = keyof typeof embedType
+
+export function isEmbedMedia(url: string) {
+    return Object.values(embedType).some((embedPattern) => url.includes(embedPattern))
 }
 
-export function mediaIsMin(breakpoint: string): boolean {
-    return window.innerWidth >= getBreakpointValue(breakpoint)
+export function isEmbedVimeo(url: string) {
+    return url.includes(embedType.vimeo)
 }
 
-export function mediaIsMax(breakpoint: string): boolean {
-    return window.innerWidth <= getBreakpointValue(breakpoint)
-}
-
-export function mediaIsLessThan(breakpoint: string): boolean {
-    return window.innerWidth < getBreakpointValue(breakpoint)
+export function isEmbedYoutube(url: string) {
+    return url.includes(embedType.youtube)
 }

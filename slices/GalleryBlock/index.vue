@@ -12,9 +12,10 @@
         <template v-else-if="items.length">
             <div v-for="(item, i) in items" :key="i" :class="$style.item">
                 <v-media
-                    :video="{ cover: true, controls: showControls }"
+                    :video="{ cover: true, controls: item.embed_url.url ? true : showControls }"
                     :document="item.media"
                     :class="$style.media"
+                    :url="item.embed_url.url"
                     @video-state="onVideoStateUpdate"
                 />
                 <div v-if="item.content" :class="$style.content" class="text-body-s">{{ item.content }}</div>
@@ -53,7 +54,11 @@ export default Vue.extend({
             ]
         },
         items(): GalleryBlockSliceDefaultItem[] {
-            return this.isFullScreen ? [] : this.slice.items.filter((item) => isRelationMediaFulled(item.media))
+            return this.isFullScreen
+                ? []
+                : this.slice.items.filter(
+                      (item) => isRelationMediaFulled(item.media) || !!(item.embed_url as { url?: string })?.url
+                  )
         },
         isFullScreen(): boolean {
             return this.slice.variation === 'fullScreen'
